@@ -18,11 +18,7 @@ for i_episode in range(200):
         
         # act = agent.get_action(obs)
         act = env.action_space.sample()
-        print("act:\n",act)
         obs, reward, done = env.step(act)
-        print("act:\n",act)
+        # print("act:\n",act)
         print("reward:\n",reward)
-   # print("Episode finished after {} timesteps".format(i_episode+1))
-    #print(obs)
-    #print(act)
-    #print(reward)
+
