@@ -8,6 +8,11 @@ register(
 )
 
 register(
+    env_id='replica_placement',
+    entry_point='park.envs.replica_placement:Replica_placement',
+)
+
+register(
     env_id='abr',
     entry_point='park.envs.abr:ABREnv',
 )
