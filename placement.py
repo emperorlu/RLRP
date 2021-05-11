@@ -12,11 +12,11 @@ def main():
   env = park.make('replica_placement')
   agent = DQN(env)
 
-  for episode in xrange(EPISODE):
+  for episode in range(EPISODE):
     # initialize task
     state = env.reset()
     # Train
-    for step in xrange(STEP):
+    for step in range(STEP):
       action = agent.egreedy_action(state) # e-greedy action for train
       next_state,reward,done,_ = env.step(action)
       # Define reward for agent
@@ -28,9 +28,9 @@ def main():
     # Test every 100 episodes
     if episode % 100 == 0:
       total_reward = 0
-      for i in xrange(TEST):
+      for i in range(TEST):
         state = env.reset()
-        for j in xrange(STEP):
+        for j in range(STEP):
           env.render()
           action = agent.action(state) # direct action for test
           state,reward,done,_ = env.step(action)

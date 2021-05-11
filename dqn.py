@@ -25,7 +25,7 @@ class DQN():
     self.create_training_method()
 
     # Init session
-    self.session = tf.InteractiveSession()
+    self.session = tf.compat.v1.InteractiveSession()
     self.session.run(tf.initialize_all_variables())
 
   def create_Q_network(self):
@@ -35,18 +35,18 @@ class DQN():
     W2 = self.weight_variable([20,self.action_dim])
     b2 = self.bias_variable([self.action_dim])
     # input layer
-    self.state_input = tf.placeholder("float",[None,self.state_dim])
+    self.state_input = tf.compat.v1.placeholder("float",[None,self.state_dim])
     # hidden layers
     h_layer = tf.nn.relu(tf.matmul(self.state_input,W1) + b1)
     # Q Value layer
     self.Q_value = tf.matmul(h_layer,W2) + b2
 
   def create_training_method(self):
-    self.action_input = tf.placeholder("float",[None,self.action_dim]) # one hot presentation
-    self.y_input = tf.placeholder("float",[None])
+    self.action_input = tf.compat.v1.placeholder("float",[None,self.action_dim]) # one hot presentation
+    self.y_input = tf.compat.v1.placeholder("float",[None])
     Q_action = tf.reduce_sum(tf.multiply(self.Q_value,self.action_input),reduction_indices = 1)
     self.cost = tf.reduce_mean(tf.square(self.y_input - Q_action))
-    self.optimizer = tf.train.AdamOptimizer(0.0001).minimize(self.cost)
+    self.optimizer = tf.compat.v1.train.AdamOptimizer(0.0001).minimize(self.cost)
 
   def perceive(self,state,action,reward,next_state,done):
     one_hot_action = np.zeros(self.action_dim)
@@ -100,7 +100,7 @@ class DQN():
       })[0])
 
   def weight_variable(self,shape):
-    initial = tf.truncated_normal(shape)
+    initial = tf.random.truncated_normal(shape)
     return tf.Variable(initial)
 
   def bias_variable(self,shape):
