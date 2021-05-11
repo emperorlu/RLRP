@@ -7,7 +7,7 @@ env = park.make('replica_placement')
 #obs = env.reset()
 #done = False
 
-for i_episode in range(20):
+for i_episode in range(200):
     #print(obs)
     print("Episode finished after {} timesteps".format(i_episode+1))
     obs = env.reset()
