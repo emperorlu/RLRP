@@ -56,4 +56,4 @@ class ReplicaplacementEnv(core.Env):
 
         self.num_stream_jobs_left = self.num_stream_jobs_left - 1
         done = (self.num_stream_jobs_left == 0)
-        return self.observe(), reward, done, {'curr_time': self.wall_time.curr_time}
+        return self.observe(), reward, done
