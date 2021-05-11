@@ -31,6 +31,7 @@ class ReplicaplacementEnv(core.Env):
     def reset(self):
         # for server in self.servers:
         #     server.reset()
+        self.servers = self.initialize_servers()
         self.num_stream_jobs_left = self.num_stream_jobs
         assert self.num_stream_jobs_left > 0
         return self.observe()
