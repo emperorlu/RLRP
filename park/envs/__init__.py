@@ -9,7 +9,7 @@ register(
 
 register(
     env_id='replica_placement',
-    entry_point='park.envs.replica_placement:Replica_placement',
+    entry_point='park.envs.replica_placement:ReplicaplacementEnv',
 )
 
 register(

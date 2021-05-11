@@ -4,7 +4,7 @@ from park import core, spaces, logger
 from park.param import config
 from park.utils import seeding
 
-class Replica_placement(core.Env):
+class Replicaplacement(core.Env):
 
     def __init__(self):
 
