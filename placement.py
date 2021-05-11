@@ -15,6 +15,7 @@ def main():
   for episode in range(EPISODE):
     # initialize task
     state = env.reset()
+    done = False
     # Train
     # print("state:\n",state)
     # for step in range(STEP):
