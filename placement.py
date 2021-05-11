@@ -16,9 +16,12 @@ def main():
     # initialize task
     state = env.reset()
     # Train
+    print("act:\n",state)
     for step in range(STEP):
       action = agent.egreedy_action(state) # e-greedy action for train
       next_state,reward,done = env.step(action)
+      print("act:\n",action)
+      print("reward:\n",reward)
       # Define reward for agent
       reward_agent = -1 if done else 0.1
       agent.perceive(state,action,reward,next_state,done)
