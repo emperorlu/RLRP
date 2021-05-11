@@ -19,14 +19,14 @@ class ReplicaplacementEnv(core.Env):
         return servers
 
     def observe(self):
-        obs_arr = []
-        # load on each server
-        for server in self.servers:
-            obs_arr.append(server)
-        obs_arr = np.array(obs_arr)
-        assert self.observation_space.contains(obs_arr)
+        # obs_arr = []
+        # # load on each server
+        # for server in self.servers:
+        #     obs_arr.append(server)
+        # obs_arr = np.array(obs_arr)
+        assert self.observation_space.contains(self.servers)
 
-        return obs_arr
+        return self.servers
 
     def reset(self):
         # for server in self.servers:
