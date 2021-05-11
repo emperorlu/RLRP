@@ -33,7 +33,7 @@ def main():
         for j in range(STEP):
           env.reset()
           action = agent.action(state) # direct action for test
-          state,reward,done,_ = env.step(action)
+          state,reward,done = env.step(action)
           total_reward += reward
           if done:
             break
