@@ -24,7 +24,7 @@ class ReplicaplacementEnv(core.Env):
         # for server in self.servers:
         #     obs_arr.append(server)
         # obs_arr = np.array(obs_arr)
-        assert self.observation_space.contains(self.servers)
+        self.observation_space.contains(self.servers)
 
         return self.servers
 
