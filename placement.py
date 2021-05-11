@@ -17,18 +17,19 @@ def main():
     state = env.reset()
     # Train
     # print("state:\n",state)
-    for step in range(STEP):
+    # for step in range(STEP):
+    while not done:
       action = agent.egreedy_action(state) # e-greedy action for train
       next_state,reward,done = env.step(action)
-      print("state:\n",state)
-      print("act:\n",action)
-      print("reward:\n",reward)
+      print("state:",state)
+      print("act:",action)
+      print("reward:",reward)
       # Define reward for agent
       reward_agent = -1 if done else 0.1
       agent.perceive(state,action,reward,next_state,done)
       state = next_state
-      if done:
-        break
+    #   if done:
+    #     break
     # Test every 100 episodes
     if episode % 100 == 0:
       total_reward = 0
