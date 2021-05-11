@@ -18,7 +18,7 @@ class DQN():
     # init some parameters
     self.time_step = 0
     self.epsilon = INITIAL_EPSILON
-    self.state_dim = env.observation_space.shape[0]
+    self.state_dim = env.observation_space.n
     self.action_dim = env.action_space.n
 
     self.create_Q_network()
