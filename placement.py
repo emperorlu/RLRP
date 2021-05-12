@@ -99,7 +99,7 @@ def QlearningLearn():
             break
     # end of game
     print('game over')
-    print("state:",state,"equ:",equ)
+    print("state:",osd,"equ:",equ)
     f = open("map1.txt", 'w+')
     for pg_num in range(len(final_map)):
         print(pg_num,"————>",final_map[pg_num], file=f)
@@ -117,6 +117,7 @@ def QlearningTest():
     i = 0
     # state = env.set_servers(osd)
     state = env.reset()
+    done = False
     while not done:
         while i != Rnum:
             action = RL.choose_action(str(state))
