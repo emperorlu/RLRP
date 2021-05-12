@@ -83,7 +83,7 @@ def QlearningTest():
                     print(final_map)
                     print("state:",state," sum:",sum(state))
                     print("equ:",equ)
-                print("episode:",episode," step:",steps)
+                print("episode:",episode," std:",np.std(state))
                 # print("state:",state," sum:",sum(state))
                 # print("act:",action)
                 # print("reward:",reward)
