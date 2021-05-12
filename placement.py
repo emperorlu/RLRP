@@ -4,6 +4,7 @@ import park
 from dqn import DQN
 from qlearning import QLearningTable
 import pandas as pd 
+import numpy as np
 
 EPISODE = 20 # Episode limitation
 STEP = 300 # Step limitation in an episode
@@ -56,10 +57,13 @@ def DQNTest():
 def QlearningTest():
     env = park.make('replica_placement')
     RL = QLearningTable(env.action_space.n)
+    equ = 100
+    final_map = []
     for episode in range(EPISODE):
         state = env.reset()
         done = False
         steps = 0
+        map = []
         while not done:
             Raction = []
             i = 0
@@ -69,20 +73,33 @@ def QlearningTest():
                     Raction.append(action)
                     i += 1
             # state_, reward, done = env.step(action)
+            map.append(Raction)
             state_, reward, done = env.r_step(Raction)
             
             if (episode%1 == 0 and done):
+                if np.std(state) < equ: 
+                    equ = np.std(state)
+                    final_map = map
+                    print(final_map)
+                    print("state:",state," sum:",sum(state))
+                    print("act:",action)
+                    print("reward:",reward)
                 print("episode:",episode," step:",steps)
-                print("state:",state," sum:",sum(state))
-                print("act:",action)
-                print("reward:",reward)
+                # print("state:",state," sum:",sum(state))
+                # print("act:",action)
+                # print("reward:",reward)
             steps += 1
             # RL learn from this transition
             RL.learn(str(state), action, reward, str(state_))
             state = state_
+        
+        if equ == 0:
+            print("Perfect mapping!")
+            break
 
     # end of game
     print('game over')
+    print("final_map:",final_map)
     print(RL.q_table)
     save = pd.DataFrame(RL.q_table) 
     save.to_csv('ql.csv')  #index=False,header=False表示不保存行索引和列标题
