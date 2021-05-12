@@ -5,7 +5,7 @@ from dqn import DQN
 from qlearning import QLearningTable
 import pandas as pd 
 
-EPISODE = 200 # Episode limitation
+EPISODE = 10 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 
