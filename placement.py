@@ -125,7 +125,6 @@ def QlearningTest():
             Raction.append(action)
             i += 1
     # state_, reward, done = env.step(action)
-    map.append(Raction)
     state_, reward, done = env.r_step(Raction)
     print("state:",state_," sum:",sum(state_))
 
