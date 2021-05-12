@@ -99,8 +99,9 @@ def QlearningLearn():
     # end of game
     print('game over')
     print("state:",state,"equ:",equ)
+    f = open("map1.txt", 'w+')
     for pg_num in range(len(final_map)):
-        print(pg_num,"————>",final_map[pg_num])
+        print(pg_num,"————>",final_map[pg_num], file=f)
     RL.model_saver('q-learning.pkl')
     # print(RL.q_table)
     # save = pd.DataFrame(RL.q_table) 
@@ -119,7 +120,7 @@ def QlearningTest():
             Raction.append(action)
             i += 1
     final_map.append(Raction)
-    f = open("map1.txt", 'w+')
+    f = open("map2.txt", 'w+')
     for pg_num in range(len(final_map)):
         print(pg_num,"————>",final_map[pg_num], file=f)
     state_, _, _ = env.r_step(Raction)
