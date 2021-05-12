@@ -59,6 +59,7 @@ class ReplicaplacementEnv(core.Env):
         std2 = np.std(self.servers)
         reward = 0
         reward = std1 - std2
+        if (np.std(self.servers) == 0): reward = 10000
         # reward -= np.std(self.servers)
         # reward = min(self.servers) - max(self.servers)
 

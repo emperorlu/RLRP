@@ -126,6 +126,7 @@ def QlearningTest():
                 i += 1
         final_map.append(Raction)
         state_, _, done = env.r_step(Raction)
+        print("state_: ", state_)
         state = state_
     f = open("map2.txt", 'w+')
     for pg_num in range(len(final_map)):
