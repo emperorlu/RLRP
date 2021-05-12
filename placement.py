@@ -99,7 +99,7 @@ def QlearningTest():
     print('game over')
     # print("final_map:",final_map)
     pg_num = 0
-    for imap in final_map:
+    for pg_num in len(final_map):
         print(pg_num,"———>———>",final_map[pg_num])
     # print(RL.q_table)
     save = pd.DataFrame(RL.q_table) 
