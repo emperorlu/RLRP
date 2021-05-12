@@ -23,9 +23,11 @@ def DQNTest():
     while not done:
       action = agent.egreedy_action(state) # e-greedy action for train
       next_state,reward,done = env.step(action)
-    #   print("state:",state)
-    #   print("act:",action)
-    #   print("reward:",reward)
+      if (episode%100 == 0):
+        print("episode:",episode)
+        print("state:",state)
+        print("act:",action)
+        print("reward:",reward)
       # Define reward for agent
       reward_agent = -1 if done else 0.1
       agent.perceive(state,action,reward,next_state,done)
@@ -74,8 +76,8 @@ def QlearningTest():
 
 
 if __name__ == '__main__':
-    # DQNTest()
-    QlearningTest()
+    DQNTest()
+    # QlearningTest()
     
 
 
