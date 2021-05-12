@@ -77,7 +77,7 @@ def QlearningTest():
     print('game over')
     print(RL.q_table)
     save = pd.DataFrame(RL.q_table) 
-    save.to_csv('ql.csv',index=False,header=False)  #index=False,header=False表示不保存行索引和列标题
+    save.to_csv('ql.csv')  #index=False,header=False表示不保存行索引和列标题
     # env.destroy()
 
 
