@@ -5,7 +5,7 @@ from dqn import DQN
 from qlearning import QLearningTable
 import pandas as pd 
 
-EPISODE = 1 # Episode limitation
+EPISODE = 100 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 
@@ -24,7 +24,7 @@ def DQNTest():
     while not done:
       action = agent.egreedy_action(state) # e-greedy action for train
       next_state,reward,done = env.step(action)
-      if (episode%10 == 0):
+      if (episode%1 == 0):
         print("episode:",episode)
         print("state:",state)
         print("act:",action)
@@ -82,8 +82,8 @@ def QlearningTest():
 
 
 if __name__ == '__main__':
-    # DQNTest()
-    QlearningTest()
+    DQNTest()
+    # QlearningTest()
     
 
 
