@@ -76,8 +76,8 @@ def QlearningTest():
 
 
 if __name__ == '__main__':
-    DQNTest()
-    # QlearningTest()
+    # DQNTest()
+    QlearningTest()
     
 
 
