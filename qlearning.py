@@ -3,7 +3,7 @@ import pandas as pd
 
 class QLearningTable:
      def __init__(self, actions, learning_rate=0.01, reward_decay=0.9, e_greedy=0.9):
-        self.actions = actions  # a list动作集
+        self.actions = range(actions)  # a list动作集
         self.lr = learning_rate #学习率
         self.gamma = reward_decay #回报的衰减系数
         self.epsilon = e_greedy #贪婪系数

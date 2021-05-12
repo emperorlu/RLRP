@@ -51,8 +51,7 @@ def DQNTest():
 
 def QlearningTest():
     env = park.make('replica_placement')
-    print(env.action_space.n)
-    RL = QLearningTable(env.action_space)
+    RL = QLearningTable(env.action_space.n)
     for episode in range(EPISODE):
         state = env.reset()
         done = False
