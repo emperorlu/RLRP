@@ -92,7 +92,6 @@ def QlearningLearn():
                     # print(final_map)
                     print("state:",state," sum:",sum(state))
                     print("equ:",equ)
-                    RL.model_saver('q-learning.pkl')
                 print("episode:",episode," std:",np.std(state))
         if equ == 0:
             print("Perfect mapping!")
@@ -100,6 +99,7 @@ def QlearningLearn():
     # end of game
     print('game over')
     print("state:",osd,"equ:",equ)
+    RL.model_saver('q-learning.pkl')
     f = open("map1.txt", 'w+')
     for pg_num in range(len(final_map)):
         print(pg_num,"————>",final_map[pg_num], file=f)
@@ -125,8 +125,9 @@ def QlearningTest():
                 Raction.append(action)
                 i += 1
         final_map.append(Raction)
-        state_, _, done = env.r_step(Raction)
+        state_, reward, done = env.r_step(Raction)
         print("state_: ", state_)
+        RL.learn(str(state), action, reward, str(state_))
         state = state_
     f = open("map2.txt", 'w+')
     for pg_num in range(len(final_map)):
