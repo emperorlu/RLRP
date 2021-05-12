@@ -57,14 +57,17 @@ def QlearningTest():
     for episode in range(EPISODE):
         state = env.reset()
         done = False
+        steps = 0
         while not done:
             action = RL.choose_action(str(state))
             state_, reward, done = env.step(action)
+            
             if (episode%100 == 0):
-                print("episode:",episode)
+                print("episode:",episode," step:",steps)
                 print("state:",state)
                 print("act:",action)
                 print("reward:",reward)
+            steps += 1
             # RL learn from this transition
             RL.learn(str(state), action, reward, str(state_))
             state = state_
