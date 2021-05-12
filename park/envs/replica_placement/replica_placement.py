@@ -63,7 +63,7 @@ class ReplicaplacementEnv(core.Env):
         done = (self.num_stream_jobs_left == 0)
         return self.observe(), reward, done
 
-    def r_setp(self, actions):
+    def r_step(self, actions):
         std1 = np.std(self.servers)
         for action in actions:
             assert self.action_space.contains(action)
