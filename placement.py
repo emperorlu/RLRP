@@ -6,7 +6,7 @@ from qlearning import QLearningTable
 import pandas as pd 
 import numpy as np
 
-EPISODE = 10 # Episode limitation
+EPISODE = 200 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
@@ -127,7 +127,7 @@ def QlearningTest():
         final_map.append(Raction)
         state_, reward, done = env.r_step(Raction)
         print("state_: ", state_, "reward: ", reward)
-        RL.learn(str(state), action, reward, str(state_))
+        # RL.learn(str(state), action, reward, str(state_))
         state = state_
     f = open("map2.txt", 'w+')
     for pg_num in range(len(final_map)):
