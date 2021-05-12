@@ -92,6 +92,7 @@ def QlearningLearn():
                     # print(final_map)
                     print("state:",state," sum:",sum(state))
                     print("equ:",equ)
+                    RL.model_saver('q-learning.pkl')
                 print("episode:",episode," std:",np.std(state))
         if equ == 0:
             print("Perfect mapping!")
@@ -102,7 +103,7 @@ def QlearningLearn():
     f = open("map1.txt", 'w+')
     for pg_num in range(len(final_map)):
         print(pg_num,"————>",final_map[pg_num], file=f)
-    RL.model_saver('q-learning.pkl')
+    
     # print(RL.q_table)
     # save = pd.DataFrame(RL.q_table) 
     # save.to_csv('ql.csv')  #index=False,header=False表示不保存行索引和列标题
@@ -116,16 +117,18 @@ def QlearningTest():
     i = 0
     # state = env.set_servers(osd)
     state = env.reset()
-    while i != Rnum:
-        action = RL.choose_action(str(state))
-        if action not in Raction:
-            Raction.append(action)
-            i += 1
-    final_map.append(Raction)
+    while not done:
+        while i != Rnum:
+            action = RL.choose_action(str(state))
+            if action not in Raction:
+                Raction.append(action)
+                i += 1
+        final_map.append(Raction)
+        state_, _, done = env.r_step(Raction)
     f = open("map2.txt", 'w+')
     for pg_num in range(len(final_map)):
         print(pg_num,"————>",final_map[pg_num], file=f)
-    state_, _, _ = env.r_step(Raction)
+    
     print("state:",state_," sum:",sum(state_))
 
 if __name__ == '__main__':
