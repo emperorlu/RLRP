@@ -57,6 +57,8 @@ def DQNTest():
     #     break
 
 def QlearningLearn():
+    global osd
+    global final_map
     env = park.make('replica_placement')
     RL = QLearningTable(env.action_space.n)
     equ = 100
