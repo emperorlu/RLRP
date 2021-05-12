@@ -96,7 +96,6 @@ def QlearningLearn():
         if equ == 0:
             print("Perfect mapping!")
             break
-    env.close()
     # end of game
     print('game over')
     print("state:",state,"equ:",equ)
@@ -121,11 +120,10 @@ def QlearningTest():
             i += 1
     state_, reward, done = env.r_step(Raction)
     print("state:",state_," sum:",sum(state_))
-    env.close()
 
 if __name__ == '__main__':
     # DQNTest()
-    QlearningLearn()
+    # QlearningLearn()
     QlearningTest()
     
 
