@@ -24,7 +24,7 @@ def DQNTest():
     while not done:
       action = agent.egreedy_action(state) # e-greedy action for train
       next_state,reward,done = env.step(action)
-      if (episode%1 == 0):
+      if (episode%1 == 0 and done):
         print("episode:",episode)
         print("state:",state)
         print("act:",action)
@@ -36,21 +36,21 @@ def DQNTest():
     #   if done:
     #     break
     # Test every 100 episodes
-    if episode % 100 == 0:
-      total_reward = 0
-      for i in range(TEST):
-        state = env.reset()
-        for j in range(STEP):
-        #   env.reset()
-          action = agent.action(state) # direct action for test
-          state,reward,done = env.step(action)
-          total_reward += reward
-          if done:
-            break
-      ave_reward = total_reward/TEST
-      print ('episode: ',episode,'Evaluation Average Reward:',ave_reward)
-      if ave_reward >= 0:
-        break
+    # if episode % 100 == 0:
+    #   total_reward = 0
+    #   for i in range(TEST):
+    #     state = env.reset()
+    #     for j in range(STEP):
+    #     #   env.reset()
+    #       action = agent.action(state) # direct action for test
+    #       state,reward,done = env.step(action)
+    #       total_reward += reward
+    #       if done:
+    #         break
+    #   ave_reward = total_reward/TEST
+    #   print ('episode: ',episode,'Evaluation Average Reward:',ave_reward)
+    #   if ave_reward >= 0:
+    #     break
 
 def QlearningTest():
     env = park.make('replica_placement')
