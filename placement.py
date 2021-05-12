@@ -6,7 +6,7 @@ from qlearning import QLearningTable
 import pandas as pd 
 import numpy as np
 
-EPISODE = 2 # Episode limitation
+EPISODE = 20 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
@@ -97,8 +97,9 @@ def QlearningTest():
 
     # end of game
     print('game over')
+    print("equ:",equ)
     for pg_num in range(len(final_map)):
-        print(pg_num,"———>———>",final_map[pg_num])
+        print(pg_num,"————>",final_map[pg_num])
     # print(RL.q_table)
     save = pd.DataFrame(RL.q_table) 
     save.to_csv('ql.csv')  #index=False,header=False表示不保存行索引和列标题
