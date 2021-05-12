@@ -126,7 +126,7 @@ def QlearningTest():
                 i += 1
         final_map.append(Raction)
         state_, reward, done = env.r_step(Raction)
-        print("state_: ", state_)
+        print("state_: ", state_, "reward: ", reward)
         RL.learn(str(state), action, reward, str(state_))
         state = state_
     f = open("map2.txt", 'w+')
