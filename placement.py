@@ -65,7 +65,6 @@ def QlearningLearn():
     for episode in range(EPISODE):
         state = env.reset()
         done = False
-        steps = 0
         map = []
         while not done:
             Raction = []
@@ -82,7 +81,6 @@ def QlearningLearn():
                 # print("state:",state," sum:",sum(state))
                 # print("act:",action)
                 # print("reward:",reward)
-            steps += 1
             # RL learn from this transition
             RL.learn(str(state), action, reward, str(state_))
             state = state_
@@ -98,7 +96,7 @@ def QlearningLearn():
         if equ == 0:
             print("Perfect mapping!")
             break
-
+    env.close()
     # end of game
     print('game over')
     print("state:",state,"equ:",equ)
@@ -123,7 +121,7 @@ def QlearningTest():
             i += 1
     state_, reward, done = env.r_step(Raction)
     print("state:",state_," sum:",sum(state_))
-
+    env.close()
 
 if __name__ == '__main__':
     # DQNTest()
