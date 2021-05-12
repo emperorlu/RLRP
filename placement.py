@@ -74,7 +74,7 @@ def QlearningTest():
 
     # end of game
     print('game over')
-    print(RL.q_table)
+    print(RL.q_table[1])
     # env.destroy()
 
 
