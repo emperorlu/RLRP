@@ -99,8 +99,8 @@ def QlearningLearn():
     # end of game
     print('game over')
     print("state:",state,"equ:",equ)
-    # for pg_num in range(len(final_map)):
-    #     print(pg_num,"————>",final_map[pg_num])
+    for pg_num in range(len(final_map)):
+        print(pg_num,"————>",final_map[pg_num])
     RL.model_saver('q-learning.pkl')
     # print(RL.q_table)
     # save = pd.DataFrame(RL.q_table) 
@@ -118,6 +118,9 @@ def QlearningTest():
         if action not in Raction:
             Raction.append(action)
             i += 1
+    final_map.append(Raction)
+    for pg_num in range(len(final_map)):
+        print(pg_num,"————>",final_map[pg_num])
     state_, _, _ = env.r_step(Raction)
     print("state:",state_," sum:",sum(state_))
 
