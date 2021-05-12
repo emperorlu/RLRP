@@ -66,9 +66,6 @@ class ReplicaplacementEnv(core.Env):
     def r_step(self, actions):
         std1 = np.std(self.servers)
         for action in actions:
-            print("action: ",action)
-            for a in self.action_space:
-                print(a)
             assert self.action_space.contains(action)
             self.servers[action] = self.servers[action] + 1
         std2 = np.std(self.servers)
