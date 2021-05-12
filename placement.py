@@ -124,7 +124,7 @@ def QlearningTest():
         if action not in Raction:
             Raction.append(action)
             i += 1
-    # state_, reward, done = env.step(action)
+            print("action: ",action)
     state_, reward, done = env.r_step(Raction)
     print("state:",state_," sum:",sum(state_))
 
