@@ -111,6 +111,7 @@ def QlearningLearn():
     # env.destroy()
 def QlearningTest():
     env = park.make('replica_placement')
+    env.reset()
     RL = QLearningTable(env.action_space.n)
     RL.model_loader('q-learning.csv')
     Raction = []
