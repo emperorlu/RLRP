@@ -51,7 +51,7 @@ class QLearningTable:
          print('model saved')
 
      def model_loader(self, path):
-         self.q_table = pd.read_csv(path)
+         self.q_table = pd.read_csv(path,index_col=0)
          print(self.q_table)
          print('model loaded')
         #  with open(path, 'rb') as f:
