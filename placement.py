@@ -6,7 +6,7 @@ from qlearning import QLearningTable
 import pandas as pd 
 import numpy as np
 
-EPISODE = 1 # Episode limitation
+EPISODE = 10 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
@@ -112,8 +112,10 @@ def QlearningTest():
     RL = QLearningTable(env.action_space.n)
     RL.model_loader('q-learning.pkl')
     Raction = []
+    final_map = []
     i = 0
-    state = env.set_servers(osd)
+    # state = env.set_servers(osd)
+    state = env.reset()
     while i != Rnum:
         action = RL.choose_action(str(state))
         if action not in Raction:
