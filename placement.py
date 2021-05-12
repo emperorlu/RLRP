@@ -82,8 +82,7 @@ def QlearningTest():
                     final_map = map
                     print(final_map)
                     print("state:",state," sum:",sum(state))
-                    print("act:",action)
-                    print("reward:",reward)
+                    print("equ:",equ)
                 print("episode:",episode," step:",steps)
                 # print("state:",state," sum:",sum(state))
                 # print("act:",action)
@@ -92,7 +91,6 @@ def QlearningTest():
             # RL learn from this transition
             RL.learn(str(state), action, reward, str(state_))
             state = state_
-        
         if equ == 0:
             print("Perfect mapping!")
             break
