@@ -6,7 +6,7 @@ from qlearning import QLearningTable
 import pandas as pd 
 import numpy as np
 
-EPISODE = 20 # Episode limitation
+EPISODE = 10 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
@@ -111,7 +111,7 @@ def QlearningTest():
     env = park.make('replica_placement')
     RL = QLearningTable(env.action_space.n)
     RL.model_loader('q-learning.pickle')
-    print("state:",osd)
+    print("osd:",osd," sum:",sum(osd))
     Raction = []
     i = 0
     while i != Rnum:
@@ -122,7 +122,7 @@ def QlearningTest():
     # state_, reward, done = env.step(action)
     map.append(Raction)
     state_, reward, done = env.r_step(Raction)
-    print(state_)
+    print("state:",state_," sum:",sum(state_))
 
 
 if __name__ == '__main__':
