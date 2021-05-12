@@ -63,7 +63,7 @@ def QlearningTest():
             action = RL.choose_action(str(state))
             state_, reward, done = env.step(action)
             
-            if (episode%10 == 0):
+            if (episode%1 == 0 and done):
                 print("episode:",episode," step:",steps)
                 print("state:",state)
                 print("act:",action)
@@ -82,8 +82,8 @@ def QlearningTest():
 
 
 if __name__ == '__main__':
-    DQNTest()
-    # QlearningTest()
+    # DQNTest()
+    QlearningTest()
     
 
 
