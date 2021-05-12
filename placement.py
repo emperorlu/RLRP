@@ -97,8 +97,6 @@ def QlearningTest():
 
     # end of game
     print('game over')
-    print("final_map:",final_map.shape)
-    pg_num = 0
     for pg_num in range(len(final_map)):
         print(pg_num,"———>———>",final_map[pg_num])
     # print(RL.q_table)
