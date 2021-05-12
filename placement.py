@@ -3,6 +3,7 @@
 import park
 from dqn import DQN
 from qlearning import QLearningTable
+import pandas as pd 
 
 EPISODE = 200 # Episode limitation
 STEP = 300 # Step limitation in an episode
@@ -23,7 +24,7 @@ def DQNTest():
     while not done:
       action = agent.egreedy_action(state) # e-greedy action for train
       next_state,reward,done = env.step(action)
-      if (episode%100 == 0):
+      if (episode%10 == 0):
         print("episode:",episode)
         print("state:",state)
         print("act:",action)
@@ -75,6 +76,8 @@ def QlearningTest():
     # end of game
     print('game over')
     print(RL.q_table[1])
+    save = pd.DataFrame(RL.q_table) 
+    save.to_csv('ql.csv',index=False,header=False)  #index=False,header=False表示不保存行索引和列标题
     # env.destroy()
 
 
