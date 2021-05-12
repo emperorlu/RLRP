@@ -80,8 +80,8 @@ def QlearningTest():
                 if np.std(state) < equ: 
                     equ = np.std(state)
                     final_map = map
-                    print(final_map)
-                    # print("state:",state," sum:",sum(state))
+                    # print(final_map)
+                    print("state:",state," sum:",sum(state))
                     print("equ:",equ)
                 print("episode:",episode," std:",np.std(state))
                 # print("state:",state," sum:",sum(state))
