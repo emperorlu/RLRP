@@ -59,6 +59,7 @@ def QlearningTest():
             action = RL.choose_action(str(state))
             state_, reward, done = env.step(action)
             if (episode%100 == 0):
+                print("episode:",episode)
                 print("state:",state)
                 print("act:",action)
                 print("reward:",reward)
