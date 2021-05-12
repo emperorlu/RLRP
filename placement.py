@@ -78,7 +78,7 @@ def QlearningLearn():
             # state_, reward, done = env.step(action)
             map.append(Raction)
             state_, reward, done = env.r_step(Raction)
-            
+            state = state_
             if (episode%1 == 0 and done):
                 if np.std(state) < equ: 
                     equ = np.std(state)
@@ -94,7 +94,7 @@ def QlearningLearn():
             steps += 1
             # RL learn from this transition
             RL.learn(str(state), action, reward, str(state_))
-            state = state_
+            
         if equ == 0:
             print("Perfect mapping!")
             break
