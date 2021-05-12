@@ -64,7 +64,6 @@ def QlearningLearn():
     equ = 100
     for episode in range(EPISODE):
         state = env.reset()
-        print(len(state))
         done = False
         steps = 0
         map = []
@@ -114,9 +113,7 @@ def QlearningTest():
     env = park.make('replica_placement')
     RL = QLearningTable(env.action_space.n)
     RL.model_loader('q-learning.csv')
-    print("osd:",osd," sum:",sum(osd))
-    print("type(osd): ", type(osd))
-    print(len(osd))
+    print(env.action_space.n)
     Raction = []
     i = 0
     while i != Rnum:
