@@ -10,6 +10,8 @@ EPISODE = 20 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
+final_map = []
+osd = []
 
 def DQNTest():
 
@@ -54,11 +56,10 @@ def DQNTest():
     #   if ave_reward >= 0:
     #     break
 
-def QlearningTest():
+def QlearningLearn():
     env = park.make('replica_placement')
     RL = QLearningTable(env.action_space.n)
     equ = 100
-    final_map = []
     for episode in range(EPISODE):
         state = env.reset()
         done = False
@@ -80,6 +81,7 @@ def QlearningTest():
                 if np.std(state) < equ: 
                     equ = np.std(state)
                     final_map = map
+                    osd = state
                     # print(final_map)
                     print("state:",state," sum:",sum(state))
                     print("equ:",equ)
@@ -97,18 +99,38 @@ def QlearningTest():
 
     # end of game
     print('game over')
-    print("equ:",equ)
+    print("state:",state,"equ:",equ)
     for pg_num in range(len(final_map)):
         print(pg_num,"————>",final_map[pg_num])
+    RL.model_saver('q-learning.pickle')
     # print(RL.q_table)
-    save = pd.DataFrame(RL.q_table) 
-    save.to_csv('ql.csv')  #index=False,header=False表示不保存行索引和列标题
+    # save = pd.DataFrame(RL.q_table) 
+    # save.to_csv('ql.csv')  #index=False,header=False表示不保存行索引和列标题
     # env.destroy()
+def QlearningTest():
+    env = park.make('replica_placement')
+    RL = QLearningTable(env.action_space.n)
+    RL.model_loader('q-learning.pickle')
+    print("state:",osd)
+    Raction = []
+    i = 0
+    while i != Rnum:
+        action = RL.choose_action(str(osd))
+        if action not in Raction:
+            Raction.append(action)
+            i += 1
+    # state_, reward, done = env.step(action)
+    map.append(Raction)
+    state_, reward, done = env.r_step(Raction)
+    print(state_)
 
 
 if __name__ == '__main__':
     # DQNTest()
+    QlearningLearn()
     QlearningTest()
+    
+
     
 
 

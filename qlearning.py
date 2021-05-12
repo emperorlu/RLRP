@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import pickle
 
 class QLearningTable:
      def __init__(self, actions, learning_rate=0.01, reward_decay=0.9, e_greedy=0.9):
@@ -41,4 +42,14 @@ class QLearningTable:
                     name=state,
                 )
             )
+
+     def model_saver(self,path):
+         with open(path, 'wb') as f:
+            pickle.dump(dict(self.q_table), f)
+            print('model saved')
+
+     def model_loader(self, path):
+         with open(path, 'rb') as f:
+            self.q_table = pickle.load(f)
+            print('model loaded')
 

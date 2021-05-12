@@ -106,3 +106,8 @@ class DQN():
   def bias_variable(self,shape):
     initial = tf.constant(0.01, shape = shape)
     return tf.Variable(initial)
+
+  def save_net(self):
+    saver = tf.train.Saver()
+    save_path = saver.save(self.sess, "./dqn/model/placement.ckpt")
+    print("Save to path: ", save_path)
