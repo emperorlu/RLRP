@@ -53,10 +53,10 @@ class ReplicaplacementEnv(core.Env):
     def step(self, action):
 
         # 0 <= action < num_servers
-        std1 = np.std(self.servers)
+        # std1 = np.std(self.servers)
         assert self.action_space.contains(action)
         self.servers[action] = self.servers[action] + 1
-        std2 = np.std(self.servers)
+        # std2 = np.std(self.servers)
         reward = 0
         # reward = std1 - std2
         if (np.std(self.servers) == 0): reward = 10000
@@ -68,14 +68,15 @@ class ReplicaplacementEnv(core.Env):
         return self.observe(), reward, done
 
     def r_step(self, actions):
-        std1 = np.std(self.servers)
+        # std1 = np.std(self.servers)
         for action in actions:
             assert self.action_space.contains(action)
             self.servers[action] = self.servers[action] + 1
-        std2 = np.std(self.servers)
+        # std2 = np.std(self.servers)
         reward = 0
-        reward = std1 - std2
-        # reward -= np.std(self.servers)
+        # reward = std1 - std2
+        if (np.std(self.servers) == 0): reward = 10000
+        reward -= np.std(self.servers)
         # reward = min(self.servers) - max(self.servers)
 
         self.num_stream_jobs_left = self.num_stream_jobs_left - 1
