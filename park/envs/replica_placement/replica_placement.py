@@ -17,6 +17,9 @@ class ReplicaplacementEnv(core.Env):
     def initialize_servers(self):
         servers = [0] * config.num_servers
         return servers
+    
+    def set_servers(self, ser):
+        self.servers = ser
 
     def observe(self):
         # obs_arr = []

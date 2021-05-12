@@ -112,8 +112,9 @@ def QlearningTest():
     RL.model_loader('q-learning.pkl')
     Raction = []
     i = 0
+    state = env.set_servers(osd)
     while i != Rnum:
-        action = RL.choose_action(str(osd))
+        action = RL.choose_action(str(state))
         if action not in Raction:
             Raction.append(action)
             i += 1
