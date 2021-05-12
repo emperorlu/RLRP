@@ -5,9 +5,10 @@ from dqn import DQN
 from qlearning import QLearningTable
 import pandas as pd 
 
-EPISODE = 100 # Episode limitation
+EPISODE = 20 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
+Rnum = 2
 
 def DQNTest():
 
@@ -60,12 +61,19 @@ def QlearningTest():
         done = False
         steps = 0
         while not done:
-            action = RL.choose_action(str(state))
-            state_, reward, done = env.step(action)
+            Raction = []
+            i = 0
+            while i != Rnum:
+                action = RL.choose_action(str(state))
+                if action not in Raction:
+                    Raction.append(action)
+                    i += 1
+            # state_, reward, done = env.step(action)
+            state_, reward, done = env.r_step(Raction)
             
-            if (episode%1 == 0):
+            if (episode%1 == 0 and done):
                 print("episode:",episode," step:",steps)
-                print("state:",state)
+                print("state:",state," sum:",sum(state))
                 print("act:",action)
                 print("reward:",reward)
             steps += 1
