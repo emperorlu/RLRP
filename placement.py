@@ -101,7 +101,7 @@ def QlearningLearn():
     print("state:",state,"equ:",equ)
     # for pg_num in range(len(final_map)):
     #     print(pg_num,"————>",final_map[pg_num])
-    RL.model_saver('q-learning.csv')
+    RL.model_saver('q-learning.pkl')
     # print(RL.q_table)
     # save = pd.DataFrame(RL.q_table) 
     # save.to_csv('ql.csv')  #index=False,header=False表示不保存行索引和列标题
@@ -109,7 +109,7 @@ def QlearningLearn():
 def QlearningTest():
     env = park.make('replica_placement')
     RL = QLearningTable(env.action_space.n)
-    RL.model_loader('q-learning.csv')
+    RL.model_loader('q-learning.pkl')
     Raction = []
     i = 0
     while i != Rnum:
