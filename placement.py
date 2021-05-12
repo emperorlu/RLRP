@@ -75,7 +75,7 @@ def QlearningLearn():
                     Raction.append(action)
                     i += 1
             # state_, reward, done = env.step(action)
-            map.append(Raction)
+            # map.append(Raction)
             state_, reward, done = env.r_step(Raction)
             
                 # print("state:",state," sum:",sum(state))
@@ -90,12 +90,12 @@ def QlearningLearn():
                     final_map = map
                     osd = state
                     # print(final_map)
-                    print("state:",state," sum:",sum(state))
-                    print("equ:",equ)
+                    # print("state:",state," sum:",sum(state))
+                    # print("equ:",equ)
                 print("episode:",episode," std:",np.std(state))
-        if equ == 0:
-            print("Perfect mapping!")
-            break
+        # if equ == 0:
+        #     # print("Perfect mapping!")
+        #     break
     # end of game
     print('game over')
     print("state:",osd,"equ:",equ)
