@@ -47,10 +47,12 @@ class QLearningTable:
          self.q_table.to_csv(path)
         #  with open(path, 'wb') as f:
         #     pickle.dump(dict(self.q_table), f)
+         print(self.q_table)
          print('model saved')
 
      def model_loader(self, path):
          self.q_table = pd.read_csv(path)
+         print(self.q_table)
          print('model loaded')
         #  with open(path, 'rb') as f:
         #     self.q_table = pickle.load(f)
