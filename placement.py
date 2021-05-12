@@ -9,7 +9,7 @@ import numpy as np
 EPISODE = 20 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
-Rnum = 2
+Rnum = 3
 
 def DQNTest():
 
@@ -97,8 +97,11 @@ def QlearningTest():
 
     # end of game
     print('game over')
-    print("final_map:",final_map)
-    print(RL.q_table)
+    # print("final_map:",final_map)
+    pg_num = 0
+    for imap in final_map:
+        print(pg_num,"———>———>",final_map(pg_num))
+    # print(RL.q_table)
     save = pd.DataFrame(RL.q_table) 
     save.to_csv('ql.csv')  #index=False,header=False表示不保存行索引和列标题
     # env.destroy()
