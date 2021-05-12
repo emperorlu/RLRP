@@ -69,7 +69,7 @@ def QlearningTest():
     # end of game
     print('game over')
     print(RL.q_table)
-    env.destroy()
+    # env.destroy()
 
 
 if __name__ == '__main__':
