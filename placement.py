@@ -71,6 +71,7 @@ def QlearningLearn():
             Raction = []
             i = 0
             while i != Rnum:
+                print("type(state): ", type(state))
                 action = RL.choose_action(str(state))
                 if action not in Raction:
                     Raction.append(action)
@@ -102,8 +103,8 @@ def QlearningLearn():
     # end of game
     print('game over')
     print("state:",state,"equ:",equ)
-    for pg_num in range(len(final_map)):
-        print(pg_num,"————>",final_map[pg_num])
+    # for pg_num in range(len(final_map)):
+    #     print(pg_num,"————>",final_map[pg_num])
     RL.model_saver('q-learning.csv')
     # print(RL.q_table)
     # save = pd.DataFrame(RL.q_table) 
@@ -114,6 +115,7 @@ def QlearningTest():
     RL = QLearningTable(env.action_space.n)
     RL.model_loader('q-learning.csv')
     print("osd:",osd," sum:",sum(osd))
+    print("type(osd): ", type(osd))
     Raction = []
     i = 0
     while i != Rnum:
