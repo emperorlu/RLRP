@@ -113,7 +113,6 @@ def QlearningTest():
     env = park.make('replica_placement')
     RL = QLearningTable(env.action_space.n)
     RL.model_loader('q-learning.csv')
-    print(env.action_space.n)
     Raction = []
     i = 0
     while i != Rnum:
@@ -121,7 +120,6 @@ def QlearningTest():
         if action not in Raction:
             Raction.append(action)
             i += 1
-            print("action: ",action)
     state_, reward, done = env.r_step(Raction)
     print("state:",state_," sum:",sum(state_))
 
