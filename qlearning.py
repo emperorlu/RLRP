@@ -48,11 +48,14 @@ class QLearningTable:
         #  with open(path, 'wb') as f:
         #     pickle.dump(dict(self.q_table), f)
          print(self.q_table)
+         print(self.q_table.dtypes)
          print('model saved')
 
      def model_loader(self, path):
-         self.q_table = pd.read_csv(path,index_col=0,dtype=np.float64)
+         self.q_table = pd.read_csv(path,index_col=0)
+         self.q_table.astype(np.float64)
          print(self.q_table)
+         print(self.q_table.dtypes)
          print('model loaded')
         #  with open(path, 'rb') as f:
         #     self.q_table = pickle.load(f)
