@@ -7,7 +7,7 @@ from qlearning import QLearningTable
 import pandas as pd 
 import numpy as np
 
-EPISODE = 2 # Episode limitation
+EPISODE = 10 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
@@ -36,7 +36,7 @@ def DQNLearn():
         print("reward:",reward)
       # Define reward for agent
     #   reward_agent = -1 if done else 0.1
-      agent.perceive(state,action,reward,next_state,done)
+    #   agent.perceive(state,action,reward,next_state,done)
       state = next_state
   agent.save_net("./dqn_model/place.ckpt")
   agent.close()
