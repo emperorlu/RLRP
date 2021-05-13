@@ -38,7 +38,7 @@ def DQNLearn():
     #   reward_agent = -1 if done else 0.1
       agent.perceive(state,action,reward,next_state,done)
       state = next_state
-  agent.save_net("./dqn_model/file_name.ckpt")
+  agent.save_net("./dqn_model/place.ckpt")
     #   if done:
     #     break
     # Test every 100 episodes
@@ -62,7 +62,7 @@ def DQNTest():
     print("----Test----")
     env = park.make('replica_placement')
     agent = DQN(env)
-    agent._build_net("./dqn_model/file_name.ckpt")
+    agent._build_net("./dqn_model/place.ckpt")
     state = env.reset()
     done = False
     while not done:
