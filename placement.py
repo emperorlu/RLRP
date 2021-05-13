@@ -75,7 +75,7 @@ def QlearningLearn():
                     Raction.append(action)
                     i += 1
             # state_, reward, done = env.step(action)
-            # map.append(Raction)
+            map.append(Raction)
             state_, reward, done = env.r_step(Raction)
             
                 # print("state:",state," sum:",sum(state))
