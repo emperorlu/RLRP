@@ -75,6 +75,7 @@ def DQNTest():
     #   agent.perceive(state,action,reward,next_state,done)
       state = next_state
     action = 1
+    done = False
     while not done:
       while action != 1:
         action = agent.egreedy_action(state) # e-greedy action for train
