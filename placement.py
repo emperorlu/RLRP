@@ -33,13 +33,12 @@ def DQNLearn():
       if (episode%1 == 0 and done):
         print("episode:",episode)
         print("state:",state)
-        print("act:",action)
         print("reward:",reward)
       # Define reward for agent
     #   reward_agent = -1 if done else 0.1
       agent.perceive(state,action,reward,next_state,done)
       state = next_state
-    agent.save_net("./dqn_model/file_name.ckpt")
+  agent.save_net("./dqn_model/file_name.ckpt")
     #   if done:
     #     break
     # Test every 100 episodes
@@ -71,7 +70,6 @@ def DQNTest():
       next_state,reward,done = env.step(action)
       if done:
         print("state:",state)
-        print("act:",action)
         print("reward:",reward)
       agent.perceive(state,action,reward,next_state,done)
       state = next_state

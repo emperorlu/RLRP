@@ -109,15 +109,16 @@ class DQN():
 
   def save_net(self, save_path):
     saver = tf.train.Saver()
-    saver.save(self.sess, save_path)
+    saver.save(self.session, save_path)
     print("Save to path: ", save_path)
 
   def _build_net(self, path):
     # self.create_Q_network()
     saver = tf.train.Saver()
-    init = tf.global_variables_initializer()
-    self.sess.run(init)
-    saver.restore(self.sess, path)
+    # init = tf.global_variables_initializer()
+    # self.session.run(init)
+    self.session.run(tf.initialize_all_variables())
+    saver.restore(self.session, path)
     # print(self.sess.run(w1))  
                 
 
