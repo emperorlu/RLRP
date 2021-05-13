@@ -92,7 +92,7 @@ def QlearningLearn():
                     # print(final_map)
                     print("state:",state," sum:",sum(state),"equ:",equ)
                     # print("equ:",equ)
-                print("episode:",episode+290," std:",np.std(state))
+                print("episode:",episode," std:",np.std(state))
         if equ == 0:
             # print("Perfect mapping!")
             break
