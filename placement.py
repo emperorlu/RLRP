@@ -2,6 +2,7 @@
 # coding=utf-8
 import park
 from dqn import DQN
+from dqn2 import DeepQNetwork
 from qlearning import QLearningTable
 import pandas as pd 
 import numpy as np
@@ -12,6 +13,30 @@ TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
 final_map = []
 osd = []
+
+def TDQNTest():
+    env = park.make('replica_placement')
+    agent = DeepQNetwork(env)
+
+    for episode in range(EPISODE):
+        # initialize task
+        state = env.reset()
+        done = False
+        # Train
+        # print("state:\n",state)
+        # for step in range(STEP):
+        while not done:
+            action = agent.choose_action(state) # e-greedy action for train
+            next_state,reward,done = env.step(action)
+            if (episode%1 == 0 and done):
+                print("episode:",episode)
+                print("state:",state)
+                print("act:",action)
+                print("reward:",reward)
+        # Define reward for agent
+        #   reward_agent = -1 if done else 0.1
+            agent.learn(state,action,reward,next_state,done)
+            state = next_state
 
 def DQNTest():
 
@@ -34,7 +59,7 @@ def DQNTest():
         print("act:",action)
         print("reward:",reward)
       # Define reward for agent
-      reward_agent = -1 if done else 0.1
+    #   reward_agent = -1 if done else 0.1
       agent.perceive(state,action,reward,next_state,done)
       state = next_state
     #   if done:
@@ -139,12 +164,13 @@ def QlearningTest():
     print("state:",state_," sum:",sum(state_))
 
 if __name__ == '__main__':
+    TDQNTest()
     # DQNTest()
-    QlearningLearn()
+    # QlearningLearn()
     # QlearningTest()
     
 
-    
+    # "./dqn_model/placement.ckpt"
 
 
 
