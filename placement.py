@@ -90,12 +90,12 @@ def QlearningLearn():
                     final_map = map
                     osd = state
                     # print(final_map)
-                    # print("state:",state," sum:",sum(state))
+                    print("state:",state," sum:",sum(state),"equ:",equ)
                     # print("equ:",equ)
                 print("episode:",episode," std:",np.std(state))
-        # if equ == 0:
-        #     # print("Perfect mapping!")
-        #     break
+        if equ == 0:
+            # print("Perfect mapping!")
+            break
     # end of game
     print('game over')
     print("state:",osd,"equ:",equ)
