@@ -71,7 +71,7 @@ def DQNTest():
       if done:
         print("state:",state)
         print("reward:",reward)
-      agent.perceive(state,action,reward,next_state,done)
+    #   agent.perceive(state,action,reward,next_state,done)
       state = next_state
 
 def QlearningLearn():
