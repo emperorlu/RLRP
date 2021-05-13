@@ -102,6 +102,8 @@ def QlearningLearn():
     RL.model_saver('q-learning.pkl')
     f = open("map1.txt", 'w+')
     for pg_num in range(len(final_map)):
+        print(pg_num,"————>",final_map[pg_num])
+    for pg_num in range(len(final_map)):
         print(pg_num,"————>",final_map[pg_num], file=f)
     
     # print(RL.q_table)
