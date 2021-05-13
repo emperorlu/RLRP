@@ -74,6 +74,16 @@ def DQNTest():
         print("reward:",reward)
     #   agent.perceive(state,action,reward,next_state,done)
       state = next_state
+    action = 1
+    while not done:
+      while action != 1:
+        action = agent.egreedy_action(state) # e-greedy action for train
+      next_state,reward,done = env.step(action)
+      if done:
+        print("state:",state)
+        print("reward:",reward)
+    #   agent.perceive(state,action,reward,next_state,done)
+      state = next_state
     agent.close()
 
 def QlearningLearn():
@@ -159,7 +169,7 @@ def QlearningTest():
     print("state:",state_," sum:",sum(state_))
 
 if __name__ == '__main__':
-    DQNLearn()
+    # DQNLearn()
     DQNTest()
     # QlearningLearn()
     # QlearningTest()
