@@ -62,7 +62,7 @@ def DQNTest():
     print("----Test----")
     env = park.make('replica_placement')
     agent = DQN(env)
-    agent._build_net("./dqn_model/place.ckpt")
+    agent.build_net("./dqn_model/place.ckpt")
     state = env.reset()
     done = False
     while not done:

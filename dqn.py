@@ -26,7 +26,7 @@ class DQN():
 
     # Init session
     self.session = tf.compat.v1.InteractiveSession()
-    self.session.run(tf.initialize_all_variables())
+    self.session.run(tf.global_variables_initializer())
 
   def create_Q_network(self):
     # network weights
@@ -112,7 +112,7 @@ class DQN():
     saver.save(self.session, save_path)
     print("Save to path: ", save_path)
 
-  def _build_net(self, path):
+  def build_net(self, path):
     saver = tf.compat.v1.train.Saver()
     saver.restore(self.session, path)
     # print(self.sess.run(w1))  
