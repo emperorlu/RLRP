@@ -107,36 +107,19 @@ class DQN():
     initial = tf.constant(0.01, shape = shape)
     return tf.Variable(initial)
 
-#   def save_net(self, save_path):
-#     saver = tf.train.Saver()
-#     saver.save(self.sess, save_path)
-#     print("Save to path: ", save_path)
+  def save_net(self, save_path):
+    saver = tf.train.Saver()
+    saver.save(self.sess, save_path)
+    print("Save to path: ", save_path)
 
-#   def _build_net(self, path):
-#     self.s = tf.placeholder(tf.float32, [None, 11])
-#     with tf.variable_scope('eval_net'):
-#         with tf.variable_scope('l1'):
-#             w1 = tf.Variable(np.arange(110).reshape((11, 10)), dtype=tf.float32, name="w1")
-#             b1 = tf.Variable(np.arange(10).reshape((1, 10)), dtype=tf.float32, name="b1")
-#             l1 = tf.nn.relu(tf.matmul(self.s, w1) + b1)
-
-#         with tf.variable_scope('l2'):
-#             w2 = tf.Variable(np.arange(240).reshape((10, 24)), dtype=tf.float32, name="w2")
-#             b2 = tf.Variable(np.arange(24).reshape((1, 24)), dtype=tf.float32, name="b2")
-#             self.q_eval = tf.matmul(l1, w2) + b2
-
-#     saver = tf.train.Saver()
-#     init = tf.global_variables_initializer()
-#     self.sess.run(init)
-#     saver.restore(self.sess, path)
-#     print(self.sess.run(w1))  
-                    
-                    
-#   def choose_action(self, observation):
-#     observation = observation[np.newaxis, :]
-#     actions_value = self.sess.run(self.q_eval, feed_dict={self.s: observation})
-#     action = np.argmax(actions_value)
-#     return action
+  def _build_net(self, path):
+    # self.create_Q_network()
+    saver = tf.train.Saver()
+    init = tf.global_variables_initializer()
+    self.sess.run(init)
+    saver.restore(self.sess, path)
+    # print(self.sess.run(w1))  
+                
 
 
 

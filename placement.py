@@ -2,7 +2,7 @@
 # coding=utf-8
 import park
 from dqn import DQN
-from dqn2 import DeepQNetwork
+# from dqn2 import DeepQNetwork
 from qlearning import QLearningTable
 import pandas as pd 
 import numpy as np
@@ -14,31 +14,8 @@ Rnum = 3
 final_map = []
 osd = []
 
-def TDQNTest():
-    env = park.make('replica_placement')
-    agent = DeepQNetwork(env)
 
-    for episode in range(EPISODE):
-        # initialize task
-        state = env.reset()
-        done = False
-        # Train
-        # print("state:\n",state)
-        # for step in range(STEP):
-        while not done:
-            action = agent.choose_action(state) # e-greedy action for train
-            next_state,reward,done = env.step(action)
-            if (episode%1 == 0 and done):
-                print("episode:",episode)
-                print("state:",state)
-                print("act:",action)
-                print("reward:",reward)
-        # Define reward for agent
-        #   reward_agent = -1 if done else 0.1
-            agent.learn(state,action,reward,next_state,done)
-            state = next_state
-
-def DQNTest():
+def DQNLearn():
 
   env = park.make('replica_placement')
   agent = DQN(env)
@@ -62,6 +39,7 @@ def DQNTest():
     #   reward_agent = -1 if done else 0.1
       agent.perceive(state,action,reward,next_state,done)
       state = next_state
+    agent.save_net("./dqn_model/file_name.ckpt")
     #   if done:
     #     break
     # Test every 100 episodes
@@ -80,6 +58,22 @@ def DQNTest():
     #   print ('episode: ',episode,'Evaluation Average Reward:',ave_reward)
     #   if ave_reward >= 0:
     #     break
+
+def DQNTest():
+    env = park.make('replica_placement')
+    agent = DQN(env)
+    agent._build_net("./dqn_model/file_name.ckpt")
+    state = env.reset()
+    done = False
+    while not done:
+      action = agent.egreedy_action(state) # e-greedy action for train
+      next_state,reward,done = env.step(action)
+      if done:
+        print("state:",state)
+        print("act:",action)
+        print("reward:",reward)
+      agent.perceive(state,action,reward,next_state,done)
+      state = next_state
 
 def QlearningLearn():
     global osd
@@ -164,8 +158,8 @@ def QlearningTest():
     print("state:",state_," sum:",sum(state_))
 
 if __name__ == '__main__':
-    TDQNTest()
-    # DQNTest()
+    DQNLearn()
+    DQNTest()
     # QlearningLearn()
     # QlearningTest()
     
