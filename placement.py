@@ -39,6 +39,7 @@ def DQNLearn():
       agent.perceive(state,action,reward,next_state,done)
       state = next_state
   agent.save_net("./dqn_model/place.ckpt")
+  agent.close()
     #   if done:
     #     break
     # Test every 100 episodes
@@ -73,6 +74,7 @@ def DQNTest():
         print("reward:",reward)
     #   agent.perceive(state,action,reward,next_state,done)
       state = next_state
+    agent.close()
 
 def QlearningLearn():
     global osd

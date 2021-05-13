@@ -110,8 +110,10 @@ class DQN():
   def save_net(self, save_path):
     saver = tf.compat.v1.train.Saver()
     saver.save(self.session, save_path)
-    self.session.close()
     print("Save to path: ", save_path)
+
+  def close(self):
+    self.session.close()
 
   def build_net(self, path):
     saver = tf.compat.v1.train.Saver()
