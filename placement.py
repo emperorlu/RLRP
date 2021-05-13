@@ -36,7 +36,7 @@ def DQNLearn():
         print("reward:",reward)
       # Define reward for agent
     #   reward_agent = -1 if done else 0.1
-    #   agent.perceive(state,action,reward,next_state,done)
+      agent.perceive(state,action,reward,next_state,done)
       state = next_state
   agent.save_net("./dqn_model/place.ckpt")
   agent.close()
