@@ -26,7 +26,7 @@ class DQN():
 
     # Init session
     self.session = tf.compat.v1.InteractiveSession()
-    self.session.run(tf.tf.compat.v1.global_variables_initializer())
+    self.session.run(tf.compat.v1.global_variables_initializer())
 
   def create_Q_network(self):
     # network weights
