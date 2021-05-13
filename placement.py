@@ -98,7 +98,7 @@ def QlearningLearn():
             break
     # end of game
     print('game over')
-    print("state:",osd,"equ:",equ)
+    print("final state:",osd,"equ:",equ)
     RL.model_saver('q-learning.pkl')
     f = open("map1.txt", 'w+')
     for pg_num in range(len(final_map)):
