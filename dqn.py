@@ -109,7 +109,7 @@ class DQN():
 
   def save_net(self, save_path):
     saver = tf.compat.v1.train.Saver()
-    saver.save(self.session, save_path)
+    saver.save(self.session, save_path, write_meta_graph=False)
     print("Save to path: ", save_path)
 
   def close(self):
