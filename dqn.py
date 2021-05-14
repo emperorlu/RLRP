@@ -84,11 +84,13 @@ class DQN():
       self.state_input:state_batch
       })
 
-  def egreedy_action(self,state):
+  def egreedy_action(self,state,no_action=10000):
     Q_value = self.Q_value.eval(feed_dict = {
       self.state_input:[state]
       })[0]
     if random.random() <= self.epsilon:
+      if random.randint(0,self.action_dim - 1) == no_action:
+          return np.argmax(Q_value)
       return random.randint(0,self.action_dim - 1)
     else:
       return np.argmax(Q_value)
