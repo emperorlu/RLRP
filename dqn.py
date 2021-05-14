@@ -90,7 +90,10 @@ class DQN():
       })[0]
     if random.random() <= self.epsilon:
       if random.randint(0,self.action_dim - 1) == no_action:
-          return np.argmax(Q_value)
+          action = no_action
+          while action == no_action:
+              action = np.argmax(Q_value)
+          return action
       return random.randint(0,self.action_dim - 1)
     else:
       return np.argmax(Q_value)
