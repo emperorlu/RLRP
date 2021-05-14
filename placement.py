@@ -64,28 +64,29 @@ def DQNTest():
     env = park.make('replica_placement')
     agent = DQN(env)
     agent.build_net("./dqn_model/place.ckpt")
-    state = env.reset()
-    done = False
-    while not done:
-      action = agent.egreedy_action(state) # e-greedy action for train
-      next_state,reward,done = env.step(action)
-      if done:
-        print("state:",state)
-        print("reward:",reward)
-    #   agent.perceive(state,action,reward,next_state,done)
-      state = next_state
-    no_action = 1
-    state = env.reset()
-    done = False
-    while not done:
-      action = agent.egreedy_action(state,no_action) # e-greedy action for train
-    #   print("action:",action)
-      next_state,reward,done = env.step(action)
-      if done:
-        print("state:",state)
-        print("reward:",reward)
-    #   agent.perceive(state,action,reward,next_state,done)
-      state = next_state
+    for episode in range(EPISODE):
+        state = env.reset()
+        done = False
+        while not done:
+            action = agent.egreedy_action(state) # e-greedy action for train
+            next_state,reward,done = env.step(action)
+            if done:
+                print("state:",state)
+                print("reward:",reward)
+            #   agent.perceive(state,action,reward,next_state,done)
+            state = next_state
+        no_action = 1
+        state = env.reset()
+        done = False
+        while not done:
+            action = agent.egreedy_action(state,no_action) # e-greedy action for train
+            #   print("action:",action)
+            next_state,reward,done = env.step(action)
+            if done:
+                print("state:",state)
+                print("reward:",reward)
+            #   agent.perceive(state,action,reward,next_state,done)
+            state = next_state
     agent.close()
 
 def QlearningLearn():
