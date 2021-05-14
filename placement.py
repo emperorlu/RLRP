@@ -79,7 +79,7 @@ def DQNTest():
     done = False
     while not done:
       action = agent.egreedy_action(state,no_action) # e-greedy action for train
-      print("action:",action)
+    #   print("action:",action)
       next_state,reward,done = env.step(action)
       if done:
         print("state:",state)
