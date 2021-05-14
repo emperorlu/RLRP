@@ -85,18 +85,21 @@ class DQN():
       })
 
   def egreedy_action(self,state,no_action=10000):
+    action = no_action
     Q_value = self.Q_value.eval(feed_dict = {
       self.state_input:[state]
       })[0]
     if random.random() <= self.epsilon:
-      if random.randint(0,self.action_dim - 1) == no_action:
-          action = no_action
-          while action == no_action:
-              action = np.argmax(Q_value)
-          return action
-      return random.randint(0,self.action_dim - 1)
+        while action == no_action:
+            action = random.randint(0,self.action_dim - 1)
+        return action
+        # return random.randint(0,self.action_dim - 1)
     else:
-      return np.argmax(Q_value)
+        if np.argmax(Q_value) == no_action:
+            while action == no_action:
+                action = random.randint(0,self.action_dim - 1)
+            return action
+        return np.argmax(Q_value)
 
     self.epsilon -= (INITIAL_EPSILON - FINAL_EPSILON)/10000
 
