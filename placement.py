@@ -96,7 +96,8 @@ def DQNTest():
             #   print("action:",action)
             next_state,reward,done = env.step(action, Mreward(map1,map2))
             if done:
-                print("episode:",episode+300)
+                print("episode:",episode)
+                print("Mreward(map1,map2):",Mreward(map1,map2))
                 print("state:",state)
                 print("reward:",reward)
             agent.perceive(state,action,reward,next_state,done)
