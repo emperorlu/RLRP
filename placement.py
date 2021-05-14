@@ -65,16 +65,16 @@ def DQNTest():
     agent = DQN(env)
     agent.build_net("./dqn_model/place.ckpt")
     for episode in range(EPISODE):
-        state = env.reset()
-        done = False
-        while not done:
-            action = agent.egreedy_action(state) # e-greedy action for train
-            next_state,reward,done = env.step(action)
-            if done:
-                print("state:",state)
-                print("reward:",reward)
-            agent.perceive(state,action,reward,next_state,done)
-            state = next_state
+        # state = env.reset()
+        # done = False
+        # while not done:
+        #     action = agent.egreedy_action(state) # e-greedy action for train
+        #     next_state,reward,done = env.step(action)
+        #     if done:
+        #         print("state:",state)
+        #         print("reward:",reward)
+        #     agent.perceive(state,action,reward,next_state,done)
+        #     state = next_state
         no_action = 1
         state = env.reset()
         done = False
@@ -83,6 +83,7 @@ def DQNTest():
             #   print("action:",action)
             next_state,reward,done = env.step(action)
             if done:
+                print("episode:",episode+300)
                 print("state:",state)
                 print("reward:",reward)
             agent.perceive(state,action,reward,next_state,done)
