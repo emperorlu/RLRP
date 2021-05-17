@@ -48,7 +48,9 @@ def DDPGLearn():
             # for j in range(200):
             while not done:
                 a = actor.choose_action(s)
+                print("a1:",a)
                 a = np.clip(np.random.normal(a, var), -action_bound, action_bound)  # 异策略探索
+                print("a2:",a)
                 s_, r, done = env.step(a)
 
                 memory.store_transition(s, a, [r / 10], s_)
