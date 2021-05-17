@@ -7,6 +7,7 @@ from qlearning import QLearningTable
 import pandas as pd 
 import numpy as np
 import tensorflow as tf
+from park.param import config
 import sys
 # sys.path.append('Reinforcement-Learning/Deep_Deterministic_Policy_Gradient/')
 from ddpg import Actor, Critic
@@ -25,7 +26,8 @@ def DDPGLearn():
 
     state_dim = env.observation_space.n
     action_dim = env.action_space.n
-    action_bound = env.action_space.high
+    # action_bound = env.action_space.high
+    action_bound = np.array([config.load_balance_obs_high] * (config.num_servers + 1))
 
     var = 3.
 
