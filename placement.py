@@ -187,47 +187,53 @@ def QlearningLearn():
     for episode in range(EPISODE):
         state = env.reset()
         done = False
-        map = []
+        # map = []
         while not done:
-            Raction = []
-            i = 0
-            while i != Rnum:
-                action = RL.choose_action(str(state))
-                if action not in Raction:
-                    Raction.append(action)
-                    i += 1
-            # state_, reward, done = env.step(action)
-            map.append(Raction)
-            state_, reward, done = env.r_step(Raction)
+            # Raction = []
+            action = RL.choose_action(str(state))
+            state_, reward, done = env.step(action)
+            # i = 0
+            # while i != Rnum:
+            #     action = RL.choose_action(str(state))
+            #     if action not in Raction:
+            #         Raction.append(action)
+            #         i += 1
+            
+            # map.append(Raction)
+            # state_, reward, done = env.r_step(Raction)
             
                 # print("state:",state," sum:",sum(state))
                 # print("act:",action)
                 # print("reward:",reward)
             # RL learn from this transition
             RL.learn(str(state), action, reward, str(state_))
+            if done:
+                print("episode:",episode)
+                print("state:",state)
+                print("reward:",reward)
             state = state_
-            if (episode%1 == 0 and done):
-                if np.std(state) < equ: 
-                    equ = np.std(state)
-                    final_map = map
-                    osd = state
-                    # print(final_map)
-                    print("state:",state," sum:",sum(state),"equ:",equ)
-                    # print("equ:",equ)
-                print("episode:",episode," std:",np.std(state))
-        if equ == 0:
-            # print("Perfect mapping!")
-            break
+        #     if (done):
+        #         if np.std(state) < equ: 
+        #             equ = np.std(state)
+        #             final_map = map
+        #             osd = state
+        #             # print(final_map)
+        #             print("state:",state," sum:",sum(state),"equ:",equ)
+        #             # print("equ:",equ)
+        #         print("episode:",episode," std:",np.std(state))
+        # if equ == 0:
+        #     # print("Perfect mapping!")
+        #     break
     # end of game
-    print('train over')
-    print("final state:",osd,"equ:",equ)
-    RL.model_saver('q-learning.pkl')
-    print("mapping:")
-    for pg_num in range(len(final_map)):
-        print(pg_num,"————>",final_map[pg_num])
-    f = open("map1.txt", 'w+')
-    for pg_num in range(len(final_map)):
-        print(pg_num,"————>",final_map[pg_num], file=f)
+    # print('train over')
+    # print("final state:",osd,"equ:",equ)
+    # # RL.model_saver('q-learning.pkl')
+    # print("mapping:")
+    # for pg_num in range(len(final_map)):
+    #     print(pg_num,"————>",final_map[pg_num])
+    # f = open("map1.txt", 'w+')
+    # for pg_num in range(len(final_map)):
+    #     print(pg_num,"————>",final_map[pg_num], file=f)
     
     # print(RL.q_table)
     # save = pd.DataFrame(RL.q_table) 
@@ -261,9 +267,9 @@ def QlearningTest():
     print("state:",state_," sum:",sum(state_))
 
 if __name__ == '__main__':
-    DQNLearn()
-    DQNTest()
-    # QlearningLearn()
+    # DQNLearn()
+    # DQNTest()
+    QlearningLearn()
     # QlearningTest()
     # DDPGLearn()
     
