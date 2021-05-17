@@ -8,7 +8,7 @@ import pandas as pd
 import numpy as np
 import tensorflow as tf
 import sys
-sys.path.append('./Reinforcement-Learning/Deep_Deterministic_Policy_Gradient/')
+sys.path.append('Reinforcement-Learning/Deep_Deterministic_Policy_Gradient/')
 from ddpg import Actor, Critic
 from memory import *
 
