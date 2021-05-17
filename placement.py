@@ -21,7 +21,7 @@ osd = []
 
 def DDPGLearn():
     env = park.make('replica_placement')
-    env = env.unwrapped
+    # env = env.unwrapped
 
     state_dim = env.observation_space.shape[0]
     action_dim = env.action_space.shape[0]
@@ -39,9 +39,9 @@ def DDPGLearn():
 
         sess.run(tf.global_variables_initializer())
 
-        for i in range(1000):
+        for episode in range(1000):
             s = env.reset()
-            r_episode = 0
+            # r_episode = 0
             done = False
             # for j in range(200):
             while not done:
@@ -57,9 +57,13 @@ def DDPGLearn():
                     critic.learn(b_s, b_a, b_r, b_s_)
                     actor.learn(b_s)
 
-                r_episode += r
+                # r_episode += r
+                
+                if (done):
+                    print("episode:",episode)
+                    print("state:",s)
+                    print("reward:",r)
                 s = s_
-
                 # if(j == 200 - 1):
                 #     print('episode {}\treward {:.2f}\tvar {:.2f}'.format(i, r_episode, var))
                 #     break
