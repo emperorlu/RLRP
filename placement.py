@@ -91,8 +91,10 @@ def DQNLearn():
     # Train
     # print("state:\n",state)
     # for step in range(STEP):
+    pg = 0
     while not done:
-      action = agent.egreedy_action(state) # e-greedy action for train
+      action = agent.egreedy_action(state,pg) # e-greedy action for train
+      pg += 1
       next_state,reward,done = env.step(action)
       if (episode%1 == 0 and done):
         print("episode:",episode)
@@ -256,11 +258,11 @@ def QlearningTest():
     print("state:",state_," sum:",sum(state_))
 
 if __name__ == '__main__':
-    # DQNLearn()
+    DQNLearn()
     # DQNTest()
     # QlearningLearn()
     # QlearningTest()
-    DDPGLearn()
+    # DDPGLearn()
     
 
     # "./dqn_model/placement.ckpt"
