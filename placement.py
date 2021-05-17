@@ -27,7 +27,7 @@ def DDPGLearn():
     state_dim = env.observation_space.n
     action_dim = env.action_space.n
     # action_bound = env.action_space.high
-    action_bound = np.array([config.load_balance_obs_high] * (config.num_servers + 1))
+    action_bound = config.load_balance_obs_hig
 
     var = 3.
 
