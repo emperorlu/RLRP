@@ -23,8 +23,8 @@ def DDPGLearn():
     env = park.make('replica_placement')
     # env = env.unwrapped
 
-    state_dim = env.observation_space.shape[0]
-    action_dim = env.action_space.shape[0]
+    state_dim = env.observation_space.n
+    action_dim = env.action_space.n
     action_bound = env.action_space.high
 
     var = 3.
