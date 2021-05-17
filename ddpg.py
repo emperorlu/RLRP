@@ -43,7 +43,7 @@ class Actor(object):
 
     def choose_action(self, s):
         a = self.sess.run(self.a, {
-            self.s: s[np.newaxis, :]
+            self.s: np.array(s)[np.newaxis, :]
         })
 
         return a[0]
