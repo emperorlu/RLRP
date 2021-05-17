@@ -13,7 +13,7 @@ import sys
 from ddpg import Actor, Critic
 from memory import *
 
-EPISODE = 1000 # Episode limitation
+EPISODE = 10 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
@@ -130,49 +130,52 @@ def DQNTest():
     env = park.make('replica_placement')
     agent = DQN(env)
     agent.build_net("./dqn_model/place.ckpt")
-    map1 = []
-    map2 = []
-    # for episode in range(EPISODE):
-    state = env.reset()
-    done = False
-    while not done:
-        action = agent.egreedy_action(state) # e-greedy action for train
-        map1.append(action)
-        next_state,reward,done = env.step(action)
-        if done:
-            print("state:",state)
-            print("reward:",reward)
-        # agent.perceive(state,action,reward,next_state,done)
-        state = next_state
+    # map1 = []
+    # map2 = []
     for episode in range(EPISODE):
-        map2 = []
-        no_action = 1
         state = env.reset()
         done = False
+        pg = 0
         while not done:
-            action = agent.egreedy_action(state) # e-greedy action for train
-            map1.append(action)
+            action = agent.egreedy_action(state, pg) # e-greedy action for train
+            pg += 1
+            # map1.append(action)
             next_state,reward,done = env.step(action)
             if done:
-                print("state:",state)
-                print("reward:",reward)
-            # agent.perceive(state,action,reward,next_state,done)
-            state = next_state
-        while not done:
-            action = agent.egreedy_action(state,no_action) # e-greedy action for train
-            map2.append(action)
-            #   print("action:",action)
-            next_state,reward,done = env.step(action)#, Mreward(map1,map2))
-            if done:
                 print("episode:",episode)
-                
                 print("state:",state)
                 print("reward:",reward)
             # agent.perceive(state,action,reward,next_state,done)
             state = next_state
-        next_state,reward,done = env.Mstep(action,Mreward)
-        print("Mreward(map1,map2):",Mreward(map1,map2))
-        agent.perceive(state,action,reward,next_state,done)
+    # for episode in range(EPISODE):
+    #     # map2 = []
+    #     no_action = 1
+    #     state = env.reset()
+    #     done = False
+    #     while not done:
+    #         action = agent.egreedy_action(state) # e-greedy action for train
+    #         # map1.append(action)
+    #         next_state,reward,done = env.step(action)
+    #         if done:
+    #             print("state:",state)
+    #             print("reward:",reward)
+    #         # agent.perceive(state,action,reward,next_state,done)
+    #         state = next_state
+    #     while not done:
+    #         action = agent.egreedy_action(state,no_action) # e-greedy action for train
+    #         # map2.append(action)
+    #         #   print("action:",action)
+    #         next_state,reward,done = env.step(action)#, Mreward(map1,map2))
+    #         if done:
+    #             print("episode:",episode)
+                
+    #             print("state:",state)
+    #             print("reward:",reward)
+    #         # agent.perceive(state,action,reward,next_state,done)
+    #         state = next_state
+    #     next_state,reward,done = env.Mstep(action,Mreward)
+    #     print("Mreward(map1,map2):",Mreward(map1,map2))
+    #     agent.perceive(state,action,reward,next_state,done)
     agent.close()
 
 def QlearningLearn():
@@ -259,7 +262,7 @@ def QlearningTest():
 
 if __name__ == '__main__':
     DQNLearn()
-    # DQNTest()
+    DQNTest()
     # QlearningLearn()
     # QlearningTest()
     # DDPGLearn()
