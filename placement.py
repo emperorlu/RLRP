@@ -6,6 +6,11 @@ from dqn import DQN
 from qlearning import QLearningTable
 import pandas as pd 
 import numpy as np
+import tensorflow as tf
+import sys
+sys.path.append('./Reinforcement-Learning/Deep_Deterministic_Policy_Gradient/')
+from ddpg import Actor, Critic
+from memory import *
 
 EPISODE = 1000 # Episode limitation
 STEP = 300 # Step limitation in an episode
@@ -14,6 +19,50 @@ Rnum = 3
 final_map = []
 osd = []
 
+def DDPGLearn():
+    env = park.make('replica_placement')
+    env = env.unwrapped
+
+    state_dim = env.observation_space.shape[0]
+    action_dim = env.action_space.shape[0]
+    action_bound = env.action_space.high
+
+    var = 3.
+
+    with tf.Session() as sess:
+        memory = Memory(32, 10000)
+        actor = Actor(sess, state_dim, action_bound, lr=0.01, tau=0.01)
+        critic = Critic(sess, state_dim, actor.s, actor.s_, actor.a, actor.a_, gamma=0.9, lr=0.001, tau=0.01)
+        t = critic.get_gradients()
+
+        actor.generate_gradients(t)
+
+        sess.run(tf.global_variables_initializer())
+
+        for i in range(1000):
+            s = env.reset()
+            r_episode = 0
+            done = False
+            # for j in range(200):
+            while not done:
+                a = actor.choose_action(s)
+                a = np.clip(np.random.normal(a, var), -action_bound, action_bound)  # 异策略探索
+                s_, r, done = env.step(a)
+
+                memory.store_transition(s, a, [r / 10], s_)
+
+                if memory.isFull:
+                    var *= 0.9995
+                    b_s, b_a, b_r, b_s_ = memory.get_mini_batches()
+                    critic.learn(b_s, b_a, b_r, b_s_)
+                    actor.learn(b_s)
+
+                r_episode += r
+                s = s_
+
+                # if(j == 200 - 1):
+                #     print('episode {}\treward {:.2f}\tvar {:.2f}'.format(i, r_episode, var))
+                #     break
 
 def Mreward(map1,map2):
     num = 0
@@ -83,7 +132,7 @@ def DQNTest():
         if done:
             print("state:",state)
             print("reward:",reward)
-        agent.perceive(state,action,reward,next_state,done)
+        # agent.perceive(state,action,reward,next_state,done)
         state = next_state
     for episode in range(EPISODE):
         map2 = []
@@ -91,17 +140,29 @@ def DQNTest():
         state = env.reset()
         done = False
         while not done:
+            action = agent.egreedy_action(state) # e-greedy action for train
+            map1.append(action)
+            next_state,reward,done = env.step(action)
+            if done:
+                print("state:",state)
+                print("reward:",reward)
+            # agent.perceive(state,action,reward,next_state,done)
+            state = next_state
+        while not done:
             action = agent.egreedy_action(state,no_action) # e-greedy action for train
             map2.append(action)
             #   print("action:",action)
-            next_state,reward,done = env.step(action, Mreward(map1,map2))
+            next_state,reward,done = env.step(action)#, Mreward(map1,map2))
             if done:
                 print("episode:",episode)
-                print("Mreward(map1,map2):",Mreward(map1,map2))
+                
                 print("state:",state)
                 print("reward:",reward)
-            agent.perceive(state,action,reward,next_state,done)
+            # agent.perceive(state,action,reward,next_state,done)
             state = next_state
+        next_state,reward,done = env.Mstep(action,Mreward)
+        print("Mreward(map1,map2):",Mreward(map1,map2))
+        agent.perceive(state,action,reward,next_state,done)
     agent.close()
 
 def QlearningLearn():
@@ -188,9 +249,10 @@ def QlearningTest():
 
 if __name__ == '__main__':
     # DQNLearn()
-    DQNTest()
+    # DQNTest()
     # QlearningLearn()
     # QlearningTest()
+    DDPGLearn()
     
 
     # "./dqn_model/placement.ckpt"
