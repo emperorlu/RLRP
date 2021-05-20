@@ -175,7 +175,7 @@ def DQNTest():
                     osd = state
                     print("state:",state," sum:",sum(state),"equ:",equ)
             # print("equ:",equ)
-            print("episode:",episode," std:",np.std(state))
+                print("episode:",episode," std:",np.std(state))
                 # print("episode:",episode)
                 # print("state:",state)
                 # print("reward:",reward)
