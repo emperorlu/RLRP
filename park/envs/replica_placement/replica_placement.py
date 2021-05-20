@@ -11,7 +11,7 @@ class ReplicaplacementEnv(core.Env):
         self.setup_space()
         self.seed(config.seed)
         self.num_stream_jobs = config.num_stream_jobs
-        self.cur_servers = config.num_servers_now
+        # self.cur_servers = config.num_servers_now
         self.servers = self.initialize_servers()
         self.reset()
 

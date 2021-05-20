@@ -12,14 +12,14 @@ BATCH_SIZE = 32 # size of minibatch
 
 class DQN():
   # DQN Agent
-  def __init__(self, env, naction):
+  def __init__(self, env):
     # init experience replay
     self.replay_buffer = deque()
     # init some parameters
     self.time_step = 0
     self.epsilon = INITIAL_EPSILON
     self.state_dim = env.observation_space.n
-    self.action_dim = naction #env.action_space.n
+    self.action_dim = env.action_space.n
 
     self.create_Q_network()
     self.create_training_method()

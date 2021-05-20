@@ -13,7 +13,7 @@ import sys
 from ddpg import Actor, Critic
 from memory import *
 
-EPISODE = 1000 # Episode limitation
+EPISODE = 10 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
@@ -82,8 +82,8 @@ def Mreward(map1,map2):
 def DQNLearn():
 
   env = park.make('replica_placement')
-  osd_num = config.num_servers_now
-  agent = DQN(env,osd_num)
+#   osd_num = config.num_servers_now
+  agent = DQN(env)
 
   for episode in range(EPISODE):
     # initialize task
@@ -95,7 +95,7 @@ def DQNLearn():
     while not done:
       action = agent.egreedy_action(state) # e-greedy action for train
       next_state,reward,done = env.step(action)
-      if (episode%1 == 0 and done):
+      if (done):
         print("episode:",episode)
         print("state:",state)
         print("reward:",reward)
@@ -264,7 +264,7 @@ def QlearningTest():
     print("state:",state_," sum:",sum(state_))
 
 if __name__ == '__main__':
-    # DQNLearn()
+    DQNLearn()
     DQNTest()
     # QlearningLearn()
     # QlearningTest()
