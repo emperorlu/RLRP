@@ -112,6 +112,7 @@ def DQNLearn():
         # print("state:",state)
         # print("reward:",reward)
 #   a=np.array(a)
+  print("osd state:",osd)
   for pg_num in range(len(final_map)):
     print(pg_num,"————>",final_map[pg_num])
   np.save('map.npy',np.array(final_map))
@@ -141,25 +142,50 @@ def DQNLearn():
     #     break
 
 def DQNTest():
+    global osd
+    global final_map
     print("----Test----")
     env = park.make('replica_placement')
     agent = DQN(env)
-    agent.build_net("./dqn_model/place.ckpt")
+    map=np.load('map.npy')
+    map=map.tolist()
+    # agent.build_net("./dqn_model/place.ckpt")
     # map1 = []
-    # map2 = []
+    map2 = []
+    r = -100
     for episode in range(EPISODE):
         state = env.reset()
         done = False
+        i = 0
         while not done:
             action = agent.egreedy_action(state) # e-greedy action for train
+            old_action = map[i]
+            i += 1
             # map1.append(action)
-            next_state,reward,done = env.step(action)
-            if done:
-                print("episode:",episode)
-                print("state:",state)
-                print("reward:",reward)
-            # agent.perceive(state,action,reward,next_state,done)
+            equ = 0
+            map2.append(action)
+            if old_action == action: equ=1
+            next_state,reward,done = env.step(action,equ)
+            agent.perceive(state,action,reward,next_state,done)
             state = next_state
+            if done:
+                if reward > r: 
+                    r = reward
+                    final_map = map
+                    osd = state
+                    print("state:",state," sum:",sum(state),"equ:",equ)
+            # print("equ:",equ)
+            print("episode:",episode," std:",np.std(state))
+                # print("episode:",episode)
+                # print("state:",state)
+                # print("reward:",reward)
+            # agent.perceive(state,action,reward,next_state,done)
+    print("osd state:",osd)
+    for pg_num in range(len(map)):
+        print(pg_num,"————>",map[pg_num],"; ",pg_num,"————>",final_map[pg_num])
+    # print 
+    # for pg_num in range(len(final_map)):
+    #     print(pg_num,"————>",final_map[pg_num])        
     # for episode in range(EPISODE):
     #     # map2 = []
     #     no_action = 1
@@ -280,8 +306,8 @@ def QlearningTest():
     print("state:",state_," sum:",sum(state_))
 
 if __name__ == '__main__':
-    DQNLearn()
-    # DQNTest()
+    # DQNLearn()
+    DQNTest()
     # QlearningLearn()
     # QlearningTest()
     # DDPGLearn()
