@@ -13,7 +13,9 @@ parser.add_argument('--log_to', type=str, default='print',
                     help='logging destination, "print" or a filepath (default: print)')
 
 # -- Load balance --
-parser.add_argument('--num_servers', type=int, default=10,
+parser.add_argument('--num_servers', type=int, default=100,
+                    help='number of servers (default: 100)')
+parser.add_argument('--num_servers_now', type=int, default=10,
                     help='number of servers (default: 10)')
 parser.add_argument('--num_stream_jobs', type=int, default=1000,
                     help='number of streaming jobs (default: 1000)')

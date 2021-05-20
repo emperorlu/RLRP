@@ -12,14 +12,14 @@ BATCH_SIZE = 32 # size of minibatch
 
 class DQN():
   # DQN Agent
-  def __init__(self, env):
+  def __init__(self, env, naction):
     # init experience replay
     self.replay_buffer = deque()
     # init some parameters
     self.time_step = 0
     self.epsilon = INITIAL_EPSILON
     self.state_dim = env.observation_space.n
-    self.action_dim = env.action_space.n
+    self.action_dim = naction #env.action_space.n
 
     self.create_Q_network()
     self.create_training_method()
@@ -84,25 +84,33 @@ class DQN():
       self.state_input:state_batch
       })
 
-  def egreedy_action(self,state,pg=0,no_action=10000):
-    action = no_action
+  # def egreedy_action(self,state,pg=0,no_action=10000):
+  #   action = no_action
+  #   Q_value = self.Q_value.eval(feed_dict = {
+  #     self.state_input:[state]
+  #     })[0]
+  #   if random.random() <= self.epsilon:
+  #       while action == no_action:
+  #           # action = random.randint(0,self.action_dim - 1)
+  #           action = pg % self.action_dim
+  #       return action
+  #       # return random.randint(0,self.action_dim - 1)
+  #   else:
+  #       if np.argmax(Q_value) == no_action:
+  #           while action == no_action:
+  #               action = random.randint(0,self.action_dim - 1)
+  #           return action
+  #       return np.argmax(Q_value)
+  def egreedy_action(self,state):
     Q_value = self.Q_value.eval(feed_dict = {
       self.state_input:[state]
       })[0]
     if random.random() <= self.epsilon:
-        while action == no_action:
-            # action = random.randint(0,self.action_dim - 1)
-            action = pg % self.action_dim
-        return action
-        # return random.randint(0,self.action_dim - 1)
+      return random.randint(0,self.action_dim - 1)
     else:
-        if np.argmax(Q_value) == no_action:
-            while action == no_action:
-                action = random.randint(0,self.action_dim - 1)
-            return action
-        return np.argmax(Q_value)
+      return np.argmax(Q_value)
 
-    self.epsilon -= (INITIAL_EPSILON - FINAL_EPSILON)/10000
+    # self.epsilon -= (INITIAL_EPSILON - FINAL_EPSILON)/10000
 
   def action(self,state):
     return np.argmax(self.Q_value.eval(feed_dict = {

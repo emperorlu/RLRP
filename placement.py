@@ -82,7 +82,8 @@ def Mreward(map1,map2):
 def DQNLearn():
 
   env = park.make('replica_placement')
-  agent = DQN(env)
+  osd_num = config.num_servers_now
+  agent = DQN(env,osd_num)
 
   for episode in range(EPISODE):
     # initialize task
@@ -91,10 +92,8 @@ def DQNLearn():
     # Train
     # print("state:\n",state)
     # for step in range(STEP):
-    pg = 0
     while not done:
-      action = agent.egreedy_action(state,pg) # e-greedy action for train
-      pg += 1
+      action = agent.egreedy_action(state) # e-greedy action for train
       next_state,reward,done = env.step(action)
       if (episode%1 == 0 and done):
         print("episode:",episode)
@@ -183,7 +182,7 @@ def QlearningLearn():
     global final_map
     env = park.make('replica_placement')
     RL = QLearningTable(env.action_space.n)
-    equ = 100
+    # equ = 100
     for episode in range(EPISODE):
         state = env.reset()
         done = False
@@ -235,10 +234,10 @@ def QlearningLearn():
     # for pg_num in range(len(final_map)):
     #     print(pg_num,"————>",final_map[pg_num], file=f)
     
-    # print(RL.q_table)
-    # save = pd.DataFrame(RL.q_table) 
-    # save.to_csv('ql.csv')  #index=False,header=False表示不保存行索引和列标题
-    # env.destroy()
+    print(RL.q_table)
+    save = pd.DataFrame(RL.q_table) 
+    save.to_csv('ql.csv')  #index=False,header=False表示不保存行索引和列标题
+    env.close()
 def QlearningTest():
     env = park.make('replica_placement')
     RL = QLearningTable(env.action_space.n)
@@ -267,9 +266,9 @@ def QlearningTest():
     print("state:",state_," sum:",sum(state_))
 
 if __name__ == '__main__':
-    # DQNLearn()
+    DQNLearn()
     # DQNTest()
-    QlearningLearn()
+    # QlearningLearn()
     # QlearningTest()
     # DDPGLearn()
     
