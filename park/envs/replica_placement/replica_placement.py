@@ -63,7 +63,7 @@ class ReplicaplacementEnv(core.Env):
         if (np.std(self.servers) == 0): reward = 10000
         bei = 30
         if equ == 1: bei =1
-        reward -= np.std(self.servers) * 10 + bei
+        reward -= np.std(self.servers)  * bei
         # reward = min(self.servers) - max(self.servers)
 
         self.num_stream_jobs_left = self.num_stream_jobs_left - 1
