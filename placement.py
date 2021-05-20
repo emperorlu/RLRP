@@ -171,18 +171,21 @@ def DQNTest():
             if done:
                 if reward > r: 
                     r = reward
-                    final_map = map
+                    final_map = map2
                     osd = state
-                    print("state:",state," sum:",sum(state),"equ:",equ)
+                    print("best now!")
             # print("equ:",equ)
-                print("episode:",episode," std:",np.std(state))
+                print("episode:",episode," std:",reward)
                 # print("episode:",episode)
                 # print("state:",state)
                 # print("reward:",reward)
             # agent.perceive(state,action,reward,next_state,done)
     print("osd state:",osd)
+    num = 0
     for pg_num in range(len(map)):
         print(pg_num,"————>",map[pg_num],"; ",pg_num,"————>",final_map[pg_num])
+        if map[pg_num] != final_map[pg_num]: num += 1
+    print("different pgs: ", num)
     # print 
     # for pg_num in range(len(final_map)):
     #     print(pg_num,"————>",final_map[pg_num])        
