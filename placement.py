@@ -160,8 +160,8 @@ def DQNTest():
         i = 0
         num = 0
         while not done:
-            action = agent.egreedy_action(state) # e-greedy action for train
             old_action = map[i]
+            action = agent.egreedy_action(state,old_action) # e-greedy action for train
             i += 1
             # map1.append(action)
             equ = 0
