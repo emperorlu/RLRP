@@ -151,6 +151,7 @@ def DQNTest():
     map=map.tolist()
     # agent.build_net("./dqn_model/place.ckpt")
     # map1 = []
+
     r = -100
     for episode in range(EPISODE):
         state = env.reset()
@@ -175,7 +176,7 @@ def DQNTest():
                     osd = state
                     print("best now!")
             # print("equ:",equ)
-                print("episode:",episode," std:",reward)
+                print("episode:",episode," state: ", state, " std:",reward)
                 # print("episode:",episode)
                 # print("state:",state)
                 # print("reward:",reward)
