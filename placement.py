@@ -80,30 +80,46 @@ def Mreward(map1,map2):
     return num
 
 def DQNLearn():
-
+  global osd
+  global final_map
   env = park.make('replica_placement')
 #   osd_num = config.num_servers_now
   agent = DQN(env)
-
+  equ = 100
   for episode in range(EPISODE):
-    # initialize task
     state = env.reset()
     done = False
-    # Train
-    # print("state:\n",state)
-    # for step in range(STEP):
+    map = []
     while not done:
       action = agent.egreedy_action(state) # e-greedy action for train
       next_state,reward,done = env.step(action)
-      if (done):
-        print("episode:",episode)
-        print("state:",state)
-        print("reward:",reward)
+      map.append(action)
+      
       # Define reward for agent
     #   reward_agent = -1 if done else 0.1
       agent.perceive(state,action,reward,next_state,done)
       state = next_state
-  agent.save_net("./dqn_model/place.ckpt")
+      if (done):
+        if np.std(state) < equ: 
+            equ = np.std(state)
+            final_map = map
+            osd = state
+            # print(final_map)
+            print("state:",state," sum:",sum(state),"equ:",equ)
+            # print("equ:",equ)
+        print("episode:",episode," std:",np.std(state))
+        # print("episode:",episode)
+        # print("state:",state)
+        # print("reward:",reward)
+#   a=np.array(a)
+  for pg_num in range(len(final_map)):
+    print(pg_num,"————>",final_map[pg_num])
+  np.save('map.npy',np.array(final_map))
+  a=np.load('map.npy')
+  a=a.tolist()
+  for pg_num in range(len(a)):
+    print(pg_num,"————>",a[pg_num])
+#   agent.save_net("./dqn_model/place.ckpt")
   agent.close()
     #   if done:
     #     break
@@ -264,8 +280,8 @@ def QlearningTest():
     print("state:",state_," sum:",sum(state_))
 
 if __name__ == '__main__':
-    # DQNLearn()
-    DQNTest()
+    DQNLearn()
+    # DQNTest()
     # QlearningLearn()
     # QlearningTest()
     # DDPGLearn()
