@@ -13,7 +13,7 @@ import sys
 from ddpg import Actor, Critic
 from memory import *
 
-EPISODE = 10 # Episode limitation
+EPISODE = 100 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
@@ -176,7 +176,7 @@ def DQNTest():
                     osd = state
                     print("best now!")
             # print("equ:",equ)
-                print("episode:",episode," state: ", state, " std:",reward)
+                print("episode:",episode," state: ", state, "\nstd:",reward)
                 # print("episode:",episode)
                 # print("state:",state)
                 # print("reward:",reward)
