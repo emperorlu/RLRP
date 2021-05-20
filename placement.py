@@ -264,7 +264,7 @@ def QlearningTest():
     print("state:",state_," sum:",sum(state_))
 
 if __name__ == '__main__':
-    DQNLearn()
+    # DQNLearn()
     DQNTest()
     # QlearningLearn()
     # QlearningTest()
