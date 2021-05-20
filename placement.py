@@ -152,12 +152,13 @@ def DQNTest():
     # agent.build_net("./dqn_model/place.ckpt")
     # map1 = []
 
-    r = -100
+    r = 1000000000
     for episode in range(EPISODE):
         state = env.reset()
         map2 = []
         done = False
         i = 0
+        num = 0
         while not done:
             action = agent.egreedy_action(state) # e-greedy action for train
             old_action = map[i]
@@ -170,13 +171,15 @@ def DQNTest():
             agent.perceive(state,action,reward,next_state,done)
             state = next_state
             if done:
-                if reward > r: 
-                    r = reward
+                for pg_num in range(len(map)):
+                    if map[pg_num] != map2[pg_num]: num += 1
+                if num * np.std(state) < r: 
+                    r = num * np.std(state)
                     final_map = map2
                     osd = state
                     print("best now!")
             # print("equ:",equ)
-                print("episode:",episode," state: ", state, "\nstd:",reward)
+                print("episode:",episode," state: ", state, "\nstd:",np.std(state), " num:",num)
                 # print("episode:",episode)
                 # print("state:",state)
                 # print("reward:",reward)
