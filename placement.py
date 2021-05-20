@@ -151,10 +151,10 @@ def DQNTest():
     map=map.tolist()
     # agent.build_net("./dqn_model/place.ckpt")
     # map1 = []
-    map2 = []
     r = -100
     for episode in range(EPISODE):
         state = env.reset()
+        map2 = []
         done = False
         i = 0
         while not done:
