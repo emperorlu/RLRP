@@ -134,10 +134,8 @@ def DQNTest():
     for episode in range(EPISODE):
         state = env.reset()
         done = False
-        pg = 0
         while not done:
-            action = agent.egreedy_action(state, pg) # e-greedy action for train
-            pg += 1
+            action = agent.egreedy_action(state) # e-greedy action for train
             # map1.append(action)
             next_state,reward,done = env.step(action)
             if done:
@@ -266,8 +264,8 @@ def QlearningTest():
     print("state:",state_," sum:",sum(state_))
 
 if __name__ == '__main__':
-    DQNLearn()
-    # DQNTest()
+    # DQNLearn()
+    DQNTest()
     # QlearningLearn()
     # QlearningTest()
     # DDPGLearn()
