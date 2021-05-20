@@ -13,7 +13,7 @@ import sys
 from ddpg import Actor, Critic
 from memory import *
 
-EPISODE = 100 # Episode limitation
+EPISODE = 10000 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
