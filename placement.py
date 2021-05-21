@@ -177,7 +177,7 @@ def DQNTest():
             if done:
                 for pg_num in range(len(map)):
                     if map[pg_num] != map2[pg_num]: num += 1
-                if num * np.std(state) < r: 
+                if (num+100) * np.std(state) < r: 
                     r = num * np.std(state)
                     final_map = map2
                     osd = state
