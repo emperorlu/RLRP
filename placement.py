@@ -324,7 +324,7 @@ def QlearningTest2():
     RL = QLearningTable(env.action_space.n)
     # map=np.load('map.npy')
     # map=map.tolist()
-    map = [0] * 1000
+    map = [0] * config.num_stream_jobs
     for pg_num in range(len(map)):
         map[pg_num] = pg_num % 10
         print(pg_num,"————>",map[pg_num])
@@ -340,7 +340,7 @@ def QlearningTest2():
         num = 0
         while not done:
             old_action = map[i]
-            action = RL.choose_action(str(state)) # e-greedy action for train
+            action = RL.choose_action(str(state),old_action) # e-greedy action for train
             i += 1
             # map1.append(action)
             equ = 0
