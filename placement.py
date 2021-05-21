@@ -183,11 +183,12 @@ def DQNTest():
                     osd = state
                     print("best now!")
             # print("equ:",equ)
-                print("episode:",episode," state: ", state, "\nstd:",np.std(state), " num:",num)
+                print("episode:",episode," state: ", state, "\nstd:",np.std(state), " num:",num, " epsilon:", agent.epsilon)
                 # print("episode:",episode)
                 # print("state:",state)
                 # print("reward:",reward)
             # agent.perceive(state,action,reward,next_state,done)
+        agent.epsilonc()
     print("osd state:",osd)
     num = 0
     for pg_num in range(len(map)):
