@@ -316,11 +316,66 @@ def QlearningTest():
     
     print("state:",state_," sum:",sum(state_))
 
+def QlearningTest2():
+    global osd
+    global final_map
+    print("----Test----")
+    env = park.make('replica_placement')
+    RL = QLearningTable(env.action_space.n)
+    # map=np.load('map.npy')
+    # map=map.tolist()
+    map = [0] * 1000
+    for pg_num in range(len(map)):
+        map[pg_num] = pg_num % 10
+        print(pg_num,"————>",map[pg_num])
+    # agent.build_net("./dqn_model/place.ckpt")
+    # map1 = []
+
+    r = 1000000000
+    for episode in range(EPISODE):
+        state = env.reset()
+        map2 = []
+        done = False
+        i = 0
+        num = 0
+        while not done:
+            old_action = map[i]
+            action = RL.choose_action(str(state)) # e-greedy action for train
+            i += 1
+            # map1.append(action)
+            equ = 0
+            map2.append(action)
+            if old_action == action: equ=1
+            next_state,reward,done = env.step(action,equ)
+            RL.learn(str(state), action, reward,str(next_state))
+            state = next_state
+            if done:
+                for pg_num in range(len(map)):
+                    if map[pg_num] != map2[pg_num]: num += 1
+                if num * np.std(state) < r: 
+                    r = num * np.std(state)
+                    final_map = map2
+                    osd = state
+                    print("best now!")
+            # print("equ:",equ)
+                print("episode:",episode," state: ", state, "\nstd:",np.std(state), " num:",num)
+                # print("episode:",episode)
+                # print("state:",state)
+                # print("reward:",reward)
+            # agent.perceive(state,action,reward,next_state,done)
+    print("osd state:",osd)
+    num = 0
+    for pg_num in range(len(map)):
+        print(pg_num,"————>",map[pg_num],"; ",pg_num,"————>",final_map[pg_num])
+        if map[pg_num] != final_map[pg_num]: num += 1
+    print("different pgs: ", num)
+
 if __name__ == '__main__':
     # DQNLearn()
-    DQNTest()
+    # DQNTest()
     # QlearningLearn()
     # QlearningTest()
+    QlearningTest2()
     # DDPGLearn()
     
 
