@@ -106,8 +106,8 @@ class DQN():
       self.state_input:[state]
       })[0]
     if random.random() <= self.epsilon:
-      return random.randint(0,self.action_dim - 1)
-      # return action
+      # return random.randint(0,self.action_dim - 1)
+      return action
     else:
       return np.argmax(Q_value)
 
