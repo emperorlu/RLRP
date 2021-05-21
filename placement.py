@@ -105,9 +105,10 @@ def DQNLearn():
             final_map = map
             osd = state
             # print(final_map)
-            print("state:",state," sum:",sum(state),"equ:",equ)
+            print("Best Now!")
             # print("equ:",equ)
-        print("episode:",episode," std:",np.std(state))
+        # print("episode:",episode," std:",np.std(state))
+        print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
         # print("episode:",episode)
         # print("state:",state)
         # print("reward:",reward)
