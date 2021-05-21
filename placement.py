@@ -122,7 +122,7 @@ def DQNLearn():
   a=a.tolist()
   for pg_num in range(len(a)):
     print(pg_num,"————>",a[pg_num])
-#   agent.save_net("./dqn_model/place.ckpt")
+  agent.save_net("./dqn_model/place.ckpt")
   agent.close()
     #   if done:
     #     break
