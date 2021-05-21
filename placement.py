@@ -111,6 +111,7 @@ def DQNLearn():
         # print("episode:",episode)
         # print("state:",state)
         # print("reward:",reward)
+    agent.epsilonc()
 #   a=np.array(a)
   print("osd state:",osd)
   for pg_num in range(len(final_map)):
