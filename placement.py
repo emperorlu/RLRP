@@ -147,8 +147,12 @@ def DQNTest():
     print("----Test----")
     env = park.make('replica_placement')
     agent = DQN(env)
-    map=np.load('map.npy')
-    map=map.tolist()
+    # map=np.load('map.npy')
+    # map=map.tolist()
+    map = [0] * 1000
+    for pg_num in range(len(map)):
+        map[pg_num] = pg_num % 10
+        print(pg_num,"————>",map[pg_num])
     # agent.build_net("./dqn_model/place.ckpt")
     # map1 = []
 
