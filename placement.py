@@ -372,10 +372,10 @@ def QlearningTest2():
 
 if __name__ == '__main__':
     # DQNLearn()
-    # DQNTest()
+    DQNTest()
     # QlearningLearn()
     # QlearningTest()
-    QlearningTest2()
+    # QlearningTest2()
     # DDPGLearn()
     
 
