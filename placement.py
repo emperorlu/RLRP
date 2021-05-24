@@ -374,8 +374,8 @@ def QlearningTest2():
     print("different pgs: ", num)
 
 if __name__ == '__main__':
-    DQNLearn()
-    # DQNTest()
+    # DQNLearn()
+    DQNTest()
     # QlearningLearn()
     # QlearningTest()
     # QlearningTest2()
