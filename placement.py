@@ -233,10 +233,7 @@ def DQNTest():
 
 
 def QlearningLearn_data():
-    servers = [300] * config.num_servers
-    servers[config.num_servers-1] = 0
-    print("state:",servers)
-    env = park.make('data_migration', servers)
+    env = park.make('data_migration')
     RL = QLearningTable(env.action_space.n)
     for episode in range(EPISODE):
         state = env.reset()

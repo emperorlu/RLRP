@@ -88,12 +88,15 @@ class ReplicaplacementEnv(core.Env):
 
 class DatamigrationEnv(core.Env):
 
-    def __init__(self, state_current):
+    def __init__(self):
 
+        servers = [300] * config.num_servers
+        servers[config.num_servers-1] = 0
+        print("state:",servers)
         self.setup_space()
         self.seed(config.seed)
         self.num_stream_jobs = config.num_stream_jobs
-        self.servers = self.initialize_servers(state_current)
+        self.servers = self.initialize_servers(servers)
         self.reset()
 
     def initialize_servers(self, state_current=0):
