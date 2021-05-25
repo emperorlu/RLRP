@@ -234,7 +234,8 @@ def DQNTest():
 
 def QlearningLearn_data():
     env = park.make('data_migration')
-    RL = QLearningTable(env.action_space.n)
+    # RL = QLearningTable(env.action_space.n)
+    agent = DQN(env)
     servers = [300] * config.num_servers
     servers[config.num_servers-1] = 0
     for episode in range(EPISODE):
@@ -243,15 +244,18 @@ def QlearningLearn_data():
         i = 0
         # print("state:",state)
         while not done:
-            action = RL.choose_action(str(state))
+            # action = RL.choose_action(str(state))
+            action = agent.egreedy_action(state)
             state_, reward, done = env.step(action,i)
             i += 1
-            RL.learn(str(state), action, reward, str(state_))
+            # RL.learn(str(state), action, reward, str(state_))
+            agent.perceive(state,action,reward,state_,done)
             if i < 10:
                 print("episode:",episode)
                 print("state:",state)
                 print("action:",action, "; reward:",reward)
             state = state_
+        agent.epsilonc()
     env.close()
     
 
