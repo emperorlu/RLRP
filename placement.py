@@ -242,6 +242,7 @@ def QlearningLearn_data():
         state = env.reset(servers)
         done = False
         i = 0
+        ok = True
         # print("state:",state)
         while not done:
             # action = RL.choose_action(str(state))
@@ -250,7 +251,7 @@ def QlearningLearn_data():
             i += 1
             # RL.learn(str(state), action, reward, str(state_))
             agent.perceive(state,action,reward,state_,done)
-            if done:
+            if ok:
                 print("episode:",episode)
                 print("state:",state)
                 print("action:",action, "; reward:",reward)
