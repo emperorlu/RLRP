@@ -243,6 +243,7 @@ def QlearningLearn_data():
         state = env.reset(serverss)
         done = False
         i = 0
+        equ = 200
         ok = True
         # print("state:",state)
         while not done:
@@ -252,11 +253,16 @@ def QlearningLearn_data():
             i += 1
             # RL.learn(str(state), action, reward, str(state_))
             agent.perceive(state,action,reward,state_,done)
-            if done:
-                print("episode:",episode)
-                print("state:",state)
-                print("action:",action, "; reward:",reward)
             state = state_
+            if done:
+                if np.std(state) < equ: 
+                    equ = np.std(state)
+                    print("Best Now!")
+                print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
+                # print("episode:",episode)
+                # print("state:",state)
+                # print("action:",action, "; reward:",reward)
+            
         agent.epsilonc()
     env.close()
     
