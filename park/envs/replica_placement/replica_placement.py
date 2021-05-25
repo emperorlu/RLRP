@@ -137,10 +137,11 @@ class DatamigrationEnv(core.Env):
         self.observation_space = spaces.Discrete(config.num_servers)
         self.action_space = spaces.Discrete(config.num_rep+1)
 
-    def step(self, action):
+    def step(self, action, i=0):
 
         assert self.action_space.contains(action)
-        if action != -1:
+        if action != 3:
+            action = (i+action) % (config.num_servers-1)
             self.servers[action] = self.servers[action] - 1
             self.servers[config.num_servers-1] = self.servers[config.num_servers-1] + 1
         
