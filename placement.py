@@ -239,6 +239,7 @@ def QlearningLearn_data():
         state = env.reset()
         done = False
         i = 0
+        print("state:",state)
         while not done:
             action = RL.choose_action(str(state))
             state_, reward, done = env.step(action,i)
