@@ -235,11 +235,13 @@ def DQNTest():
 def QlearningLearn_data():
     env = park.make('data_migration')
     RL = QLearningTable(env.action_space.n)
+    servers = [300] * config.num_servers
+    servers[config.num_servers-1] = 0
     for episode in range(EPISODE):
-        state = env.reset()
+        state = env.reset(servers)
         done = False
         i = 0
-        print("state:",state)
+        # print("state:",state)
         while not done:
             action = RL.choose_action(str(state))
             state_, reward, done = env.step(action,i)
