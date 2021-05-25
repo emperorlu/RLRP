@@ -252,7 +252,7 @@ def QlearningLearn_data():
             i += 1
             # RL.learn(str(state), action, reward, str(state_))
             agent.perceive(state,action,reward,state_,done)
-            if ok:
+            if done:
                 print("episode:",episode)
                 print("state:",state)
                 print("action:",action, "; reward:",reward)
