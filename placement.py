@@ -247,7 +247,7 @@ def QlearningLearn_data():
             # if done:
             print("episode:",episode)
             print("state:",state)
-            print("reward:",reward)
+            print("action:",action, "; reward:",reward)
             state = state_
     env.close()
     
