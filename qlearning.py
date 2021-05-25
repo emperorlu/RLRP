@@ -10,7 +10,7 @@ class QLearningTable:
         self.epsilon = e_greedy #贪婪系数
         self.q_table = pd.DataFrame(columns=self.actions, dtype=np.float64) #定义q表
 
-     def choose_action(self, observation,naction):
+     def choose_action(self, observation,naction=0):
         self.check_state_exist(observation)
         # action selection
         if np.random.uniform() < self.epsilon:
@@ -20,8 +20,8 @@ class QLearningTable:
             action = np.random.choice(state_action[state_action == np.max(state_action)].index)
         else:
             # choose random action
-            # action = np.random.choice(self.actions)
-            action = naction
+            action = np.random.choice(self.actions)
+            # action = naction
         return action
 
      def learn(self, s, a, r, s_):
