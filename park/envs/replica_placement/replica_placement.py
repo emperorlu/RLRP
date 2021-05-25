@@ -147,10 +147,10 @@ class DatamigrationEnv(core.Env):
                 self.servers[config.num_servers-1] = self.servers[config.num_servers-1] + 1
         
         # std2 = np.std(self.servers)
-        reward = 0
+        reward = 1000
         # reward = std1 - std2
-        if (np.std(self.servers) == 0): reward = 10000
-        reward -= np.std(self.servers) #* (num+1)
+        reward -= np.std(self.servers)
+        # else: reward -= np.std(self.servers) #* (num+1)
         # reward = min(self.servers) - max(self.servers)
 
         self.num_stream_jobs_left = self.num_stream_jobs_left - 1
