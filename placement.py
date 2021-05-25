@@ -238,8 +238,14 @@ def QlearningLearn_data():
     for episode in range(EPISODE):
         state = env.reset()
         done = False
+        i = 0
         while not done:
             action = RL.choose_action(str(state))
+            if action == 3:
+                action = -1
+            else:
+                action = i%10 + action
+            i += 1
             state_, reward, done = env.step(action)
             RL.learn(str(state), action, reward, str(state_))
             if done:
