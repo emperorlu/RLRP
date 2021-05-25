@@ -244,10 +244,10 @@ def QlearningLearn_data():
             state_, reward, done = env.step(action,i)
             i += 1
             RL.learn(str(state), action, reward, str(state_))
-            if done:
-                print("episode:",episode)
-                print("state:",state)
-                print("reward:",reward)
+            # if done:
+            print("episode:",episode)
+            print("state:",state)
+            print("reward:",reward)
             state = state_
     env.close()
     
