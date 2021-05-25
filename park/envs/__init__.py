@@ -13,6 +13,11 @@ register(
 )
 
 register(
+    env_id='data_migration',
+    entry_point='park.envs.replica_placement:DatamigrationEnv',
+)
+
+register(
     env_id='abr',
     entry_point='park.envs.abr:ABREnv',
 )

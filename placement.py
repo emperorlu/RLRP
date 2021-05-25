@@ -231,6 +231,28 @@ def DQNTest():
     #     agent.perceive(state,action,reward,next_state,done)
     agent.close()
 
+
+def QlearningLearn_data():
+    servers = [300] * config.num_servers
+    servers[config.num_servers-1] = 0
+    print("state:",servers)
+    env = park.make('data_migration', servers)
+    RL = QLearningTable(env.action_space.n)
+    for episode in range(EPISODE):
+        state = env.reset()
+        done = False
+        while not done:
+            action = RL.choose_action(str(state))
+            state_, reward, done = env.step(action)
+            RL.learn(str(state), action, reward, str(state_))
+            if done:
+                print("episode:",episode)
+                print("state:",state)
+                print("reward:",reward)
+            state = state_
+    env.close()
+    
+
 def QlearningLearn():
     global osd
     global final_map
@@ -375,7 +397,8 @@ def QlearningTest2():
 
 if __name__ == '__main__':
     # DQNLearn()
-    DQNTest()
+    # DQNTest()
+    QlearningLearn_data()
     # QlearningLearn()
     # QlearningTest()
     # QlearningTest2()
