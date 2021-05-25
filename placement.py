@@ -236,14 +236,13 @@ def QlearningLearn_data():
     env = park.make('data_migration')
     # RL = QLearningTable(env.action_space.n)
     agent = DQN(env)
-    
+    equ = 200
     for episode in range(EPISODE):
         serverss = [300] * config.num_servers
         serverss[config.num_servers-1] = 0
         state = env.reset(serverss)
         done = False
         i = 0
-        equ = 200
         ok = True
         # print("state:",state)
         while not done:
