@@ -266,7 +266,7 @@ def QlearningLearn_data():
                 # print("episode:",episode)
                 # print("state:",state)
                 # print("action:",action, "; reward:",reward) 
-        agent.epsilonc(e)
+        # agent.epsilonc(e)
     agent.save_net("./dqn_model/move_less.ckpt")
     agent.close()
     
