@@ -237,7 +237,7 @@ def QlearningLearn_data():
     # RL = QLearningTable(env.action_space.n)
     agent = DQN(env)
     equ = 200
-    e = EPISODE / 10
+    e = EPISODE / 1
     for episode in range(EPISODE):
         snum = config.num_stream_jobs / (config.num_servers-1)
         snum = snum * config.num_rep
@@ -266,7 +266,7 @@ def QlearningLearn_data():
                 # print("episode:",episode)
                 # print("state:",state)
                 # print("action:",action, "; reward:",reward) 
-        # agent.epsilonc(e)
+        agent.epsilonc(e)
     agent.save_net("./dqn_model/move_less.ckpt")
     agent.close()
     
