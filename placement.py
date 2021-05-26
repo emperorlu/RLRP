@@ -239,7 +239,9 @@ def QlearningLearn_data():
     equ = 200
     e = EPISODE / 10
     for episode in range(EPISODE):
-        serverss = [300] * config.num_servers
+        snum = config.num_stream_jobs / (config.num_servers-1)
+        snum = snum * config.num_rep
+        serverss = [snum] * config.num_servers
         serverss[config.num_servers-1] = 0
         state = env.reset(serverss)
         done = False
