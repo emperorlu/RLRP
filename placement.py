@@ -13,7 +13,7 @@ import sys
 from ddpg import Actor, Critic
 from memory import *
 
-EPISODE = 100000 # Episode limitation
+EPISODE = 10000 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
@@ -260,7 +260,9 @@ def QlearningLearn_data():
                 if np.std(state) < equ: 
                     equ = np.std(state)
                     print("Best Now!")
-                print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
+                    print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
+                if episode%100 == 0: 
+                    print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
                 # print("episode:",episode)
                 # print("state:",state)
                 # print("action:",action, "; reward:",reward) 
