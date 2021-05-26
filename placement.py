@@ -239,7 +239,8 @@ def QlearningLearn_data():
     equ = 200
     e = EPISODE / 10
     for episode in range(EPISODE):
-        snum = 1 * config.num_stream_jobs / (config.num_servers-1)
+        snum = 1 
+        snum = config.num_stream_jobs / (config.num_servers-1)
         snum = snum * config.num_rep
         serverss = [snum] * config.num_servers
         serverss[config.num_servers-1] = 0
