@@ -10,12 +10,13 @@ import numpy as np
 import tensorflow as tf
 from park.param import config
 import time
+import matplotlib.pyplot as plt
 # from ddpg import Actor, Critic
 from memory import *
 import warnings
 warnings.filterwarnings("ignore")
 
-EPISODE = 100 # Episode limitation
+EPISODE = 1000 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
@@ -64,6 +65,22 @@ def Mreward(map1,map2):
             num += 1
     return num
 
+def hua(osd):
+    plt.figure(figsize=(10,6))
+    x=range(osd)
+    y=osd
+    xticks1 = x
+    # xticks1=list(ppv3.index) 
+    plt.bar(x,y,width = 0.35,align='center',color = 'c',alpha=0.8)
+    plt.xticks(x,xticks1,size='small',rotation=30)
+    plt.xlabel('OSD')
+    plt.ylabel('PG number')
+    plt.title('分布图')
+    for a,b in zip(x,y):
+        plt.text(a, b+0.05, '%.0f' % b, ha='center', va= 'bottom',fontsize=7)
+    plt.ylim(0,100)
+    plt.savefig("pig/test_osd.png")
+
 def DQNLearn():
   global osd
   global final_map
@@ -74,6 +91,7 @@ def DQNLearn():
   equ = 100
   i = 0
   e = EPISODE / 10
+  st = []
   for episode in range(EPISODE):
     i += 1 
     state = env.reset()
@@ -95,8 +113,8 @@ def DQNLearn():
     #   action = agent.egreedy_action(state) # e-greedy action for train
     #   next_state,reward,done = env.step(action)
       map.append(Raction)
-      
       if (done):
+        st.append(np.std(state))
         if np.std(state) < equ: 
             equ = np.std(state)
             final_map = map
@@ -104,12 +122,18 @@ def DQNLearn():
             print("Best Now!")
         print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
     # agent.epsilonc(e)
-
+  x = range(st)
+  plt.xlabel("episode")
+  plt.ylabel("std")
+  plt.plot(x, st)
+  plt.savefig("pig/test_std.png")
   t1 = time.time()
   print("total episode:",i,"; cost time: ", t1-t0)
   print("osd state:",osd)
+  hua(osd)
+  f = open("map1.txt", 'w+')
   for pg_num in range(len(final_map)):
-    print(pg_num,"————>",final_map[pg_num])
+    print(pg_num,"————>",final_map[pg_num], file=f)
   np.save('map.npy',np.array(final_map))
 #   a=np.load('map.npy')
 #   a=a.tolist()
