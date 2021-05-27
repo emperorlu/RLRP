@@ -143,10 +143,14 @@ def Zhu():
     rows,cols=a.shape
     print(rows," X ",cols)
     for i in range(rows):
+        num = i%3
         for j in range(cols):
             if a[i][j] == 1: 
-                zhu[j] += 1
-                break
+                if num == 0: 
+                    zhu[j] += 1
+                    break
+                else:
+                    num -= 1
     
     print("serverss: ", serverss)
     print("zhu: ", zhu)
