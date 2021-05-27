@@ -67,7 +67,7 @@ def Mreward(map1,map2):
 
 def hua(osd):
     plt.figure(figsize=(10,6))
-    x=range(osd)
+    x=range(len(osd))
     y=osd
     xticks1 = x
     # xticks1=list(ppv3.index) 
@@ -122,7 +122,7 @@ def DQNLearn():
             print("Best Now!")
         print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
     # agent.epsilonc(e)
-  x = range(st)
+  x = range(len(st))
   plt.xlabel("episode")
   plt.ylabel("std")
   plt.plot(x, st)
