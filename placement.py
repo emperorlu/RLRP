@@ -9,8 +9,6 @@ import pandas as pd
 import numpy as np
 import tensorflow as tf
 from park.param import config
-import sys
-# sys.path.append('Reinforcement-Learning/Deep_Deterministic_Policy_Gradient/')
 # from ddpg import Actor, Critic
 from memory import *
 
@@ -401,11 +399,11 @@ if __name__ == '__main__':
     # DQNLearn()
     # DQNTest()
     print("begin\n")
-    QlearningLearn_data()
+    # QlearningLearn_data()
     # QlearningLearn()
     # QlearningTest()
     # QlearningTest2()
-    # DDPGLearn()
+    DDPGLearn()
     
 
     # "./dqn_model/placement.ckpt"

@@ -36,7 +36,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
 
-# import tensorlayer as tl
+import tensorlayer as tl
 
 # add arguments in command  --train/test
 parser = argparse.ArgumentParser(description='Train or test neural net motor controller.')
