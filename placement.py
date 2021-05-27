@@ -143,7 +143,7 @@ def Zhu():
     rows,cols=a.shape
     print(rows," X ",cols)
     for i in range(rows):
-        num = i%3
+        num = random.randint(0,2)
         for j in range(cols):
             if a[i][j] == 1: 
                 if num == 0: 
