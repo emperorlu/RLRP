@@ -92,6 +92,7 @@ def hua(st,osd,osd_new=0):
         plt.savefig("pig/test_osd.png")
     else:
         plt.figure(11)
+        osd.append(0)
         x1=range(len(osd))
         x2=range(len(osd_new))
         y1=osd - osd_new
