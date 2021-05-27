@@ -270,7 +270,7 @@ def QlearningLearn_data():
     # RL = QLearningTable(env.action_space.n)
     agent = DQN(env)
     equ = 200
-    e = EPISODE / 10
+    e = EPISODE * 2 / 3
     # snum = config.num_stream_jobs / (config.num_servers-1)
     # snum = snum * config.num_rep
     # serverss = [int(snum)] * config.num_servers
