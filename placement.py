@@ -66,16 +66,16 @@ def Mreward(map1,map2):
     return num
 
 def hua(st,osd):
-    plt.figure(100)
-    plt.subplot(211)
+    plt.figure(10)
     x = range(len(st))
     plt.xlabel("episode")
     plt.ylabel("std")
     plt.title('Train')
     plt.plot(x, st)
+    plt.savefig("pig/test_st.png")
  
-    plt.subplot(212)
-    # plt.figure(figsize=(10,6))
+    # plt.subplot(212)
+    plt.figure(11)
     x=range(len(osd))
     y=osd
     # xticks1=list(ppv3.index) 
@@ -88,7 +88,7 @@ def hua(st,osd):
         plt.text(a, b+0.05, '%.0f' % b, ha='center', va= 'bottom',fontsize=7)
     plt.ylim(0,100)
 
-    plt.savefig("pig/test.png")
+    plt.savefig("pig/test_osd.png")
 
 def DQNLearn():
   global osd
