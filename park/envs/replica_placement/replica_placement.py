@@ -155,4 +155,5 @@ class DatamigrationEnv(core.Env):
 
         self.num_stream_jobs_left = self.num_stream_jobs_left - 1
         done = (self.num_stream_jobs_left == 0)
+        if np.std(self.servers) <= 2: done = True
         return self.observe(), reward, done
