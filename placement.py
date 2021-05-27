@@ -9,6 +9,7 @@ import pandas as pd
 import numpy as np
 import tensorflow as tf
 from park.param import config
+import time
 # from ddpg import Actor, Critic
 from memory import *
 
@@ -64,66 +65,54 @@ def Mreward(map1,map2):
 def DQNLearn():
   global osd
   global final_map
+  global Rnum
   env = park.make('replica_placement')
-#   osd_num = config.num_servers_now
+  t0 = time.time()
   agent = DQN(env)
   equ = 100
+  i = 0
   for episode in range(EPISODE):
+    i += 1 
     state = env.reset()
     done = False
     map = []
     while not done:
-      action = agent.egreedy_action(state) # e-greedy action for train
-      next_state,reward,done = env.step(action)
-      map.append(action)
+      i = 0
+      Raction = []
+      while i != Rnum:
+          action = agent.egreedy_action(state)
+          if action not in Raction:
+              Raction.append(action)
+              next_state,reward,done = env.step(action)
+              agent.perceive(state,action,reward,next_state,done)
+              state = next_state
+              i += 1
+    #   action = agent.egreedy_action(state) # e-greedy action for train
+    #   next_state,reward,done = env.step(action)
+      map.append(Raction)
       
-      # Define reward for agent
-    #   reward_agent = -1 if done else 0.1
-      agent.perceive(state,action,reward,next_state,done)
-      state = next_state
       if (done):
         if np.std(state) < equ: 
             equ = np.std(state)
             final_map = map
             osd = state
-            # print(final_map)
             print("Best Now!")
-            # print("equ:",equ)
-        # print("episode:",episode," std:",np.std(state))
         print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
-        # print("episode:",episode)
-        # print("state:",state)
-        # print("reward:",reward)
     agent.epsilonc()
-#   a=np.array(a)
+
+  t1 = time.time()
+  print("total episode:",i,"; cost time: ", t1-t0)
   print("osd state:",osd)
   for pg_num in range(len(final_map)):
     print(pg_num,"————>",final_map[pg_num])
   np.save('map.npy',np.array(final_map))
-  a=np.load('map.npy')
-  a=a.tolist()
-  for pg_num in range(len(a)):
-    print(pg_num,"————>",a[pg_num])
-  agent.save_net("./dqn_model/place.ckpt")
+#   a=np.load('map.npy')
+#   a=a.tolist()
+#   for pg_num in range(len(a)):
+#     print(pg_num,"————>",a[pg_num])
+#   agent.save_net("./dqn_model/place.ckpt")
   agent.close()
-    #   if done:
-    #     break
-    # Test every 100 episodes
-    # if episode % 100 == 0:
-    #   total_reward = 0
-    #   for i in range(TEST):
-    #     state = env.reset()
-    #     for j in range(STEP):
-    #     #   env.reset()
-    #       action = agent.action(state) # direct action for test
-    #       state,reward,done = env.step(action)
-    #       total_reward += reward
-    #       if done:
-    #         break
-    #   ave_reward = total_reward/TEST
-    #   print ('episode: ',episode,'Evaluation Average Reward:',ave_reward)
-    #   if ave_reward >= 0:
-    #     break
+
 
 def DQNTest():
     global osd
@@ -396,34 +385,15 @@ def QlearningTest2():
     print("different pgs: ", num)
 
 if __name__ == '__main__':
-    # DQNLearn()
-    # DQNTest()
-    print("begin\n")
-    # QlearningLearn_data()
-    # QlearningLearn()
-    QlearningTest()
-    # QlearningTest2()
-    # DDPGLearn()
     
+    # DQNTest()
+    print("begin train for placement\n")
+    DQNLearn()
+    print("begin test\n")
+    QlearningLearn_data()
+    # QlearningLearn()
+    # QlearningTest()
 
-    # "./dqn_model/placement.ckpt"
 
-
-
-
-# for i_episode in range(20):
-#     #print(obs)
-#     print("Episode finished after {} timesteps".format(i_episode+1))
-#     obs = env.reset()
-#     #print(obs)
-#     done = False   
-#     while not done:
-#         print("obs:\n",obs)
-        
-#         # act = agent.get_action(obs)
-#         act = env.action_space.sample()
-#         obs, reward, done = env.step(act)
-#         # print("act:\n",act)
-#         print("reward:\n",reward)
 
 
