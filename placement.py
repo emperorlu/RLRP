@@ -123,7 +123,7 @@ def DQNLearn():
   agent = DQN(env)
   equ = 100
   i = 0
-  e = EPISODE / 10
+  e = EPISODE * 2 / 3
   st = []
   for episode in range(EPISODE):
     i += 1 
