@@ -122,7 +122,7 @@ def DQNLearn():
             print("Best Now!")
         print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
     agent.epsilonc(e)
-  x = range(len(st)) * 10
+  x = range(len(st))
   plt.xlabel("episode")
   plt.ylabel("std")
   plt.title('Train')
