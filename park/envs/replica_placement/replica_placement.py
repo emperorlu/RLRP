@@ -154,5 +154,6 @@ class DatamigrationEnv(core.Env):
         # reward = min(self.servers) - max(self.servers)
 
         self.num_stream_jobs_left = self.num_stream_jobs_left - 1
+        print("left: ",self.num_stream_jobs_left)
         done = (self.num_stream_jobs_left == 0)
         return self.observe(), reward, done
