@@ -13,7 +13,7 @@ import time
 # from ddpg import Actor, Critic
 from memory import *
 
-EPISODE = 10000 # Episode limitation
+EPISODE = 1000 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
@@ -71,6 +71,7 @@ def DQNLearn():
   agent = DQN(env)
   equ = 100
   i = 0
+  e = EPISODE / 10
   for episode in range(EPISODE):
     i += 1 
     state = env.reset()
@@ -100,7 +101,7 @@ def DQNLearn():
             osd = state
             print("Best Now!")
         print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
-    agent.epsilonc()
+    agent.epsilonc(e)
 
   t1 = time.time()
   print("total episode:",i,"; cost time: ", t1-t0)
@@ -130,7 +131,7 @@ def DQNTest():
         print(pg_num,"————>",map[pg_num])
     # agent.build_net("./dqn_model/place.ckpt")
     # map1 = []
-
+    e = EPISODE / 10
     r = 1000000000
     for episode in range(EPISODE):
         state = env.reset()
@@ -138,6 +139,7 @@ def DQNTest():
         done = False
         i = 0
         num = 0
+
         while not done:
             old_action = map[i]
             action = agent.egreedy_action(state,old_action) # e-greedy action for train
@@ -163,7 +165,7 @@ def DQNTest():
                 # print("state:",state)
                 # print("reward:",reward)
             # agent.perceive(state,action,reward,next_state,done)
-        agent.epsilonc()
+        agent.epsilonc(e)
     print("osd state:",osd)
     num = 0
     for pg_num in range(len(map)):
