@@ -65,7 +65,7 @@ def Mreward(map1,map2):
             num += 1
     return num
 
-def hua(st,osd):
+def hua(st,osd,osd_new=0):
     plt.figure(10)
     x = range(len(st))
     plt.xlabel("episode")
@@ -75,20 +75,41 @@ def hua(st,osd):
     plt.savefig("pig/test_st.png")
  
     # plt.subplot(212)
-    plt.figure(11)
-    x=range(len(osd))
-    y=osd
-    # xticks1=list(ppv3.index) 
-    plt.bar(x,y)
-    plt.xticks(x)
-    plt.xlabel('OSD')
-    plt.ylabel('PG number')
-    plt.title('Placement')
-    for a,b in zip(x,y):
-        plt.text(a, b+0.05, '%.0f' % b, ha='center', va= 'bottom',fontsize=7)
-    plt.ylim(0,100)
+    if osd_new == 0:
+        plt.figure(11)
+        x=range(len(osd))
+        y=osd
+        # xticks1=list(ppv3.index) 
+        plt.bar(x,y)
+        plt.xticks(x)
+        plt.xlabel('OSD')
+        plt.ylabel('PG number')
+        plt.title('Placement')
+        for a,b in zip(x,y):
+            plt.text(a, b+0.05, '%.0f' % b, ha='center', va= 'bottom',fontsize=7)
+        plt.ylim(0,100)
 
-    plt.savefig("pig/test_osd.png")
+        plt.savefig("pig/test_osd.png")
+    else:
+        plt.figure(11)
+        x1=range(len(osd))
+        x2=range(len(osd_new))
+        y1=osd - osd_new
+        y2=osd_new
+        # xticks1=list(ppv3.index) 
+        plt.bar(x2,y2)
+        plt.bar(x1, y1, bottom=y1, label='move number')
+        plt.xticks(x2)
+        plt.xlabel('OSD')
+        plt.ylabel('PG number')
+        plt.title('Placement')
+        for a,b in zip(x1, y1):
+            plt.text(a, b+0.05, '%.0f' % b, ha='center', va= 'bottom',fontsize=7)
+        plt.ylim(0,100)
+
+        plt.savefig("pig/test_osdnew.png")
+
+
 
 def DQNLearn():
   global osd
@@ -257,14 +278,13 @@ def QlearningLearn_data():
     for pg_num in range(len(osd)):
         serverss[pg_num] = int(osd[pg_num])
     print("serverss: ", serverss)
+    st = []
     # serverss[config.num_servers-1] = 0
     for episode in range(EPISODE):
         
         state = env.reset(serverss)
         done = False
         i = 0
-        ok = True
-        # print("state:",state)
         while not done:
             # action = RL.choose_action(str(state))
             action = agent.egreedy_action(state)
@@ -274,8 +294,10 @@ def QlearningLearn_data():
             agent.perceive(state,action,reward,state_,done)
             state = state_
             if done:
+                st.append(np.std(state))
                 if np.std(state) < equ: 
                     equ = np.std(state)
+                    osd_new = state
                     print("Best Now!")
                     print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
                 if episode%100 == 0: 
@@ -284,7 +306,8 @@ def QlearningLearn_data():
                 # print("state:",state)
                 # print("action:",action, "; reward:",reward) 
         agent.epsilonc(e)
-    agent.save_net("./dqn_model/move_less.ckpt")
+    hua(st,osd,osd_new)
+    # agent.save_net("./dqn_model/move_less.ckpt")
     agent.close()
     
 
