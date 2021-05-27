@@ -147,7 +147,9 @@ def Zhu():
             if a[i][j] == 1: 
                 zhu[j] += 1
                 break
+    
     print("serverss: ", serverss)
+    print("zhu: ", zhu)
     hua([],serverss,[],zhu)
 
 def DQNLearn():
