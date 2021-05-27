@@ -2,6 +2,7 @@
 # coding=utf-8
 import park
 from dqn import DQN
+from ddpg import DDPG
 # from dqn2 import DeepQNetwork
 from qlearning import QLearningTable
 import pandas as pd 
@@ -21,56 +22,39 @@ final_map = []
 osd = []
 
 def DDPGLearn():
-    env = park.make('replica_placement')
-    # env = env.unwrapped
+    env = park.make('data_migration')
+    state_dim = env.observation_space.shape[0]
+    action_dim = env.action_space.shape[0]
+    action_range = env.action_space.high  # scale action, [-action_range, action_range]
 
-    state_dim = env.observation_space.n
-    action_dim = env.action_space.n
-    # action_bound = env.action_space.high
-    action_bound = config.load_balance_obs_high
+    agent = DDPG(action_dim, state_dim, action_range)
+    equ = 200
 
-    var = 3.
-
-    with tf.Session() as sess:
-        memory = Memory(32, 10000)
-        actor = Actor(sess, state_dim, action_bound, lr=0.01, tau=0.01)
-        critic = Critic(sess, state_dim, actor.s, actor.s_, actor.a, actor.a_, gamma=0.9, lr=0.001, tau=0.01)
-        t = critic.get_gradients()
-
-        actor.generate_gradients(t)
-
-        sess.run(tf.global_variables_initializer())
-
-        for episode in range(1000):
-            s = env.reset()
-            # r_episode = 0
-            done = False
-            # for j in range(200):
-            while not done:
-                a = actor.choose_action(s)
-                print("a1:",a)
-                a = np.clip(np.random.normal(a, var), -action_bound, action_bound)  # 异策略探索
-                print("a2:",a)
-                s_, r, done = env.step(a)
-
-                memory.store_transition(s, a, [r / 10], s_)
-
-                if memory.isFull:
-                    var *= 0.9995
-                    b_s, b_a, b_r, b_s_ = memory.get_mini_batches()
-                    critic.learn(b_s, b_a, b_r, b_s_)
-                    actor.learn(b_s)
-
-                # r_episode += r
-                
-                if (done):
-                    print("episode:",episode)
-                    print("state:",s)
-                    print("reward:",r)
-                s = s_
-                # if(j == 200 - 1):
-                #     print('episode {}\treward {:.2f}\tvar {:.2f}'.format(i, r_episode, var))
-                #     break
+    for episode in range(EPISODE):
+        snum = config.num_stream_jobs / (config.num_servers-1)
+        snum = snum * config.num_rep
+        serverss = [int(snum)] * config.num_servers
+        serverss[config.num_servers-1] = 0
+        state = env.reset(serverss)
+        done = False
+        i = 0
+        MEMORY_CAPACITY = 10000 
+        while not done:
+            action = agent.get_action(state)
+            state_, reward, done = env.step(action,i)
+            i += 1
+            # RL.learn(str(state), action, reward, str(state_))
+            agent.store_transition(state,action,reward,state_)
+            if agent.pointer > MEMORY_CAPACITY:
+                agent.learn()
+            state = state_
+            if done:
+                if np.std(state) < equ: 
+                    equ = np.std(state)
+                    print("Best Now!")
+                    print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
+                if episode%100 == 0: 
+                    print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
 
 def Mreward(map1,map2):
     num = 0
