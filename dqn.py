@@ -124,7 +124,7 @@ class DQN():
       })[0])
 
   def weight_variable(self,shape):
-    initial = tf.random.truncated_normal(shape)
+    initial = tf.truncated_normal(shape)
     return tf.Variable(initial)
 
   def bias_variable(self,shape):
