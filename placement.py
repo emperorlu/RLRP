@@ -72,6 +72,7 @@ def hua(osd):
     xticks1 = x
     # xticks1=list(ppv3.index) 
     plt.bar(x,y)
+    plt.xticks(x)
     plt.xlabel('OSD')
     plt.ylabel('PG number')
     plt.title('Placement')
