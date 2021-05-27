@@ -141,6 +141,7 @@ def Zhu():
     for pg_num in range(len(osd)):
         serverss[pg_num] = int(osd[pg_num])
     rows,cols=a.shape
+    print(rows," X ",cols)
     for i in range(rows):
         for j in range(cols):
             if a[i][j] == 1: 
