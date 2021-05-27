@@ -66,7 +66,7 @@ def Mreward(map1,map2):
     return num
 
 def hua(osd):
-    plt.figure(figsize=(10,6))
+    # plt.figure(figsize=(10,6))
     x=range(len(osd))
     y=osd
     xticks1 = x
@@ -125,6 +125,7 @@ def DQNLearn():
   x = range(len(st)) * 10
   plt.xlabel("episode")
   plt.ylabel("std")
+  plt.title('Train')
   plt.plot(x, st)
   plt.savefig("pig/test_std.png")
   t1 = time.time()
@@ -239,11 +240,19 @@ def QlearningLearn_data():
     agent = DQN(env)
     equ = 200
     e = EPISODE / 10
+    # snum = config.num_stream_jobs / (config.num_servers-1)
+    # snum = snum * config.num_rep
+    # serverss = [int(snum)] * config.num_servers
+    serverss = [0] * config.num_servers
+    a=np.load('map.npy')
+    a=a.tolist()
+    osd=np.sum(a,axis=0)
+    for pg_num in range(len(osd)):
+        serverss[pg_num] = osd[pg_num]
+    print("serverss: ", serverss)
+    # serverss[config.num_servers-1] = 0
     for episode in range(EPISODE):
-        snum = config.num_stream_jobs / (config.num_servers-1)
-        snum = snum * config.num_rep
-        serverss = [int(snum)] * config.num_servers
-        serverss[config.num_servers-1] = 0
+        
         state = env.reset(serverss)
         done = False
         i = 0
