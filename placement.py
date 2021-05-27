@@ -148,10 +148,10 @@ def Zhu():
             if a[i][j] == 1: 
                 if num == 0: 
                     k = j
-                    while(zhu[k]<=22):
-                        zhu[k] += 1
+                    while(zhu[k]>22):
                         k += 1
                         k = k%cols
+                    zhu[k] += 1
                     break
                 else:
                     num -= 1
