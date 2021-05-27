@@ -280,6 +280,7 @@ def QlearningLearn_data():
         serverss[pg_num] = int(osd[pg_num])
     print("serverss: ", serverss)
     st = []
+    osd_new = []
     # serverss[config.num_servers-1] = 0
     for episode in range(EPISODE):
         
