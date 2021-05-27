@@ -99,14 +99,14 @@ def hua(st,osd,osd_new=0):
         y2=osd_new
         # xticks1=list(ppv3.index) 
         plt.bar(x2,y2)
-        plt.bar(x1, y1, bottom=y1, label='move number')
+        plt.bar(x1, y1, bottom=y2, label='move number')
         plt.xticks(x2)
         plt.xlabel('OSD')
         plt.ylabel('PG number')
         plt.title('Placement')
-        for a,b in zip(x1, y1):
-            plt.text(a, b+0.05, '%.0f' % b, ha='center', va= 'bottom',fontsize=7)
-        plt.ylim(0,100)
+        # for a,b in zip(x1, y1):
+        #     plt.text(a, b+0.05, '%.0f' % b, ha='center', va= 'bottom',fontsize=7)
+        # plt.ylim(0,100)
 
         plt.savefig("pig/test_osdnew.png")
 
