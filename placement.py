@@ -71,11 +71,10 @@ def hua(osd):
     y=osd
     xticks1 = x
     # xticks1=list(ppv3.index) 
-    plt.bar(x,y,width = 0.35,align='center',color = 'c',alpha=0.8)
-    plt.xticks(x,xticks1,size='small',rotation=30)
+    plt.bar(x,y)
     plt.xlabel('OSD')
     plt.ylabel('PG number')
-    plt.title('分布图')
+    plt.title('Placement')
     for a,b in zip(x,y):
         plt.text(a, b+0.05, '%.0f' % b, ha='center', va= 'bottom',fontsize=7)
     plt.ylim(0,100)
