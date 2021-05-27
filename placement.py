@@ -84,6 +84,8 @@ def DQNLearn():
           if action not in Raction:
               Raction.append(action)
               next_state,reward,done = env.step(action)
+              print("i: ",i,"state:",state)
+              print("reward: ",reward,"action: ",action)
               agent.perceive(state,action,reward,next_state,done)
               state = next_state
               i += 1
