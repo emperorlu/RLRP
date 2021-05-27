@@ -67,14 +67,14 @@ def Mreward(map1,map2):
 
 def hua(st,osd):
     plt.figure(12)
-    plt.subplot(221)
+    plt.subplot(121)
     x = range(len(st))
     plt.xlabel("episode")
     plt.ylabel("std")
     plt.title('Train')
     plt.plot(x, st)
  
-    plt.subplot(222)
+    plt.subplot(122)
     # plt.figure(figsize=(10,6))
     x=range(len(osd))
     y=osd
