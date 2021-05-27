@@ -36,7 +36,7 @@ class ReplicaplacementEnv(core.Env):
         # for server in self.servers:
         #     server.reset()
         self.servers = self.initialize_servers()
-        self.num_stream_jobs_left = self.num_stream_jobs
+        self.num_stream_jobs_left = self.num_stream_jobs * config.num_rep
         assert self.num_stream_jobs_left > 0
         return self.observe()
 
@@ -122,7 +122,7 @@ class DatamigrationEnv(core.Env):
         # for server in self.servers:
         #     server.reset()
         self.servers = self.initialize_servers(state_current)
-        self.num_stream_jobs_left = self.num_stream_jobs * config.num_rep
+        self.num_stream_jobs_left = self.num_stream_jobs 
         assert self.num_stream_jobs_left > 0
         return self.observe()
 
@@ -154,6 +154,5 @@ class DatamigrationEnv(core.Env):
         # reward = min(self.servers) - max(self.servers)
 
         self.num_stream_jobs_left = self.num_stream_jobs_left - 1
-        print("left: ",self.num_stream_jobs_left)
         done = (self.num_stream_jobs_left == 0)
         return self.observe(), reward, done
