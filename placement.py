@@ -308,7 +308,7 @@ def QlearningLearn_data():
                 # print("state:",state)
                 # print("action:",action, "; reward:",reward) 
         agent.epsilonc(e)
-    print("osd: ",serverss,";\nosd_new:",osd_new)
+    print("osd: ",serverss,";\nosd_new:",osd_new,";\st:",st)
     hua(st,serverss,osd_new)
     # agent.save_net("./dqn_model/move_less.ckpt")
     agent.close()
