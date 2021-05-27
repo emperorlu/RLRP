@@ -92,7 +92,7 @@ def hua(st,osd,osd_new=0):
         plt.savefig("pig/test_osd.png")
     else:
         plt.figure(11)
-        osd.append(0)
+        # osd.append(0)
         x1=range(len(osd))
         x2=range(len(osd_new))
         y1=osd - osd_new
@@ -307,6 +307,8 @@ def QlearningLearn_data():
                 # print("state:",state)
                 # print("action:",action, "; reward:",reward) 
         agent.epsilonc(e)
+    osd = osd.tolist()
+    osd.append(0)
     hua(st,osd,osd_new)
     # agent.save_net("./dqn_model/move_less.ckpt")
     agent.close()
