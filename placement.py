@@ -149,8 +149,9 @@ def Zhu():
     for i in range(rows):
         num = random.randint(0,2)
         k = random.randint(0,cols-1)
-        for j in range(cols):
-            zhu[k] += 1
+        zhu[k] += 1
+        # for j in range(cols):
+            
             # if a[i][j] == 1: 
             #     if num == 0: 
             #         k = j
