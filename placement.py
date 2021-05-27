@@ -132,6 +132,7 @@ def DQNLearn():
         print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
     agent.epsilonc(e)
 
+  mapping = np.zeros((config.num_stream_jobs, config.num_servers))
   t1 = time.time()
   print("total episode:",i,"; cost time: ", t1-t0)
   print("osd state:",osd)
@@ -139,7 +140,9 @@ def DQNLearn():
   f = open("map1.txt", 'w+')
   for pg_num in range(len(final_map)):
     print(pg_num,"————>",final_map[pg_num], file=f)
+    mapping[pg_num][final_map[pg_num]] = 1
   np.save('map.npy',np.array(final_map))
+  np.save('mapping.npy',mapping)
 #   a=np.load('map.npy')
 #   a=a.tolist()
 #   for pg_num in range(len(a)):
@@ -248,8 +251,8 @@ def QlearningLearn_data():
     # snum = snum * config.num_rep
     # serverss = [int(snum)] * config.num_servers
     serverss = [0] * config.num_servers
-    a=np.load('map.npy')
-    a=a.tolist()
+    a=np.load('mapping.npy')
+    # a=a.tolist()
     osd=np.sum(a,axis=0)
     for pg_num in range(len(osd)):
         serverss[pg_num] = osd[pg_num]
