@@ -400,6 +400,7 @@ def QlearningTest2():
 if __name__ == '__main__':
     # DQNLearn()
     # DQNTest()
+    print("begin\n")
     QlearningLearn_data()
     # QlearningLearn()
     # QlearningTest()
