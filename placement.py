@@ -73,11 +73,8 @@ def hua(st,osd):
     plt.ylabel("std")
     plt.title('Train')
     plt.plot(x, st)
-    plt.savefig("pig/test_std.png")
-    plt.plot(t1, f(t1), 'bo', t2, f(t2), 'r--')
  
     plt.subplot(222)
-    plt.plot(t2, np.cos(2 * np.pi * t2), 'r--')
     # plt.figure(figsize=(10,6))
     x=range(len(osd))
     y=osd
