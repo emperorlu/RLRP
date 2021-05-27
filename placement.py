@@ -134,12 +134,15 @@ def hua(st,osd,osd_new=0,osd_zhu=0):
         plt.savefig("pig/test_osdzhu.png")
 
 def Zhu():
+
     serverss = [0] * config.num_servers
     zhu = [0] * config.num_servers
     a=np.load('mapping.npy')
     osd=np.sum(a,axis=0)
-    for pg_num in range(len(osd)):
-        serverss[pg_num] = int(osd[pg_num])
+    data = [51,54,58,55,61,56,51,52,54,53,55]
+    for pg_num in range(len(serverss)):
+        # serverss[pg_num] = int(osd[pg_num])
+        serverss[pg_num] = int(data[pg_num])
     rows,cols=a.shape
     print(rows," X ",cols)
     for i in range(rows):
