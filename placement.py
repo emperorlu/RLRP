@@ -255,7 +255,7 @@ def QlearningLearn_data():
     # a=a.tolist()
     osd=np.sum(a,axis=0)
     for pg_num in range(len(osd)):
-        serverss[pg_num] = osd[pg_num]
+        serverss[pg_num] = int(osd[pg_num])
     print("serverss: ", serverss)
     # serverss[config.num_servers-1] = 0
     for episode in range(EPISODE):
