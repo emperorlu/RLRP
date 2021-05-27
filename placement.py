@@ -11,7 +11,7 @@ import tensorflow as tf
 from park.param import config
 import sys
 # sys.path.append('Reinforcement-Learning/Deep_Deterministic_Policy_Gradient/')
-from ddpg import Actor, Critic
+# from ddpg import Actor, Critic
 from memory import *
 
 EPISODE = 10000 # Episode limitation
