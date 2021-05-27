@@ -301,9 +301,9 @@ def QlearningLearn_data():
                     equ = np.std(state)
                     osd_new = state
                     print("Best Now!")
-                    print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
-                if episode%100 == 0: 
-                    print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
+                    # print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
+                # if episode%100 == 0: 
+                print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
                 # print("episode:",episode)
                 # print("state:",state)
                 # print("action:",action, "; reward:",reward) 
