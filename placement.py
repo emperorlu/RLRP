@@ -309,6 +309,7 @@ def QlearningLearn_data():
         agent.epsilonc(e)
     osd=osd.tolist()
     osd.append(0)
+    print("osd: ",osd,"; osd_new:",osd_new)
     hua(st,osd,osd_new)
     # agent.save_net("./dqn_model/move_less.ckpt")
     agent.close()
