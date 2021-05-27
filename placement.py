@@ -65,11 +65,22 @@ def Mreward(map1,map2):
             num += 1
     return num
 
-def hua(osd):
+def hua(st,osd):
+    plt.figure(12)
+    plt.subplot(221)
+    x = range(len(st))
+    plt.xlabel("episode")
+    plt.ylabel("std")
+    plt.title('Train')
+    plt.plot(x, st)
+    plt.savefig("pig/test_std.png")
+    plt.plot(t1, f(t1), 'bo', t2, f(t2), 'r--')
+ 
+    plt.subplot(222)
+    plt.plot(t2, np.cos(2 * np.pi * t2), 'r--')
     # plt.figure(figsize=(10,6))
     x=range(len(osd))
     y=osd
-    xticks1 = x
     # xticks1=list(ppv3.index) 
     plt.bar(x,y)
     plt.xticks(x)
@@ -79,7 +90,8 @@ def hua(osd):
     for a,b in zip(x,y):
         plt.text(a, b+0.05, '%.0f' % b, ha='center', va= 'bottom',fontsize=7)
     plt.ylim(0,100)
-    plt.savefig("pig/test_osd.png")
+
+    plt.savefig("pig/test.png")
 
 def DQNLearn():
   global osd
@@ -122,16 +134,11 @@ def DQNLearn():
             print("Best Now!")
         print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
     agent.epsilonc(e)
-  x = range(len(st))
-  plt.xlabel("episode")
-  plt.ylabel("std")
-  plt.title('Train')
-  plt.plot(x, st)
-  plt.savefig("pig/test_std.png")
+
   t1 = time.time()
   print("total episode:",i,"; cost time: ", t1-t0)
   print("osd state:",osd)
-  hua(osd)
+  hua(st,osd)
   f = open("map1.txt", 'w+')
   for pg_num in range(len(final_map)):
     print(pg_num,"————>",final_map[pg_num], file=f)
