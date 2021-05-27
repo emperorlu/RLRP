@@ -389,8 +389,8 @@ if __name__ == '__main__':
     # DQNTest()
     print("begin train for placement\n")
     DQNLearn()
-    print("begin test\n")
-    QlearningLearn_data()
+    # print("begin test\n")
+    # QlearningLearn_data()
     # QlearningLearn()
     # QlearningTest()
 
