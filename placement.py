@@ -400,11 +400,11 @@ def QlearningTest2():
 if __name__ == '__main__':
     # DQNLearn()
     # DQNTest()
-    QlearningLearn_data()
+    # QlearningLearn_data()
     # QlearningLearn()
     # QlearningTest()
     # QlearningTest2()
-    # DDPGLearn()
+    DDPGLearn()
     
 
     # "./dqn_model/placement.ckpt"
