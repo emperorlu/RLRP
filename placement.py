@@ -16,7 +16,7 @@ from memory import *
 import warnings
 warnings.filterwarnings("ignore")
 
-EPISODE = 5 # Episode limitation
+EPISODE = 1000 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
@@ -462,9 +462,9 @@ if __name__ == '__main__':
     
     # DQNTest()
     print("begin train for placement\n")
-    # DQNLearn()
+    DQNLearn()
     # print("begin test\n")
-    QlearningLearn_data()
+    # QlearningLearn_data()
     # QlearningLearn()
     # QlearningTest()
 
