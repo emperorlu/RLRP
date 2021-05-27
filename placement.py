@@ -15,7 +15,7 @@ from memory import *
 import warnings
 warnings.filterwarnings("ignore")
 
-EPISODE = 1000 # Episode limitation
+EPISODE = 100 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
@@ -103,7 +103,7 @@ def DQNLearn():
             osd = state
             print("Best Now!")
         print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
-    agent.epsilonc(e)
+    # agent.epsilonc(e)
 
   t1 = time.time()
   print("total episode:",i,"; cost time: ", t1-t0)
