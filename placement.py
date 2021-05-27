@@ -66,7 +66,7 @@ def Mreward(map1,map2):
     return num
 
 def hua(st,osd):
-    plt.figure(12)
+    # plt.figure(12)
     plt.subplot(121)
     x = range(len(st))
     plt.xlabel("episode")
