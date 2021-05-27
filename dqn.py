@@ -5,7 +5,7 @@ from collections import deque
 
 # Hyper Parameters for DQN
 GAMMA = 0.9 # discount factor for target Q
-INITIAL_EPSILON = 0.9 # starting value of epsilon
+INITIAL_EPSILON = 1 # starting value of epsilon
 FINAL_EPSILON = 0.1 # final value of epsilon
 REPLAY_SIZE = 100000 # experience replay buffer size
 BATCH_SIZE = 64 # size of minibatch
@@ -109,8 +109,8 @@ class DQN():
       self.state_input:[state]
       })[0]
 
-    # if random.random() <= self.epsilon:
-    if random.random() > self.epsilon:
+    if random.random() <= self.epsilon:
+    # if random.random() > self.epsilon:
       return random.randint(0,self.action_dim - 1)
       # return action
     else:
