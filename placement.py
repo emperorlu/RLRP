@@ -2,7 +2,7 @@
 # coding=utf-8
 import park
 from dqn import DQN
-from ddpg import DDPG
+# from ddpg import DDPG
 # from dqn2 import DeepQNetwork
 from qlearning import QLearningTable
 import pandas as pd 
