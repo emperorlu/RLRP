@@ -14,7 +14,7 @@ import sys
 from ddpg import Actor, Critic
 from memory import *
 
-EPISODE = 100000 # Episode limitation
+EPISODE = 10000 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
@@ -221,7 +221,7 @@ def QlearningLearn_data():
     # RL = QLearningTable(env.action_space.n)
     agent = DQN(env)
     equ = 200
-    e = EPISODE / 1
+    e = EPISODE / 10
     for episode in range(EPISODE):
         snum = config.num_stream_jobs / (config.num_servers-1)
         snum = snum * config.num_rep
@@ -400,11 +400,11 @@ def QlearningTest2():
 if __name__ == '__main__':
     # DQNLearn()
     # DQNTest()
-    # QlearningLearn_data()
+    QlearningLearn_data()
     # QlearningLearn()
     # QlearningTest()
     # QlearningTest2()
-    DDPGLearn()
+    # DDPGLearn()
     
 
     # "./dqn_model/placement.ckpt"
