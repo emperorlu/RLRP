@@ -148,17 +148,19 @@ def Zhu():
     print(rows," X ",cols)
     for i in range(rows):
         num = random.randint(0,2)
+        k = random.randint(0,cols-1)
         for j in range(cols):
+            zhu[k] += 1
             # if a[i][j] == 1: 
-            if num == 0: 
-                k = j
-                while(zhu[k]>22):
-                    k += 1
-                    k = k%cols
-                zhu[k] += 1
-                break
-            else:
-                num -= 1
+            #     if num == 0: 
+            #         k = j
+            #         while(zhu[k]>22):
+            #             k += 1
+            #             k = k%cols
+            #         zhu[k] += 1
+            #         break
+            #     else:
+            #         num -= 1
     
     print("serverss: ", serverss)
     print("zhu: ", zhu)
