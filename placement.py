@@ -401,9 +401,9 @@ if __name__ == '__main__':
     print("begin\n")
     # QlearningLearn_data()
     # QlearningLearn()
-    # QlearningTest()
+    QlearningTest()
     # QlearningTest2()
-    DDPGLearn()
+    # DDPGLearn()
     
 
     # "./dqn_model/placement.ckpt"
