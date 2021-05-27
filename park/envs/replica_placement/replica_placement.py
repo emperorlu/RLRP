@@ -102,7 +102,7 @@ class DatamigrationEnv(core.Env):
     def initialize_servers(self, state_current=0):
         if state_current == 0:
             return [0] * config.num_servers
-        servers = state_current
+        servers = state_current[:]
         return servers
     
     def set_servers(self, ser):
