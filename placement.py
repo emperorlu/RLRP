@@ -95,7 +95,7 @@ def hua(st,osd,osd_new=0):
         # osd.append(0)
         x1=range(len(osd))
         x2=range(len(osd_new))
-        y1=osd - osd_new
+        y1= [osd[i] - osd_new[i] for i in range(len(osd_new))]
         y2=osd_new
         # xticks1=list(ppv3.index) 
         plt.bar(x2,y2)
@@ -307,7 +307,6 @@ def QlearningLearn_data():
                 # print("state:",state)
                 # print("action:",action, "; reward:",reward) 
         agent.epsilonc(e)
-    osd = osd.tolist()
     osd.append(0)
     hua(st,osd,osd_new)
     # agent.save_net("./dqn_model/move_less.ckpt")
