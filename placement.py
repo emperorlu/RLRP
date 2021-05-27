@@ -12,6 +12,8 @@ from park.param import config
 import time
 # from ddpg import Actor, Critic
 from memory import *
+import warnings
+warnings.filterwarnings("ignore")
 
 EPISODE = 1000 # Episode limitation
 STEP = 300 # Step limitation in an episode
