@@ -96,6 +96,8 @@ class DatamigrationEnv(core.Env):
         self.setup_space()
         self.seed(config.seed)
         self.num_stream_jobs = config.num_stream_jobs
+        self.men = int(config.num_stream_jobs / config.num_servers)
+        print("men=",self.men)
         self.servers = self.initialize_servers()
         self.reset()
 
@@ -156,5 +158,6 @@ class DatamigrationEnv(core.Env):
         self.num_stream_jobs_left = self.num_stream_jobs_left - 1
         done = (self.num_stream_jobs_left == 0)
         if np.std(self.servers) < 3: done = True
-        if self.servers[-1] == max(self.servers): done = True
+        if self.servers[-1] > self.men: done = True
+        #== max(self.servers): done = True
         return self.observe(), reward, done
