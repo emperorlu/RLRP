@@ -140,7 +140,7 @@ class DatamigrationEnv(core.Env):
         self.action_space = spaces.Discrete(config.num_rep+1)
 
     def step(self, action, i=0):
-
+        std1 = np.std(self.servers)
         assert self.action_space.contains(action)
         if action != 3:
             action = (i+action) % (config.num_servers-1)
@@ -148,16 +148,16 @@ class DatamigrationEnv(core.Env):
                 self.servers[action] = self.servers[action] - 1
                 self.servers[config.num_servers-1] = self.servers[config.num_servers-1] + 1
         
-        # std2 = np.std(self.servers)
+        std2 = np.std(self.servers)
         # reward = 1000
-        # reward = std1 - std2
+        c =  std2 - std1
         reward = -np.std(self.servers) **0.5
         # else: reward -= np.std(self.servers) #* (num+1)
         # reward = min(self.servers) - max(self.servers)
 
         self.num_stream_jobs_left = self.num_stream_jobs_left - 1
         done = (self.num_stream_jobs_left == 0)
-        if np.std(self.servers) < 2: done = True
+        if np.std(self.servers) < 3 and c > 0: done = True
         if self.servers[-1] >= self.men: done = True
         # if self.servers[-1] == max(self.servers): done = True
         return self.observe(), reward, done
