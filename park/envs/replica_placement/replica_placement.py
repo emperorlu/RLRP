@@ -96,7 +96,7 @@ class DatamigrationEnv(core.Env):
         self.setup_space()
         self.seed(config.seed)
         self.num_stream_jobs = config.num_stream_jobs
-        self.men = int(config.num_stream_jobs / config.num_servers)
+        self.men = int(config.num_stream_jobs * config.num_rep / config.num_servers)
         print("men=",self.men)
         self.servers = self.initialize_servers()
         self.reset()
