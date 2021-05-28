@@ -137,18 +137,18 @@ class DatamigrationEnv(core.Env):
         # a warning message will show up every time e.g., the observation falls
         # out of the observation space
         self.observation_space = spaces.Discrete(config.num_servers)
-        self.action_space = spaces.Discrete(config.num_rep+1)
+        self.action_space = spaces.Discrete(config.num_rep * 2)
 
     def step(self, action, i=0):
-        std1 = np.std(self.servers)
+        # std1 = np.std(self.servers)
         assert self.action_space.contains(action)
-        if action != 3:
+        if action < 3:
             action = (i+action) % (config.num_servers-1)
             if self.servers[action] > 0:
                 self.servers[action] = self.servers[action] - 1
                 self.servers[config.num_servers-1] = self.servers[config.num_servers-1] + 1
         
-        std2 = np.std(self.servers)
+        # std2 = np.std(self.servers)
         # reward = 1000
         # reward = -np.std(self.servers) **0.5
         # reward = std1 - std2
