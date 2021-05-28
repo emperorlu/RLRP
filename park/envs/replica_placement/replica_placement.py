@@ -151,13 +151,13 @@ class DatamigrationEnv(core.Env):
         # std2 = np.std(self.servers)
         # reward = 1000
         # reward = std1 - std2
-        reward = -np.std(self.servers)
+        reward = -np.std(self.servers) **0.5
         # else: reward -= np.std(self.servers) #* (num+1)
         # reward = min(self.servers) - max(self.servers)
 
         self.num_stream_jobs_left = self.num_stream_jobs_left - 1
         done = (self.num_stream_jobs_left == 0)
-        if np.std(self.servers) < 2: done = True
-        # if self.servers[-1] >= self.men: done = True
-        if self.servers[-1] == max(self.servers): done = True
+        if np.std(self.servers) < 3: done = True
+        if self.servers[-1] >= self.men: done = True
+        # if self.servers[-1] == max(self.servers): done = True
         return self.observe(), reward, done
