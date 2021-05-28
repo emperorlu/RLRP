@@ -320,8 +320,8 @@ def DQNTest():
 
 def QlearningLearn_data():
     env = park.make('data_migration')
-    # RL = QLearningTable(env.action_space.n)
-    agent = DQN(env)
+    RL = QLearningTable(env.action_space.n)
+    # agent = DQN(env)
     equ = 200
     e = EPISODE * 3 / 4
     # snum = config.num_stream_jobs / (config.num_servers-1)
@@ -343,12 +343,12 @@ def QlearningLearn_data():
         done = False
         i = 0
         while not done:
-            # action = RL.choose_action(str(state))
-            action = agent.egreedy_action(state)
+            action = RL.choose_action(str(state))
+            # action = agent.egreedy_action(state)
             state_, reward, done = env.step(action,i)
             i += 1
-            # RL.learn(str(state), action, reward, str(state_))
-            agent.perceive(state,action,reward,state_,done)
+            RL.learn(str(state), action, reward, str(state_))
+            # agent.perceive(state,action,reward,state_,done)
             state = state_
             if done:
                 st.append(np.std(state))
@@ -362,11 +362,11 @@ def QlearningLearn_data():
                 # print("episode:",episode)
                 # print("state:",state)
                 # print("action:",action, "; reward:",reward) 
-        agent.epsilonc(e)
+        # agent.epsilonc(e)
     print("osd: ",serverss,";\nosd_new:",osd_new,";\nst:",st)
     hua(st,serverss,osd_new)
     # agent.save_net("./dqn_model/move_less.ckpt")
-    agent.close()
+    # agent.close()
     
 
 def QlearningLearn():
