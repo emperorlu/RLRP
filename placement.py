@@ -154,7 +154,7 @@ def Zhu():
     for i in range(rows):
         # num = random.randint(0,2)
         k = random.randint(0,cols-1)
-        while(zhu[k]>22):
+        while(zhu[k]>21):
             k += 1
             k = k%cols
         zhu[k] += 1
