@@ -123,7 +123,7 @@ def hua(st,osd,osd_new=0,osd_zhu=0):
         y3= osd
         # xticks1=list(ppv3.index) 
         plt.bar(x1,y3,color='orange')
-        plt.bar(x1,y1,color='deepskyblue')
+        plt.bar(x1,y1,color='blue')
         
         # plt.bar(x2, y2, bottom=y1, label='move number')
         plt.xticks(x2)
