@@ -125,7 +125,7 @@ def hua(st,osd,osd_new=0,osd_zhu=0):
         plt.xlabel('OSD')
         plt.ylabel('PG number')
         plt.title('Placement')
-        for a,b in zip(x2, y2):
+        for a,b in zip(x1+x2, y1+y2):
             plt.text(a, b+0.05, '%.0f' % b, ha='center', va= 'bottom',fontsize=7)
         for a,b in zip(x1, y1):
             plt.text(a, b+0.05, '%.0f' % b, ha='center', va= 'bottom',fontsize=7)
