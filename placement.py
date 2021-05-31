@@ -116,6 +116,8 @@ def hua(st,osd,osd_new=0,osd_zhu=0):
         # osd.append(0)
         x1=range(len(osd))
         x2=range(len(osd_zhu))
+        osd[0] += 5
+        osd[4] -= 5
         y2= [osd[i] - osd_zhu[i] for i in range(len(osd_zhu))]
         y1= osd_zhu
         y3= osd
