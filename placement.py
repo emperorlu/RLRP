@@ -149,7 +149,7 @@ def Zhu():
         serverss[pg_num] = int(osd[pg_num])
         # serverss[pg_num] = int(data[pg_num])
     rows,cols=a.shape
-    cols += 1
+    # cols += 1
     print(rows," X ",cols)
     for i in range(rows):
         # num = random.randint(0,2)
