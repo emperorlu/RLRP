@@ -151,8 +151,11 @@ def Zhu():
     cols += 1
     print(rows," X ",cols)
     for i in range(rows):
-        num = random.randint(0,2)
+        # num = random.randint(0,2)
         k = random.randint(0,cols-1)
+        while(zhu[k]>22):
+            k += 1
+            k = k%cols
         zhu[k] += 1
         # for j in range(cols):
             
