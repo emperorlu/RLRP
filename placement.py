@@ -116,8 +116,8 @@ def hua(st,osd,osd_new=0,osd_zhu=0):
         # osd.append(0)
         x1=range(len(osd))
         x2=range(len(osd_zhu))
-        osd[0] += 5
-        osd[4] -= 5
+        # osd[0] += 5
+        # osd[4] -= 5
         y2= [osd[i] - osd_zhu[i] for i in range(len(osd_zhu))]
         y1= osd_zhu
         y3= osd
@@ -144,10 +144,10 @@ def Zhu():
     zhu = [0] * config.num_servers
     a=np.load('mapping.npy')
     osd=np.sum(a,axis=0)
-    data = [51,54,58,55,61,56,51,52,54,53,55]
+    # data = [51,54,58,55,61,56,51,52,54,53,55]
     for pg_num in range(len(serverss)):
-        # serverss[pg_num] = int(osd[pg_num])
-        serverss[pg_num] = int(data[pg_num])
+        serverss[pg_num] = int(osd[pg_num])
+        # serverss[pg_num] = int(data[pg_num])
     rows,cols=a.shape
     cols += 1
     print(rows," X ",cols)
