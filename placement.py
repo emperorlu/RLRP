@@ -193,7 +193,7 @@ def DQNLearnSigle():
                 if np.std(fstate) < equ: 
                     equ = np.std(fstate)
                     print("Best Now!")
-            print("episode:",episode," state: ", state, "\nstate:", fstate, "std:",np.std(state), " epsilon:", agent.epsilon)
+                print("episode:",episode, "std:",np.std(state), " epsilon:", agent.epsilon," state: ", state, "\nservers:", fstate)
         agent.epsilonc(e)
 
 def DQNLearn():
