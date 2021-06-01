@@ -40,7 +40,7 @@ class ReplicaplacementEnv(core.Env):
         # for server in self.servers:
         #     server.reset()
         self.servers = self.initialize_servers()
-        self.num_stream_jobs_left = self.num_stream_jobs * config.num_rep
+        self.num_stream_jobs_left = self.num_stream_jobs #* config.num_rep
         assert self.num_stream_jobs_left > 0
         return self.observe()
 
