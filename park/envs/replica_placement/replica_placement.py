@@ -12,6 +12,7 @@ class ReplicaplacementEnv(core.Env):
         self.seed(config.seed)
         self.num_stream_jobs = config.num_stream_jobs
         # self.cur_servers = config.num_servers_now
+        self.servers_state = self.initialize_servers()
         self.servers = self.initialize_servers()
         self.reset()
 
@@ -22,6 +23,9 @@ class ReplicaplacementEnv(core.Env):
     def set_servers(self, ser):
         self.servers = ser
 
+    def observe_state(self):
+        self.servers_state= [self.servers[i] - min(self.servers) for i in range(len(self.servers))]
+        return self.servers_state
     def observe(self):
         # obs_arr = []
         # # load on each server
@@ -57,18 +61,17 @@ class ReplicaplacementEnv(core.Env):
         # std1 = np.std(self.servers)
         assert self.action_space.contains(action)
         self.servers[action] = self.servers[action] + 1
+
         # std2 = np.std(self.servers)
         reward = 0
-        # reward = std1 - std2
         if (np.std(self.servers) == 0): reward = 10000
-        # bei = 10
-        # if equ == 1: bei =1
         reward -= np.std(self.servers) ** 0.5
         # reward = min(self.servers) - max(self.servers)
 
         self.num_stream_jobs_left = self.num_stream_jobs_left - 1
         done = (self.num_stream_jobs_left == 0)
-        return self.observe(), reward, done
+        return self.observe_state(), reward, done
+        # return self.observe(), reward, done
 
     def r_step(self, actions):
         std1 = np.std(self.servers)

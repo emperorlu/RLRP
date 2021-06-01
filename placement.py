@@ -175,6 +175,27 @@ def Zhu():
     print("zhu: ", zhu)
     hua([],serverss,[],zhu)
 
+def DQNLearnSigle():
+    env = park.make('replica_placement')
+    agent = DQN(env)
+    e = EPISODE * 2 / 3
+    equ = 100
+    for episode in range(EPISODE):
+        state = env.reset()
+        done = False
+        while not done:
+            action = agent.egreedy_action(state) 
+            next_state,reward,done = env.step(action)
+            state = next_state
+            fstate = agent.servers
+            agent.perceive(state,action,reward,next_state,done)
+            if (done):
+                if np.std(fstate) < equ: 
+                    equ = np.std(fstate)
+                    print("Best Now!")
+            print("episode:",episode," state: ", state, "\nstate:", fstate, "std:",np.std(state), " epsilon:", agent.epsilon)
+        agent.epsilonc(e)
+
 def DQNLearn():
   global osd
   global final_map
