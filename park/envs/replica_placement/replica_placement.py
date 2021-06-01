@@ -61,11 +61,12 @@ class ReplicaplacementEnv(core.Env):
         # std1 = np.std(self.servers)
         assert self.action_space.contains(action)
         self.servers[action] = self.servers[action] + 1
+        state = self.observe_state()
 
-        # std2 = np.std(self.servers)
         reward = 0
         if (np.std(self.servers) == 0): reward = 10000
-        reward -= np.std(self.servers) ** 0.5
+        reward -= np.std(self.servers) 
+        if min(state) == 0: reward *= 100
         # reward = min(self.servers) - max(self.servers)
 
         self.num_stream_jobs_left = self.num_stream_jobs_left - 1
