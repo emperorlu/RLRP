@@ -68,7 +68,7 @@ class ReplicaplacementEnv(core.Env):
         reward = 0
         if (np.std(self.servers) == 0): reward = 10000
         reward -= np.std(self.servers) 
-        if min(state) == 0: reward *= 1000
+        if min(state) != 0: reward = -reward
         # reward = min(self.servers) - max(self.servers)
 
         self.num_stream_jobs_left = self.num_stream_jobs_left - 1
