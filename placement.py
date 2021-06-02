@@ -235,10 +235,10 @@ def DQNLearnSigle():
     i = 0
     x = [1,2,3,4,5]
     print("max: ",max(x))
-    x = x.remove(max(x))
+    y = x.remove(max(x))
     print("test!!!!!!!!!\n")
-    print(x)
-    print(np.argmax(x))
+    print(y)
+    print(np.argmax(y))
     for episode in range(EPISODE):
         i += 1
         state = env.reset()
