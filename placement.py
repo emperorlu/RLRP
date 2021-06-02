@@ -234,6 +234,7 @@ def DQNLearnSigle():
     t0 = time.time()
     i = 0
     x = [1,2,3,4,5]
+    print("max: ",max(x))
     x = x.remove(max(x))
     print("test!!!!!!!!!\n", x)
     print(np.argmax(x))
