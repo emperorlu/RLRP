@@ -488,10 +488,11 @@ def DQN_data():
     # osd=np.sum(a,axis=0)
     # for pg_num in range(len(osd)):
     #     serverss[pg_num] = int(osd[pg_num])
-    print("serverss: ", serverss)
+    
     st = []
     osd_new = []
     serverss[config.num_servers-1] = 0
+    print("serverss: ", serverss)
     for episode in range(EPISODE):
         
         state = env.reset(serverss)
