@@ -178,7 +178,7 @@ def Zhu():
 def DQNLearnSigle():
     env = park.make('replica_placement')
     agent = DQN(env)
-    e = EPISODE / 3
+    e = EPISODE / 10
     equ = 100
     st = []
     for episode in range(EPISODE):
