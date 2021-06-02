@@ -16,7 +16,7 @@ from memory import *
 import warnings
 warnings.filterwarnings("ignore")
 
-EPISODE = 1000 # Episode limitation
+EPISODE = 10000 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
@@ -177,7 +177,7 @@ def Zhu():
 
 def DQNLearnSigle():
     env = park.make('replica_placement')
-    agent = DQN(env,0.1)
+    agent = DQN(env)#,0.1)
     e = EPISODE / 10
     equ = 100
     st = []
@@ -196,7 +196,7 @@ def DQNLearnSigle():
                     equ = np.std(fstate)
                     print("Best Now!")
                 print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
-        # agent.epsilonc(e)
+        agent.epsilonc(e)
     hua(st,osd)
     agent.save_net("./dqn_model/place.ckpt")
     agent.close()
