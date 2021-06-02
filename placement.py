@@ -237,13 +237,16 @@ def DQNLearnSigle():
         state = env.reset()
         done = False
         j = 0
+        old_action = []
         while not done:
             action = agent.egreedy_action(state) 
             if j%config.num_rep == 0 : 
-                old_action = action #副本
+                old_action = []
+                old_action.append(action) #副本
                 next_state,reward,done = env.step(action)
             else:
                 next_state,reward,done = env.step(action,0,old_action)
+                old_action.append(action)
             j += 1
             state = next_state
             fstate = env.observe()

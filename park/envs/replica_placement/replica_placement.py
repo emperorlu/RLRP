@@ -72,7 +72,7 @@ class ReplicaplacementEnv(core.Env):
             done = True
         reward -= np.std(self.servers) ** 0.5
         if min(state) != 0: reward = -reward
-        if action == old: reward -= 100000000
+        if action in old: reward -= 100000000
         # print("reward: ", reward)
         # reward = min(self.servers) - max(self.servers)
 
