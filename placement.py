@@ -274,9 +274,10 @@ def DQNLearnSigle():
 def DQNTestSigle():
     env = park.make('replica_placement')
     agent = DQN(env,0)
-    agent.build_net("./dqn_model/place3.ckpt")
+    agent.build_net("./dqn_model/place1.ckpt")
     st = []
     ac = []
+    Rnum = config.num_rep
     for episode in range(TEST):
         state = env.reset()
         done = False
@@ -287,20 +288,28 @@ def DQNTestSigle():
         for i in range(num):
             state = env.reset(1)
             done = False
+            # while not done:
+            #     action = agent.egreedy_action(state) 
+            #     ac.append(action)
+            #     next_state,reward,done = env.step(action)
+            #     state = next_state
             while not done:
                 action = agent.egreedy_action(state) 
-                ac.append(action)
-                next_state,reward,done = env.step(action)
-                state = next_state
-                # j = 0
-                # Raction = []
-                # while j != Rnum:
-                #     action = agent.egreedy_action(state)
-                #     if action not in Raction:
-                #         Raction.append(action)
-                #         next_state,reward,done = env.step(action)
-                #         state = next_state
-                #         j += 1
+                j = 0; k = 1
+                Raction = []
+                while j != Rnum:
+                    # action = agent.egreedy_action(state)
+                    if action not in Raction:
+                        ac.append(action)
+                        Raction.append(action)
+                        next_state,reward,done = env.step(action)
+                        agent.perceive(state,action,reward,next_state,done)
+                        state = next_state
+                        j += 1
+                        k = 1
+                    else: 
+                        action = agent.egreedy_action(state,k)
+                        k += 1
         fstate = env.observe()
         t1 = time.time()
         print("total episode:",i,"; cost time: ", t1-t0)
