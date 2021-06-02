@@ -111,6 +111,9 @@ class DQN():
       })[0]
     print("Q_value:", Q_value.shape)
     if random.random() <= self.epsilon:
+      x = Q_value
+      if next:
+        x = x.remove(max(x))
       return random.randint(0,self.action_dim - 1)
     else:
       x = Q_value
