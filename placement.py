@@ -214,7 +214,8 @@ def DQNTestSigle():
     for episode in range(EPISODE):
         # state = env.reset()
         done = False
-        num = env.num_stream_jobs_left  / env.stepn
+        num = int(env.num_stream_jobs_left  / env.stepn)
+        print("num: ",num)
         for i in range(num):
             while not done:
                 action = agent.egreedy_action(state) 
