@@ -233,12 +233,6 @@ def DQNLearnSigle():
     Rnum = config.num_rep
     t0 = time.time()
     i = 0
-    x = [1,2,3,4,5]
-    print("max: ",max(x))
-    x = x.remove(max(x))
-    print("test!!!!!!!!!\n")
-    print(x)
-    print(np.argmax(x))
     for episode in range(EPISODE):
         i += 1
         state = env.reset()

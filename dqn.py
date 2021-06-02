@@ -109,7 +109,7 @@ class DQN():
     Q_value = self.Q_value.eval(feed_dict = {
       self.state_input:[state]
       })[0]
-
+    print("Q_value:", Q_value.shape)
     if random.random() <= self.epsilon:
       return random.randint(0,self.action_dim - 1)
     else:
