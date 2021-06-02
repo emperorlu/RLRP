@@ -275,7 +275,7 @@ def DQNTestSigle():
         state = env.reset()
         done = False
         t0 = time.time()
-        num = int(env.num_stream_jobs_left * config.num_rep  / env.stepn)
+        num = int(config.num_stream_jobs * config.num_rep  / env.stepn)
         print("num: ",num)
         # while num:
         for i in range(num):
