@@ -36,10 +36,10 @@ class ReplicaplacementEnv(core.Env):
 
         return self.servers
 
-    def reset(self):
+    def reset(self,test=0):
         # for server in self.servers:
         #     server.reset()
-        self.servers = self.initialize_servers()
+        if test==0: self.servers = self.initialize_servers()
         self.stepn = 100
         self.num_stream_jobs_left = self.num_stream_jobs #* config.num_rep
         assert self.num_stream_jobs_left > 0
