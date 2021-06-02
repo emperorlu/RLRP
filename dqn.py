@@ -110,6 +110,7 @@ class DQN():
       self.state_input:[state]
       })[0]
     print("Q_value:", Q_value.shape)
+    print (Q_value.ndim)
     if random.random() <= self.epsilon:
       x = Q_value
       if next:
