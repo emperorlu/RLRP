@@ -233,20 +233,13 @@ def DQNLearnSigle():
     Rnum = config.num_rep
     t0 = time.time()
     i = 0
-    arr_ = [2,3,4,5,3]
-    print(arr_)
-    print("# arr中最大的数为{}，位于第{}位".format(np.max(arr_), np.argmax(arr_)+1))
-    arr_[np.argmax(arr_)] = np.min(arr_)
-    arr_[np.argmax(arr_)] = np.min(arr_)
-    print(arr_)
-    print("# arr中最大的数为{}，位于第{}位".format(np.max(arr_), np.argmax(arr_)+1))
     for episode in range(EPISODE):
         i += 1
         state = env.reset()
         done = False
         while not done:
             action = agent.egreedy_action(state) 
-            j = 0
+            j = 0; k = 1
             Raction = []
             while j != Rnum:
                 # action = agent.egreedy_action(state)
@@ -256,7 +249,10 @@ def DQNLearnSigle():
                     agent.perceive(state,action,reward,next_state,done)
                     state = next_state
                     j += 1
-                else: action = agent.egreedy_action(state,1)
+                    k = 1
+                else: 
+                    action = agent.egreedy_action(state,k)
+                    k += 1
             fstate = env.observe()
 
             if (done):

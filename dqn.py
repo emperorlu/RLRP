@@ -113,8 +113,9 @@ class DQN():
       return random.randint(0,self.action_dim - 1)
     else:
       x = Q_value
-      if next:
-        x = x.remove(max(x))
+      while next:
+        x[np.argmax(x)] = np.min(x)
+        next = next - 1
       return np.argmax(x)
 
     
