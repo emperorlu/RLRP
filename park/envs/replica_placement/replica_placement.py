@@ -40,7 +40,7 @@ class ReplicaplacementEnv(core.Env):
         # for server in self.servers:
         #     server.reset()
         self.servers = self.initialize_servers()
-        self.stepn = 50
+        self.stepn = 100
         self.num_stream_jobs_left = self.num_stream_jobs #* config.num_rep
         assert self.num_stream_jobs_left > 0
         return self.observe()
@@ -70,8 +70,9 @@ class ReplicaplacementEnv(core.Env):
         if (np.std(self.servers) == 0): 
             reward = 10000
             done = True
-        reward -= np.std(self.servers) 
+        reward -= np.std(self.servers) ** 0.5
         if min(state) != 0: reward = -reward
+        print("reward: ", reward)
         # reward = min(self.servers) - max(self.servers)
 
         self.num_stream_jobs_left = self.num_stream_jobs_left - 1
