@@ -194,7 +194,7 @@ def DQNLearnSigle():
                     equ = np.std(fstate)
                     print("Best Now!")
                 print("episode:",episode, "std:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
-        agent.epsilonc(e)
+        # agent.epsilonc(e)
 
 def DQNLearn():
   global osd
