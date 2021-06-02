@@ -509,7 +509,7 @@ def DQN_data():
                     equ = np.std(state)
                     osd_new = state[:]
                     print("Best Now!")
-                print("episode:",episode," state: ", state, "\nstd:",np.std(state))#, " epsilon:", agent.epsilon)
+                print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
         agent.epsilonc(e)
     print("osd: ",serverss,";\nosd_new:",osd_new,";\nst:",st)
     hua(st,serverss,osd_new)
