@@ -16,7 +16,7 @@ from memory import *
 import warnings
 warnings.filterwarnings("ignore")
 
-EPISODE = 10 # Episode limitation
+EPISODE = 10000 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
@@ -178,7 +178,7 @@ def Zhu():
 def DQNLearnSigle():
     env = park.make('replica_placement')
     agent = DQN(env)
-    e = EPISODE * 2 / 3
+    e = EPISODE / 3
     equ = 100
     st = []
     for episode in range(EPISODE):
@@ -196,7 +196,7 @@ def DQNLearnSigle():
                     equ = np.std(fstate)
                     print("Best Now!")
                 print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
-        # agent.epsilonc(e)
+        agent.epsilonc(e)
     hua(st,osd)
     agent.save_net("./dqn_model/place.ckpt")
     agent.close()
@@ -212,7 +212,7 @@ def DQNTestSigle():
         done = False
         while not done:
             action = agent.egreedy_action(state) 
-            next_state,reward,done = env.step(action)
+            next_state,reward,done = env.step(action,1)
             state = next_state
             fstate = env.observe()
             # agent.perceive(state,action,reward,next_state,done)

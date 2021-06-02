@@ -56,7 +56,7 @@ class ReplicaplacementEnv(core.Env):
         self.observation_space = spaces.Discrete(config.num_servers)
         self.action_space = spaces.Discrete(config.num_servers)
 
-    def step(self, action):
+    def step(self, action, test=0):
 
         # 0 <= action < num_servers
         # std1 = np.std(self.servers)
@@ -76,7 +76,8 @@ class ReplicaplacementEnv(core.Env):
 
         self.num_stream_jobs_left = self.num_stream_jobs_left - 1
         self.stepn = self.stepn - 1
-        done = (self.num_stream_jobs_left == 0)
+        if test == 0:done = (self.stepn == 0)
+        else: done = (self.num_stream_jobs_left == 0)
         # done = (self.stepn == 0)
         return self.observe_state(), reward, done
         # return self.observe(), reward, done
