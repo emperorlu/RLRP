@@ -233,23 +233,27 @@ def DQNLearnSigle():
     Rnum = config.num_rep
     t0 = time.time()
     i = 0
+    x = [1,2,3,4,5]
+    x = x.remove(max(x))
+    print("test!!!!!!!!!\n", x)
+    print(np.argmax(x))
     for episode in range(EPISODE):
         i += 1
         state = env.reset()
         done = False
-        num_ain = 0
         while not done:
             action = agent.egreedy_action(state) 
             j = 0
             Raction = []
             while j != Rnum:
-                action = agent.egreedy_action(state)
+                # action = agent.egreedy_action(state)
                 if action not in Raction:
                     Raction.append(action)
                     next_state,reward,done = env.step(action)
                     agent.perceive(state,action,reward,next_state,done)
                     state = next_state
                     j += 1
+                else: action = agent.egreedy_action(state,1)
             fstate = env.observe()
 
             if (done):
@@ -259,7 +263,7 @@ def DQNLearnSigle():
                     print("Best Now!")
                 if np.std(fstate) < 1: stop += 1
                 else: stop = 0
-                print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",np.std(fstate), " ain:", num_ain,"\nstate: ", state, "\nservers:", fstate)
+                print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",np.std(fstate),"\nstate: ", state, "\nservers:", fstate)
         if stop == 3: break
         agent.epsilonc(e)
     t1 = time.time()
