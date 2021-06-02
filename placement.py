@@ -596,7 +596,7 @@ if __name__ == '__main__':
     # QlearningLearn_data()
     # Zhu()
     DQNLearnSigle()
-    DQNTestSigle()
+    # DQNTestSigle()
     # QlearningLearn()
     # QlearningTest()
 
