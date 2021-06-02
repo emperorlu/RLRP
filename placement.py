@@ -87,7 +87,7 @@ def hua(st,osd=0,osd_new=0,osd_zhu=0):
         plt.title('Placement')
         for a,b in zip(x,y):
             plt.text(a, b+0.05, '%.0f' % b, ha='center', va= 'bottom',fontsize=7)
-        plt.ylim(0,100)
+        # plt.ylim(0,100)
 
         plt.savefig("pig/test_osd.png")
     elif osd_zhu == 0:
