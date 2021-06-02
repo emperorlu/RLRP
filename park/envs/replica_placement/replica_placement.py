@@ -56,7 +56,7 @@ class ReplicaplacementEnv(core.Env):
         self.observation_space = spaces.Discrete(config.num_servers)
         self.action_space = spaces.Discrete(config.num_servers)
 
-    def step(self, action, test=0, old=-1):
+    def step(self, action, test=0, old=[]):
 
         # 0 <= action < num_servers
         # std1 = np.std(self.servers)
