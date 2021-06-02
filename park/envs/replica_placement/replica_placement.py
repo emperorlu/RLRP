@@ -66,6 +66,7 @@ class ReplicaplacementEnv(core.Env):
         state = self.servers_state
         self.servers[action] = self.servers[action] + 1
         state[action] = state[action] + 1
+        ain = False
 
         reward = 0
         if (np.std(self.servers) == 0): 
@@ -75,7 +76,8 @@ class ReplicaplacementEnv(core.Env):
         if min(state) != 0: reward = -reward
         if action in old: 
             reward -= 100000000
-            print("action in!!!!!!! reward: ", reward)
+            ain = True
+            # print("action in!!!!!!! reward: ", reward)
             
         # print("reward: ", reward)
         # reward = min(self.servers) - max(self.servers)
@@ -85,7 +87,7 @@ class ReplicaplacementEnv(core.Env):
         if test == 0:done = (self.stepn == 0)
         else: done = (self.num_stream_jobs_left == 0)
         # done = (self.stepn == 0)
-        return self.observe_state(), reward, done
+        return self.observe_state(), reward, done, ain
         # return self.observe(), reward, done
 
     def r_step(self, actions):
