@@ -182,7 +182,10 @@ def DQNLearnSigle():
     equ = 100
     st = []
     num = 0
+    t0 = time.time()
+    i = 0
     for episode in range(EPISODE):
+        i += 1
         state = env.reset()
         done = False
         while not done:
@@ -201,8 +204,10 @@ def DQNLearnSigle():
                 print("episode:",episode, "\nstd:",np.std(fstate), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
         if num == 3: break
         agent.epsilonc(e)
+    t1 = time.time()
+    print("total episode:",i,"; cost time: ", t1-t0)
     hua(st,osd)
-    agent.save_net("./dqn_model/place.ckpt")
+    agent.save_net("./dqn_model/place2.ckpt")
     agent.close()
 
 def DQNTestSigle():
@@ -590,7 +595,7 @@ if __name__ == '__main__':
     # print("begin test\n")
     # QlearningLearn_data()
     # Zhu()
-    # DQNLearnSigle()
+    DQNLearnSigle()
     DQNTestSigle()
     # QlearningLearn()
     # QlearningTest()
