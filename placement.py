@@ -181,6 +181,7 @@ def DQNLearnSigle():
     e = EPISODE / 10
     equ = 100
     st = []
+    num = 0
     for episode in range(EPISODE):
         state = env.reset()
         done = False
@@ -195,7 +196,10 @@ def DQNLearnSigle():
                 if np.std(fstate) < equ: 
                     equ = np.std(fstate)
                     print("Best Now!")
+                if np.std(fstate) < 1: num += 1
+                else: num = 0
                 print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
+        if num == 3: break
         agent.epsilonc(e)
     hua(st,osd)
     agent.save_net("./dqn_model/place.ckpt")
