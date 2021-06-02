@@ -77,7 +77,7 @@ class ReplicaplacementEnv(core.Env):
         self.num_stream_jobs_left = self.num_stream_jobs_left - 1
         self.stepn = self.stepn - 1
         done = (self.num_stream_jobs_left == 0)
-        done = (self.stepn == 0)
+        # done = (self.stepn == 0)
         return self.observe_state(), reward, done
         # return self.observe(), reward, done
 
