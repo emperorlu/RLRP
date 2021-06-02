@@ -259,7 +259,7 @@ def DQNLearnSigle():
                 if np.std(fstate) < equ: 
                     equ = np.std(fstate)
                     print("Best Now!")
-                if np.std(fstate) < 1: num += 1
+                if np.std(fstate) < 1 and num_ain == 0 : num += 1
                 else: num = 0
                 print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",np.std(fstate), " ain:", num_ain,"\nstate: ", state, "\nservers:", fstate)
         if num == 3: break
