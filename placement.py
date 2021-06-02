@@ -199,6 +199,7 @@ def DQNLearnSigle():
         # agent.epsilonc(e)
     hua(st,osd)
     agent.save_net("./dqn_model/place.ckpt")
+    agent.close()
 
 def DQNTestSigle():
     env = park.make('replica_placement')
@@ -222,6 +223,7 @@ def DQNTestSigle():
                 print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
         # agent.epsilonc(e)
     # hua(st,osd)
+    agent.close()
 
 
 def DQNLearn():
