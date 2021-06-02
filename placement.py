@@ -482,12 +482,12 @@ def DQN_data():
     agent = DQN(env)
     equ = 200
     e = EPISODE / 10
-    serverss = [0] * config.num_servers
+    serverss = [100] * config.num_servers
     a=np.load('mapping.npy')
     # a=a.tolist()
-    osd=np.sum(a,axis=0)
-    for pg_num in range(len(osd)):
-        serverss[pg_num] = int(osd[pg_num])
+    # osd=np.sum(a,axis=0)
+    # for pg_num in range(len(osd)):
+    #     serverss[pg_num] = int(osd[pg_num])
     print("serverss: ", serverss)
     st = []
     osd_new = []
