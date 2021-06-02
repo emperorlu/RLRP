@@ -491,7 +491,7 @@ def DQN_data():
     print("serverss: ", serverss)
     st = []
     osd_new = []
-    # serverss[config.num_servers-1] = 0
+    serverss[config.num_servers-1] = 0
     for episode in range(EPISODE):
         
         state = env.reset(serverss)
