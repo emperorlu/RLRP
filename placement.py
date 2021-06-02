@@ -266,25 +266,29 @@ def DQNTestSigle():
     for episode in range(EPISODE):
         state = env.reset()
         done = False
-        num = int(env.num_stream_jobs_left  / env.stepn)
+        t0 = time.time()
+        num = int(env.num_stream_jobs_left   / env.stepn)
         print("num: ",num)
+        # while num:
         for i in range(num):
             state = env.reset(1)
             done = False
             while not done:
-                # action = agent.egreedy_action(state) 
-                # next_state,reward,done = env.step(action)
-                # state = next_state
-                j = 0
-                Raction = []
-                while j != Rnum:
-                    action = agent.egreedy_action(state)
-                    if action not in Raction:
-                        Raction.append(action)
-                        next_state,reward,done = env.step(action)
-                        state = next_state
-                        j += 1
+                action = agent.egreedy_action(state) 
+                next_state,reward,done = env.step(action)
+                state = next_state
+                # j = 0
+                # Raction = []
+                # while j != Rnum:
+                #     action = agent.egreedy_action(state)
+                #     if action not in Raction:
+                #         Raction.append(action)
+                #         next_state,reward,done = env.step(action)
+                #         state = next_state
+                #         j += 1
         fstate = env.observe()
+        t1 = time.time()
+        print("total episode:",i,"; cost time: ", t1-t0)
         print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
         # print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
         # agent.epsilonc(e)
