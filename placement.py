@@ -206,6 +206,7 @@ def DQNTestSigle():
     agent = DQN(env,0)
     agent.build_net("./dqn_model/place.ckpt")
     st = []
+    equ = 100
     for episode in range(EPISODE):
         state = env.reset()
         done = False
