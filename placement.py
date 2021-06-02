@@ -319,7 +319,9 @@ def DQNTestSigle():
     for pg_num in range(config.num_stream_jobs):
         if ac[pg_num*3] != ac[pg_num*3+1] != ac[pg_num*3+2]: pg_num
         else: print('相等',pg_num,"————>",ac[pg_num*3], ",", ac[pg_num*3+1], ",", ac[pg_num*3+2])
-        # print(pg_num,"————>",ac[pg_num*3], ",", ac[pg_num*3+1], ",", ac[pg_num*3+2]) 
+        num = config.num_stream_jobs / 10
+        if pg_num % num == 0:
+            print(pg_num,"————>",ac[pg_num*3], ",", ac[pg_num*3+1], ",", ac[pg_num*3+2]) 
     hua(st,fstate)
     agent.close()
 
