@@ -16,7 +16,7 @@ from memory import *
 import warnings
 warnings.filterwarnings("ignore")
 
-EPISODE = 1000 # Episode limitation
+EPISODE = 10 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
@@ -198,6 +198,31 @@ def DQNLearnSigle():
                 print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
         # agent.epsilonc(e)
     hua(st,osd)
+    agent.save_net("./dqn_model/place.ckpt")
+
+def DQNTestSigle():
+    env = park.make('replica_placement')
+    agent = DQN(env,0)
+    agent.build_net("./dqn_model/place.ckpt")
+    st = []
+    for episode in range(EPISODE):
+        state = env.reset()
+        done = False
+        while not done:
+            action = agent.egreedy_action(state) 
+            next_state,reward,done = env.step(action)
+            state = next_state
+            fstate = env.observe()
+            agent.perceive(state,action,reward,next_state,done)
+            if (done):
+                st.append(np.std(state))
+                if np.std(fstate) < equ: 
+                    equ = np.std(fstate)
+                    print("Best Now!")
+                print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
+        # agent.epsilonc(e)
+    # hua(st,osd)
+
 
 def DQNLearn():
   global osd
@@ -552,6 +577,7 @@ if __name__ == '__main__':
     # QlearningLearn_data()
     # Zhu()
     DQNLearnSigle()
+    DQNTestSigle()
     # QlearningLearn()
     # QlearningTest()
 
