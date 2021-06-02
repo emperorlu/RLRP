@@ -16,7 +16,7 @@ from memory import *
 import warnings
 warnings.filterwarnings("ignore")
 
-EPISODE = 10000 # Episode limitation
+EPISODE = 1000 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 10 # The number of experiment test every 100 episode
 Rnum = 3
@@ -65,7 +65,7 @@ def Mreward(map1,map2):
             num += 1
     return num
 
-def hua(st,osd,osd_new=0,osd_zhu=0):
+def hua(st,osd=0,osd_new=0,osd_zhu=0):
     plt.figure(10)
     x = range(len(st))
     plt.xlabel("episode")
@@ -180,6 +180,7 @@ def DQNLearnSigle():
     agent = DQN(env)
     e = EPISODE * 2 / 3
     equ = 100
+    st = []
     for episode in range(EPISODE):
         state = env.reset()
         done = False
@@ -190,11 +191,13 @@ def DQNLearnSigle():
             fstate = env.observe()
             agent.perceive(state,action,reward,next_state,done)
             if (done):
+                st.append(np.std(state))
                 if np.std(fstate) < equ: 
                     equ = np.std(fstate)
                     print("Best Now!")
-                print("episode:",episode, "std:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
+                print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
         # agent.epsilonc(e)
+    hua(st,osd)
 
 def DQNLearn():
   global osd
