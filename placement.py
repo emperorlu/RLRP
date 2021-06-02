@@ -230,29 +230,27 @@ def DQNLearnSigle():
     equ = 100
     st = []
     num = 0
+    Rnum = config.num_rep
     t0 = time.time()
     i = 0
     for episode in range(EPISODE):
         i += 1
         state = env.reset()
         done = False
-        j = 0
         num_ain = 0
-        old_action = []
         while not done:
             action = agent.egreedy_action(state) 
-            if j%config.num_rep == 0 : 
-                old_action = []
-                old_action.append(action) #副本
-                next_state,reward,done,ain = env.step(action)
-            else:
-                next_state,reward,done,ain = env.step(action,0,old_action)
-                old_action.append(action)
-            j += 1
-            if ain: num_ain += 1
-            state = next_state
+            j = 0
+            Raction = []
+            while j != Rnum:
+                action = agent.egreedy_action(state)
+                if action not in Raction:
+                    Raction.append(action)
+                    next_state,reward,done = env.step(action)
+                    agent.perceive(state,action,reward,next_state,done)
+                    state = next_state
+                    j += 1
             fstate = env.observe()
-            agent.perceive(state,action,reward,next_state,done)
 
             if (done):
                 st.append(np.std(fstate))
