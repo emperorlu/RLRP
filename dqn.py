@@ -6,7 +6,7 @@ from collections import deque
 # Hyper Parameters for DQN
 GAMMA = 0.9 # discount factor for target Q
 INITIAL_EPSILON = 1.0 # starting value of epsilon
-FINAL_EPSILON = 0.1 # final value of epsilon
+FINAL_EPSILON = 0 # final value of epsilon
 REPLAY_SIZE = 100000 # experience replay buffer size
 BATCH_SIZE = 64 # size of minibatch
 
