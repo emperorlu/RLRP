@@ -235,7 +235,8 @@ def DQNLearnSigle():
     i = 0
     x = [1,2,3,4,5]
     print("max: ",max(x))
-    y = x.remove(max(x))
+    k = max(x)
+    y = x.remove(k)
     print("test!!!!!!!!!\n")
     print(y)
     print(np.argmax(y))
