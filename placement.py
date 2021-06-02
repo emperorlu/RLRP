@@ -182,6 +182,7 @@ def DQNLearnSigle3():
     equ = 100
     st = []
     num = 0
+    Rnum = 3
     t0 = time.time()
     i = 0
     for episode in range(EPISODE):
