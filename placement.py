@@ -230,8 +230,8 @@ def DQNTestSigle():
                 #     if np.std(fstate) < equ: 
                 #         equ = np.std(fstate)
                 #         print("Best Now!")
-            fstate = env.observe()
-            print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
+        fstate = env.observe()
+        print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
         # print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
         # agent.epsilonc(e)
     # hua(st,osd)
