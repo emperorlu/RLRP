@@ -261,7 +261,7 @@ def DQNLearnSigle():
     t1 = time.time()
     print("total episode:",i,"; cost time: ", t1-t0)
     hua(st,osd)
-    agent.save_net("./dqn_model/place2.ckpt")
+    agent.save_net("./dqn_model/place3.ckpt")
     agent.close()
 
 def DQNTestSigle():
@@ -656,8 +656,8 @@ if __name__ == '__main__':
     # print("begin test\n")
     # QlearningLearn_data()
     # Zhu()
-    # DQNLearnSigle()
-    DQNLearnSigle3()
+    DQNLearnSigle()
+    # DQNLearnSigle3()
     # DQNTestSigle()
     # QlearningLearn()
     # QlearningTest()
