@@ -60,7 +60,7 @@ class ReplicaplacementEnv(core.Env):
 
         # 0 <= action < num_servers
         # std1 = np.std(self.servers)
-        print("action: ", action)
+        # print("action: ", action)
         assert self.action_space.contains(action)
         
         state = self.servers_state
@@ -74,7 +74,7 @@ class ReplicaplacementEnv(core.Env):
         reward -= np.std(self.servers) ** 0.5
         if min(state) != 0: reward = -reward
         if action in old: 
-            print("action in!!!!!!!!!!")
+            # print("action in!!!!!!!!!!")
             reward -= 100000000
         # print("reward: ", reward)
         # reward = min(self.servers) - max(self.servers)
