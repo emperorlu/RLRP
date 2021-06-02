@@ -175,6 +175,52 @@ def Zhu():
     print("zhu: ", zhu)
     hua([],serverss,[],zhu)
 
+def DQNLearnSigle3():
+    env = park.make('replica_placement')
+    agent = DQN(env)#,0.1)
+    e = EPISODE / 10
+    equ = 100
+    st = []
+    num = 0
+    t0 = time.time()
+    i = 0
+    for episode in range(EPISODE):
+        i += 1
+        state = env.reset()
+        done = False
+        while not done:
+            j = 0
+            Raction = []
+            while j != Rnum:
+                action = agent.egreedy_action(state)
+                if action not in Raction:
+                    Raction.append(action)
+                    next_state,reward,done = env.step(action)
+                    agent.perceive(state,action,reward,next_state,done)
+                    state = next_state
+                    j += 1
+            # action = agent.egreedy_action(state) 
+            # next_state,reward,done = env.step(action)
+            # state = next_state
+            fstate = env.observe()
+            agent.perceive(state,action,reward,next_state,done)
+            if (done):
+                st.append(np.std(fstate))
+                if np.std(fstate) < equ: 
+                    equ = np.std(fstate)
+                    print("Best Now!")
+                if np.std(fstate) < 1: num += 1
+                else: num = 0
+                print("episode:",episode, "\nstd:",np.std(fstate), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
+        if num == 3: break
+        agent.epsilonc(e)
+    t1 = time.time()
+    print("total episode:",i,"; cost time: ", t1-t0)
+    hua(st,osd)
+    agent.save_net("./dqn_model/place3.ckpt")
+    agent.close()
+
+
 def DQNLearnSigle():
     env = park.make('replica_placement')
     agent = DQN(env)#,0.1)
@@ -216,6 +262,7 @@ def DQNTestSigle():
     agent.build_net("./dqn_model/place.ckpt")
     st = []
     equ = 100
+    Rnum = 3
     for episode in range(EPISODE):
         state = env.reset()
         done = False
@@ -225,16 +272,18 @@ def DQNTestSigle():
             state = env.reset(1)
             done = False
             while not done:
-                action = agent.egreedy_action(state) 
-                next_state,reward,done = env.step(action)
-                state = next_state
-                
-                # agent.perceive(state,action,reward,next_state,done)
-                # if (done):
-                #     st.append(np.std(fstate))
-                #     if np.std(fstate) < equ: 
-                #         equ = np.std(fstate)
-                #         print("Best Now!")
+                # action = agent.egreedy_action(state) 
+                # next_state,reward,done = env.step(action)
+                # state = next_state
+                j = 0
+                Raction = []
+                while j != Rnum:
+                    action = agent.egreedy_action(state)
+                    if action not in Raction:
+                        Raction.append(action)
+                        next_state,reward,done = env.step(action)
+                        state = next_state
+                        j += 1
         fstate = env.observe()
         print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
         # print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
