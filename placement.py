@@ -18,7 +18,7 @@ warnings.filterwarnings("ignore")
 
 EPISODE = 10000 # Episode limitation
 STEP = 300 # Step limitation in an episode
-TEST = 10 # The number of experiment test every 100 episode
+TEST = 1 # The number of experiment test every 100 episode
 Rnum = 3
 final_map = []
 osd = []
@@ -269,8 +269,7 @@ def DQNTestSigle():
     agent = DQN(env,0)
     agent.build_net("./dqn_model/place3.ckpt")
     st = []
-    equ = 100
-    Rnum = 3
+    ac = []
     for episode in range(TEST):
         state = env.reset()
         done = False
@@ -283,6 +282,7 @@ def DQNTestSigle():
             done = False
             while not done:
                 action = agent.egreedy_action(state) 
+                ac.append(action)
                 next_state,reward,done = env.step(action)
                 state = next_state
                 # j = 0
@@ -300,6 +300,8 @@ def DQNTestSigle():
         print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
         # print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
         # agent.epsilonc(e)
+    for pg_num in range(len(ac)):
+        print(pg_num,"————>",ac[pg_num*3], ",", ac[pg_num*3+1], ",", ac[pg_num*3+2]) 
     hua(st,fstate)
     agent.close()
 
