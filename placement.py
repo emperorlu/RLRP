@@ -212,7 +212,7 @@ def DQNTestSigle():
     st = []
     equ = 100
     for episode in range(EPISODE):
-        # state = env.reset()
+        state = env.reset()
         done = False
         num = int(env.num_stream_jobs_left  / env.stepn)
         print("num: ",num)
