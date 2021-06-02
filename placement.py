@@ -644,8 +644,8 @@ if __name__ == '__main__':
     # print("begin test\n")
     # QlearningLearn_data()
     # Zhu()
-    DQNLearnSigle()
-    # DQNTestSigle()
+    # DQNLearnSigle()
+    DQNTestSigle()
     # QlearningLearn()
     # QlearningTest()
 
