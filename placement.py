@@ -194,6 +194,7 @@ def DQNLearnSigle3():
             Raction = []
             while j != Rnum:
                 action = agent.egreedy_action(state)
+                print("action: ", action)
                 if action not in Raction:
                     Raction.append(action)
                     next_state,reward,done = env.step(action)
