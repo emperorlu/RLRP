@@ -477,6 +477,45 @@ def DQNTest():
     #     agent.perceive(state,action,reward,next_state,done)
     agent.close()
 
+def DQN_data():
+    env = park.make('data_migration')
+    agent = DQN(env)
+    equ = 200
+    e = EPISODE / 10
+    serverss = [0] * config.num_servers
+    a=np.load('mapping.npy')
+    # a=a.tolist()
+    osd=np.sum(a,axis=0)
+    for pg_num in range(len(osd)):
+        serverss[pg_num] = int(osd[pg_num])
+    print("serverss: ", serverss)
+    st = []
+    osd_new = []
+    # serverss[config.num_servers-1] = 0
+    for episode in range(EPISODE):
+        
+        state = env.reset(serverss)
+        done = False
+        i = 0
+        while not done:
+            action = agent.egreedy_action(state)
+            state_, reward, done = env.step(action,i)
+            i += 1
+            agent.perceive(state,action,reward,state_,done)
+            state = state_
+            if done:
+                st.append(np.std(state))
+                if np.std(state) < equ: 
+                    equ = np.std(state)
+                    osd_new = state[:]
+                    print("Best Now!")
+                print("episode:",episode," state: ", state, "\nstd:",np.std(state))#, " epsilon:", agent.epsilon)
+        agent.epsilonc(e)
+    print("osd: ",serverss,";\nosd_new:",osd_new,";\nst:",st)
+    hua(st,serverss,osd_new)
+    # agent.save_net("./dqn_model/move_less.ckpt")
+    # agent.close()
+
 
 def QlearningLearn_data():
     env = park.make('data_migration')
@@ -680,7 +719,8 @@ if __name__ == '__main__':
     # QlearningLearn_data()
     # Zhu()
     # DQNLearnSigle()
-    DQNTestSigle()
+    # DQNTestSigle()
+    DQN_data()
     # QlearningLearn()
     # QlearningTest()
 
