@@ -316,7 +316,7 @@ def DQNTestSigle():
         print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
         # print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
         # agent.epsilonc(e)
-    for pg_num in range(config.num_stream_jobs):
+    for pg_num in range(config.num_stream_jobs - 9000):
         print(pg_num,"————>",ac[pg_num*3], ",", ac[pg_num*3+1], ",", ac[pg_num*3+2]) 
     hua(st,fstate)
     agent.close()
