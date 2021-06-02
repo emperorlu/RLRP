@@ -271,7 +271,7 @@ def DQNTestSigle():
     st = []
     equ = 100
     Rnum = 3
-    for episode in range(EPISODE):
+    for episode in range(TEST):
         state = env.reset()
         done = False
         t0 = time.time()
@@ -656,9 +656,9 @@ if __name__ == '__main__':
     # print("begin test\n")
     # QlearningLearn_data()
     # Zhu()
-    DQNLearnSigle()
+    # DQNLearnSigle()
     # DQNLearnSigle3()
-    # DQNTestSigle()
+    DQNTestSigle()
     # QlearningLearn()
     # QlearningTest()
 
