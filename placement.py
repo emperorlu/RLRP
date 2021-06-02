@@ -213,7 +213,7 @@ def DQNTestSigle():
             next_state,reward,done = env.step(action)
             state = next_state
             fstate = env.observe()
-            agent.perceive(state,action,reward,next_state,done)
+            # agent.perceive(state,action,reward,next_state,done)
             if (done):
                 st.append(np.std(state))
                 if np.std(fstate) < equ: 
