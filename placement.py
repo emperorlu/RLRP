@@ -229,7 +229,7 @@ def DQNLearnSigle():
     e = EPISODE / 10
     equ = 100
     st = []
-    num = 0
+    stop = 0
     Rnum = config.num_rep
     t0 = time.time()
     i = 0
@@ -257,10 +257,10 @@ def DQNLearnSigle():
                 if np.std(fstate) < equ: 
                     equ = np.std(fstate)
                     print("Best Now!")
-                if np.std(fstate) < 1 and num_ain == 0 : num += 1
-                else: num = 0
+                if np.std(fstate) < 1: stop += 1
+                else: stop = 0
                 print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",np.std(fstate), " ain:", num_ain,"\nstate: ", state, "\nservers:", fstate)
-        if num == 3: break
+        if stop == 3: break
         agent.epsilonc(e)
     t1 = time.time()
     print("total episode:",i,"; cost time: ", t1-t0)
