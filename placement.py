@@ -223,14 +223,15 @@ def DQNTestSigle():
                 action = agent.egreedy_action(state) 
                 next_state,reward,done = env.step(action)
                 state = next_state
-                fstate = env.observe()
+                
                 # agent.perceive(state,action,reward,next_state,done)
-                if (done):
-                    st.append(np.std(fstate))
-                    if np.std(fstate) < equ: 
-                        equ = np.std(fstate)
-                        print("Best Now!")
-                    print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
+                # if (done):
+                #     st.append(np.std(fstate))
+                #     if np.std(fstate) < equ: 
+                #         equ = np.std(fstate)
+                #         print("Best Now!")
+            fstate = env.observe()
+            print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
         # print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
         # agent.epsilonc(e)
     # hua(st,osd)
