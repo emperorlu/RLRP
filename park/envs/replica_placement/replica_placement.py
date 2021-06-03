@@ -28,7 +28,7 @@ class ReplicaplacementEnv(core.Env):
         #fstate = [self.servers[i] - min(self.servers) for i in range(len(self.servers))]
         #self.servers_state = [fstate[i] / self.weight[i] for i in range(len(fstate))]
         fstate = [self.servers[i] / self.weight[i] for i in range(len(self.servers))]
-        self.servers_state = [int(fstate[i] - min(fstate)) for i in range(len(fstate))]
+        self.servers_state = [round(fstate[i] - min(fstate)) for i in range(len(fstate))]
         return self.servers_state
     def observe(self):
         # obs_arr = []
