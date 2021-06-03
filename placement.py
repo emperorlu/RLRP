@@ -256,9 +256,9 @@ def DQNLearnSigle():
             #     else: 
             #         action = agent.egreedy_action(state,k)
             #         k += 1
-            fstate = env.observe_state()
+            fstate = env.observe()
             # k = [fstate[i] * env.weight[i] for i in range(len(fstate))]
-            stk = np.std(fstate)
+            stk = np.std(env.observe_state())
             if (done):
                 st.append(stk)
                 if stk < equ: 
