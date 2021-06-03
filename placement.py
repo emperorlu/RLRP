@@ -233,8 +233,7 @@ def DQNLearnSigle():
     # Rnum = config.num_rep
     t0 = time.time()
     i = 0
-    testi = 3.5
-    print("testi: ",int(testi))
+    print("weight: ",env.weight)
     for episode in range(EPISODE):
         i += 1
         state = env.reset()
