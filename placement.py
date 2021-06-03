@@ -257,15 +257,16 @@ def DQNLearnSigle():
             #         action = agent.egreedy_action(state,k)
             #         k += 1
             fstate = env.observe()
-
+            k = [env.servers[i] / env.weight[i] for i in range(len(env.servers))]
+            stk = np.std(k)
             if (done):
-                st.append(np.std(fstate))
-                if np.std(fstate) < equ: 
-                    equ = np.std(fstate)
+                st.append(stk)
+                if stk < equ: 
+                    equ = stk
                     print("Best Now!")
-                if np.std(fstate) < 1: stop += 1
+                if stk < 1: stop += 1
                 else: stop = 0
-                print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",np.std(fstate),"\nstate: ", state, "\nservers:", fstate)
+                print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)
         if stop == 3: break
         agent.epsilonc(e)
     t1 = time.time()

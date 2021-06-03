@@ -14,6 +14,7 @@ class ReplicaplacementEnv(core.Env):
         # self.cur_servers = config.num_servers_now
         self.servers_state = self.initialize_servers()
         self.servers = self.initialize_servers()
+        self.weight = [2,3,5,4,7,2,2,2,2,2]
         self.reset()
 
     def initialize_servers(self):
@@ -71,7 +72,8 @@ class ReplicaplacementEnv(core.Env):
         if (np.std(self.servers) == 0): 
             reward = 10000
             done = True
-        reward -= np.std(self.servers) ** 0.5
+        k = [self.servers[i] / self.weight[i] for i in range(len(self.servers))]
+        reward -= np.std(k) ** 0.5
         if min(state) != 0: reward = -reward
             
         # print("reward: ", reward)
