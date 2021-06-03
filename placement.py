@@ -274,13 +274,13 @@ def DQNLearnSigle():
     t1 = time.time()
     print("total episode:",i,"; cost time: ", t1-t0)
     hua(st,osd)
-    agent.save_net("./dqn_model/place_weight.ckpt")
+    agent.save_net("./dqn_model/place_weight2.ckpt")
     agent.close()
 
 def DQNTestSigle():
     env = park.make('replica_placement')
     agent = DQN(env,0)
-    agent.build_net("./dqn_model/place_weight.ckpt")
+    agent.build_net("./dqn_model/place_weight2.ckpt")
     st = []
     ac = []
     Rnum = config.num_rep
@@ -726,7 +726,7 @@ if __name__ == '__main__':
     # print("begin test\n")
     # QlearningLearn_data()
     # Zhu()
-    # DQNLearnSigle()
+    DQNLearnSigle()
     DQNTestSigle()
     # DQN_data()
     # QlearningLearn()
