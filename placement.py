@@ -118,7 +118,7 @@ def hua(st,osd=0,osd_new=0,osd_zhu=0):
         x2=range(len(osd_zhu))
         # osd[0] += 5
         # osd[4] -= 5
-        y2= [osd[i] - osd_zhu[i] for i in range(len(osd_zhu))]
+        # y2= [osd[i] - osd_zhu[i] for i in range(len(osd_zhu))]
         y1= osd_zhu
         y3= osd
         # xticks1=list(ppv3.index) 
@@ -279,7 +279,7 @@ def DQNLearnSigle():
 def DQNTestSigle():
     env = park.make('replica_placement')
     agent = DQN(env,0)
-    agent.build_net("./dqn_model/place_weight2.ckpt")
+    agent.build_net("./dqn_model/place_weight.ckpt")
     st = []
     ac = []
     Rnum = config.num_rep
@@ -329,7 +329,7 @@ def DQNTestSigle():
         
     #     if pg_num % num == 0:
     #         print(pg_num,"————>",ac[pg_num*3], ",", ac[pg_num*3+1], ",", ac[pg_num*3+2]) 
-    hua(st,fstate)
+    hua(st,fstate,0,env.weight)
     agent.close()
 
 
@@ -725,7 +725,7 @@ if __name__ == '__main__':
     # print("begin test\n")
     # QlearningLearn_data()
     # Zhu()
-    DQNLearnSigle()
+    # DQNLearnSigle()
     DQNTestSigle()
     # DQN_data()
     # QlearningLearn()
