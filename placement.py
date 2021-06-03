@@ -75,7 +75,7 @@ def hua(st,osd=0,osd_new=0,osd_zhu=0):
     plt.savefig("pig/test_st.png")
  
     # plt.subplot(212)
-    if osd_new == 0:
+    if osd_new == 0 and osd_zhu == 0:
         plt.figure(11)
         x=range(len(osd))
         y=osd
@@ -90,7 +90,7 @@ def hua(st,osd=0,osd_new=0,osd_zhu=0):
         # plt.ylim(0,100)
 
         plt.savefig("pig/test_osd.png")
-    elif osd_zhu == 0:
+    elif osd_new != 0 and osd_zhu == 0:
         plt.figure(11)
         # osd.append(0)
         x1=range(len(osd))
