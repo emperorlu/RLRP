@@ -230,7 +230,7 @@ def DQNLearnSigle():
     equ = 100
     st = []
     stop = 0
-    Rnum = config.num_rep
+    # Rnum = config.num_rep
     t0 = time.time()
     i = 0
     for episode in range(EPISODE):
@@ -239,20 +239,23 @@ def DQNLearnSigle():
         done = False
         while not done:
             action = agent.egreedy_action(state) 
-            j = 0; k = 1
-            Raction = []
-            while j != Rnum:
-                # action = agent.egreedy_action(state)
-                if action not in Raction:
-                    Raction.append(action)
-                    next_state,reward,done = env.step(action)
-                    agent.perceive(state,action,reward,next_state,done)
-                    state = next_state
-                    j += 1
-                    k = 1
-                else: 
-                    action = agent.egreedy_action(state,k)
-                    k += 1
+            next_state,reward,done = env.step(action)
+            agent.perceive(state,action,reward,next_state,done)
+            state = next_state
+            # j = 0; k = 1
+            # Raction = []
+            # while j != Rnum:
+            #     # action = agent.egreedy_action(state)
+            #     if action not in Raction:
+            #         Raction.append(action)
+            #         next_state,reward,done = env.step(action)
+            #         agent.perceive(state,action,reward,next_state,done)
+            #         state = next_state
+            #         j += 1
+            #         k = 1
+            #     else: 
+            #         action = agent.egreedy_action(state,k)
+            #         k += 1
             fstate = env.observe()
 
             if (done):
@@ -268,7 +271,7 @@ def DQNLearnSigle():
     t1 = time.time()
     print("total episode:",i,"; cost time: ", t1-t0)
     hua(st,osd)
-    agent.save_net("./dqn_model/place3.ckpt")
+    agent.save_net("./dqn_model/place_weight.ckpt")
     agent.close()
 
 def DQNTestSigle():
@@ -719,9 +722,9 @@ if __name__ == '__main__':
     # print("begin test\n")
     # QlearningLearn_data()
     # Zhu()
-    # DQNLearnSigle()
+    DQNLearnSigle()
     # DQNTestSigle()
-    DQN_data()
+    # DQN_data()
     # QlearningLearn()
     # QlearningTest()
 
