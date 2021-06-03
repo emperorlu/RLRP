@@ -257,7 +257,7 @@ def DQNLearnSigle():
             #         action = agent.egreedy_action(state,k)
             #         k += 1
             fstate = env.observe()
-            k = [fstate * env.weight[i] for i in range(len(fstate))]
+            k = [fstate[i] * env.weight[i] for i in range(len(fstate))]
             stk = np.std(fstate)
             if (done):
                 st.append(stk)
