@@ -25,7 +25,8 @@ class ReplicaplacementEnv(core.Env):
         self.servers = ser
 
     def observe_state(self):
-        self.servers_state= [self.servers_state[i] - min(self.servers_state) for i in range(len(self.servers_state))]
+        fstate = [self.servers[i] - min(self.servers) for i in range(len(self.servers))]
+        self.servers_state = [fstate[i] / self.weight[i] for i in range(len(fstate))]
         return self.servers_state
     def observe(self):
         # obs_arr = []
@@ -66,14 +67,14 @@ class ReplicaplacementEnv(core.Env):
         
         state = self.servers_state
         self.servers[action] = self.servers[action] + 1
-        state[action] = state[action] + 1/self.weight[action]
+        # state[action] = state[action] + 1/self.weight[action]
 
         reward = 0
         if (np.std(self.servers) == 0): 
             reward = 10000
             done = True
         reward -= np.std(self.servers) ** 0.5
-        if min(state) != 0: reward = -reward
+        if min(state) == state[action]: reward = -reward
             
         # print("reward: ", reward)
         # reward = min(self.servers) - max(self.servers)
