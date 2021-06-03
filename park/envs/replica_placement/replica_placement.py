@@ -14,7 +14,8 @@ class ReplicaplacementEnv(core.Env):
         # self.cur_servers = config.num_servers_now
         self.servers_state = self.initialize_servers()
         self.servers = self.initialize_servers()
-        self.weight = [21,35,5,44,7,54,25,12,2,22]
+        # self.weight = [21,35,5,44,7,54,25,12,2,22]
+        self.weight = [2, 3, 5, 4, 7, 2, 2, 2, 2, 2] 
         self.reset()
 
     def initialize_servers(self):

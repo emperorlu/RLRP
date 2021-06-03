@@ -286,6 +286,7 @@ def DQNTestSigle():
     for episode in range(TEST):
         state = env.reset()
         done = False
+        print("weight: ",env.weight)
         t0 = time.time()
         # num = int(config.num_stream_jobs * config.num_rep  / env.stepn)
         num = int(config.num_stream_jobs / env.stepn)
