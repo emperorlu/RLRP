@@ -65,15 +65,14 @@ class ReplicaplacementEnv(core.Env):
         assert self.action_space.contains(action)
         
         state = self.servers_state
-        self.servers[action] = self.servers[action] + 1
-        state[action] = state[action] + 1
+        self.servers[action] = self.servers[action] + 1/self.weight[action]
+        state[action] = state[action] + 1/self.weight[action]
 
         reward = 0
         if (np.std(self.servers) == 0): 
             reward = 10000
             done = True
-        k = [self.servers[i] / self.weight[i] for i in range(len(self.servers))]
-        reward -= np.std(k) ** 0.5
+        reward -= np.std(self.servers) ** 0.5
         if min(state) != 0: reward = -reward
             
         # print("reward: ", reward)
