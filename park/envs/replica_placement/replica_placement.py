@@ -25,7 +25,7 @@ class ReplicaplacementEnv(core.Env):
         self.servers = ser
 
     def observe_state(self):
-        self.servers_state= [self.servers[i] - min(self.servers) for i in range(len(self.servers))]
+        self.servers_state= [self.servers_state[i] - min(self.servers_state) for i in range(len(self.servers_state))]
         return self.servers_state
     def observe(self):
         # obs_arr = []
@@ -41,7 +41,7 @@ class ReplicaplacementEnv(core.Env):
         # for server in self.servers:
         #     server.reset()
         if test==0: self.servers = self.initialize_servers()
-        self.stepn = 100
+        self.stepn = 200
         self.num_stream_jobs_left = self.num_stream_jobs * config.num_rep
         assert self.num_stream_jobs_left > 0
         return self.observe()
@@ -65,7 +65,7 @@ class ReplicaplacementEnv(core.Env):
         assert self.action_space.contains(action)
         
         state = self.servers_state
-        self.servers[action] = self.servers[action] + 1/self.weight[action]
+        self.servers[action] = self.servers[action] + 1
         state[action] = state[action] + 1/self.weight[action]
 
         reward = 0
