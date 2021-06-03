@@ -323,13 +323,13 @@ def DQNTestSigle():
         print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
         # print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
         # agent.epsilonc(e)
-    num = config.num_stream_jobs / 10
-    for pg_num in range(config.num_stream_jobs):
-        if ac[pg_num*3] != ac[pg_num*3+1] != ac[pg_num*3+2]: pg_num
-        else: print('相等',pg_num,"————>",ac[pg_num*3], ",", ac[pg_num*3+1], ",", ac[pg_num*3+2])
+    # num = config.num_stream_jobs / 10
+    # for pg_num in range(config.num_stream_jobs):
+    #     if ac[pg_num*3] != ac[pg_num*3+1] != ac[pg_num*3+2]: pg_num
+    #     else: print('相等',pg_num,"————>",ac[pg_num*3], ",", ac[pg_num*3+1], ",", ac[pg_num*3+2])
         
-        if pg_num % num == 0:
-            print(pg_num,"————>",ac[pg_num*3], ",", ac[pg_num*3+1], ",", ac[pg_num*3+2]) 
+    #     if pg_num % num == 0:
+    #         print(pg_num,"————>",ac[pg_num*3], ",", ac[pg_num*3+1], ",", ac[pg_num*3+2]) 
     hua(st,fstate)
     agent.close()
 
@@ -726,8 +726,8 @@ if __name__ == '__main__':
     # print("begin test\n")
     # QlearningLearn_data()
     # Zhu()
-    DQNLearnSigle()
-    # DQNTestSigle()
+    # DQNLearnSigle()
+    DQNTestSigle()
     # DQN_data()
     # QlearningLearn()
     # QlearningTest()
