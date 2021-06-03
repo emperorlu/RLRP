@@ -266,7 +266,7 @@ def DQNLearnSigle():
                     print("Best Now!")
                 if stk < 1: stop += 1
                 else: stop = 0
-                print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)
+                print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate, "\nk:", k)
         if stop == 3: break
         agent.epsilonc(e)
     t1 = time.time()
