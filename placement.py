@@ -292,35 +292,42 @@ def DQNTestSigle():
     hua(st,fstate,0,env.weight)
     agent.close()
 
-def DQNTestData():
+def DQNLearnData():
     env = park.make('replica_placement')
-    agent = DQN(env,0)
-    agent.build_net("./dqn_model/place.ckpt")
-    st = []; ac = []
-    Rnum = config.num_rep
-    for episode in range(TEST):
+    agent = DQN(env)#,0.1)
+    e = EPISODE / 10
+    equ = 100; st = []; stop = 0; i = 0; old = []
+    # for o in range(1000):
+    #     old[o] = o
+    t0 = time.time()
+    print("weight: ",env.weight)
+    for episode in range(EPISODE):
+        i += 1
         state = env.reset()
         done = False
-        print("weight: ",env.weight)
-        t0 = time.time()
-        # num = int(config.num_stream_jobs * config.num_rep  / env.stepn)
-        num = int(config.num_stream_jobs / env.stepn)
-        print("num: ",num)
-        # while num:
-        for i in range(num):
-            state = env.reset(1)
-            done = False
-            while not done:
-                action = agent.egreedy_action(state) 
-                ac.append(action)
-                next_state,reward,done = env.step(action)
-                state = next_state
-        fstate = env.observe()
-        t1 = time.time()
-        print("total episode:",i,"; cost time: ", t1-t0)
-        print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
-    hua(st,fstate,0,env.weight)
-    agent.close()   
+        while not done:
+            action = agent.egreedy_action(state) 
+            
+            next_state,reward,done = env.step(action)
+            agent.perceive(state,action,reward,next_state,done)
+            state = next_state
+            fstate = env.observe()
+            stk = np.std(env.observe_state())
+            if (done):
+                st.append(stk)
+                if stk < equ: 
+                    equ = stk
+                    print("Best Now!")
+                if stk < 1: stop += 1
+                else: stop = 0
+                print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k)
+        if stop == 3: break
+        agent.epsilonc(e)
+    t1 = time.time()
+    print("total episode:",i,"; cost time: ", t1-t0)
+    hua(st,osd)
+    agent.save_net("./dqn_model/place_data.ckpt")
+    agent.close()
 
 def DQNLearn():
   global osd
@@ -477,7 +484,7 @@ def DQN_data():
     agent = DQN(env)
     equ = 200
     e = EPISODE / 10
-    serverss = [100] * config.num_servers
+    serverss = [3000] * config.num_servers
     a=np.load('mapping.npy')
     # a=a.tolist()
     # osd=np.sum(a,axis=0)
@@ -716,8 +723,8 @@ if __name__ == '__main__':
     # Zhu()
     # DQNLearnSigle()
     # DQNTestSigle()
-    DQNTestData()
-    # DQN_data()
+    # DQNTestData()
+    DQN_data()
     # QlearningLearn()
     # QlearningTest()
 
