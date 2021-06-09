@@ -536,15 +536,18 @@ def DQNTest_data():
     serverss[config.num_servers-1] = 0
    
     for episode in range(TEST):       
-        state = env.reset(serverss)
-        # print("state:",state)
-        done = False
-        i = 0
-        while not done:
-            action = agent.egreedy_action(state)
-            state_, reward, done = env.step(action,i)
-            state = state_
-            i += 1
+        
+        num = int(3000 / 100)
+        print("num: ",num)
+        for k in range(num):
+            state = env.reset(serverss)
+            done = False
+            i = 0
+            while not done:
+                action = agent.egreedy_action(state)
+                state_, reward, done = env.step(action,i)
+                state = state_
+                i += 1
         fstate = env.observe()
         stk = np.std(fstate)
         print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)
