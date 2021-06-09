@@ -189,7 +189,7 @@ class DatamigrationEnv(core.Env):
 
         self.num_stream_jobs_left = self.num_stream_jobs_left - 1
         done = (self.num_stream_jobs_left == 0)
-        if np.std(self.servers) < 1: done = True
+        # if np.std(self.servers) < 1: done = True
         if self.servers[-1] >= np.mean(self.servers): done = True
         # if self.servers[-1] == max(self.servers): done = True
         # print("self.observe_state():",self.observe_state())
