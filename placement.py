@@ -526,7 +526,7 @@ def DQN_data():
     print("total episode:",i,"; cost time: ", t1-t0)
     print("osd: ",serverss,";\nosd_new:",osd_new,";\nst:",st)
     hua(st,serverss,osd_new)
-    agent.save_net("./dqn_model/place_move.ckpt")
+    # agent.save_net("./dqn_model/place_move.ckpt")
     agent.close()
 
 def DQNTest_data():
@@ -768,8 +768,8 @@ if __name__ == '__main__':
     # DQNLearnSigle()
     # DQNTestSigle()
     # DQNTestData()
-    # DQN_data()
-    DQNTest_data()
+    DQN_data()
+    # DQNTest_data()
     # QlearningLearn()
     # QlearningTest()
 
