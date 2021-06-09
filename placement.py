@@ -548,9 +548,9 @@ def DQNTest_data():
                 state_, reward, done = env.step(action,i)
                 state = state_
                 i += 1
-        osd_new = fstate[:]
         fstate = env.observe()
         stk = np.std(fstate)
+        osd_new = fstate[:]
         print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)
     # print("osd: ",serverss,";\nosd_new:",osd_new,";\nst:",st)
     hua(st,serverss,osd_new)
