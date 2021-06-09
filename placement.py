@@ -526,6 +526,31 @@ def DQN_data():
     agent.save_net("./dqn_model/place_move.ckpt")
     agent.close()
 
+def DQNTest_data():
+    env = park.make('data_migration')
+    agent = DQN(env,0)
+    agent.build_net("./dqn_model/place_move.ckpt")
+    
+    serverss = [3000] * config.num_servers   
+    st = [];osd_new = []
+    serverss[config.num_servers-1] = 0
+   
+    for episode in range(TEST):       
+        state = env.reset(serverss)
+        # print("state:",state)
+        done = False
+        i = 0
+        while not done:
+            action = agent.egreedy_action(state)
+            state_, reward, done = env.step(action,i)
+            state = state_
+            i += 1
+        fstate = env.observe()
+        stk = np.std(fstate)
+        print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)
+    # print("osd: ",serverss,";\nosd_new:",osd_new,";\nst:",st)
+    hua(st,serverss,osd_new)
+    agent.close()
 
 def QlearningLearn_data():
     env = park.make('data_migration')
@@ -731,7 +756,8 @@ if __name__ == '__main__':
     # DQNLearnSigle()
     # DQNTestSigle()
     # DQNTestData()
-    DQN_data()
+    # DQN_data()
+    DQNTest_data()
     # QlearningLearn()
     # QlearningTest()
 
