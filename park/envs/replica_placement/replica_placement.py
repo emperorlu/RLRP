@@ -170,7 +170,7 @@ class DatamigrationEnv(core.Env):
         assert self.action_space.contains(action)
         state = self.servers_state
         print(state)
-        print(state[:,:-1])
+        print(state[:-1])
         if action < 3:
             action = (i+action) % (config.num_servers-1)
             if self.servers[action] > 0:
