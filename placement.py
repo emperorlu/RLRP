@@ -496,6 +496,7 @@ def DQN_data():
     serverss[config.num_servers-1] = 0
     # print("serverss: ", serverss)
     # print("serverss: ", serverss[:-1])
+    t0 = time.time()
     for episode in range(EPISODE):
         
         state = env.reset(serverss)
@@ -521,6 +522,8 @@ def DQN_data():
                 print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)
         if stop == 10: break
         agent.epsilonc(e)
+    t1 = time.time()
+    print("total episode:",i,"; cost time: ", t1-t0)
     print("osd: ",serverss,";\nosd_new:",osd_new,";\nst:",st)
     hua(st,serverss,osd_new)
     agent.save_net("./dqn_model/place_move.ckpt")
