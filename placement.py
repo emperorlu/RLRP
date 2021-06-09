@@ -514,7 +514,7 @@ def DQN_data():
                 st.append(stk)
                 if stk < equ: 
                     equ = stk
-                    osd_new = state[:]
+                    osd_new = fstate[:]
                     print("Best Now!")
                 if stk < 1: stop += 1
                 else: stop = 0
