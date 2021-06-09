@@ -519,7 +519,7 @@ def DQN_data():
                 if stk < 1: stop += 1
                 else: stop = 0
                 print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)
-        if stop == 3: break
+        if stop == 3 and episode>e: break
         agent.epsilonc(e)
     print("osd: ",serverss,";\nosd_new:",osd_new,";\nst:",st)
     hua(st,serverss,osd_new)
