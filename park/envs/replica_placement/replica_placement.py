@@ -132,7 +132,9 @@ class DatamigrationEnv(core.Env):
         self.servers = ser
 
     def observe_state(self):
-        self.servers_state = [self.servers[i] - min(self.servers) for i in range(len(self.servers)-1)]
+        m = min(self.servers[:-1])
+        for i in range(len(self.servers)-1):
+            self.servers_state[i] = self.servers[i] - m
     
         return self.servers_state
 
@@ -189,5 +191,6 @@ class DatamigrationEnv(core.Env):
         if np.std(self.servers) < 1: done = True
         if self.servers[-1] >= np.mean(self.servers): done = True
         # if self.servers[-1] == max(self.servers): done = True
+        print("self.observe_state():",self.observe_state())
         return self.observe_state(), reward, done
         # return self.observe(), reward, done
