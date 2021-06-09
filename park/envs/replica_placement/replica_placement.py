@@ -171,17 +171,18 @@ class DatamigrationEnv(core.Env):
         # std1 = np.std(self.servers)
         assert self.action_space.contains(action)
         
-        
+        state = self.servers_state
         if action < 3:
             action = (i+action) % (config.num_servers-1)
             if self.servers[action] > 0:
                 self.servers[action] = self.servers[action] - 1
                 self.servers[config.num_servers-1] = self.servers[config.num_servers-1] + 1
         
-        state = self.observe_state()
+        # state = self.observe_state()
         # std2 = np.std(self.servers)
         # reward = 1000
-        reward = -np.std(state[:-1])
+        reward = -np.std(self.observe_state()[:-1]) ** 0.5
+        if max(state) != state[action]: reward = -reward
         # reward = std1 - std2
         # else: reward -= np.std(self.servers) #* (num+1)
         # reward = (min(self.servers) - max(self.servers)) ** 0.5
@@ -192,5 +193,5 @@ class DatamigrationEnv(core.Env):
         if self.servers[-1] >= np.mean(self.servers): done = True
         # if self.servers[-1] == max(self.servers): done = True
         # print("self.observe_state():",self.observe_state())
-        return state, reward, done
+        return self.observe_state(), reward, done
         # return self.observe(), reward, done
