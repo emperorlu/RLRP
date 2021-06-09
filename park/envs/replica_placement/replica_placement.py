@@ -76,7 +76,7 @@ class ReplicaplacementEnv(core.Env):
         if (np.std(self.servers) == 0): 
             reward = 10000
             done = True
-        reward -= np.std(state) ** 0.5
+        reward -= np.std(self.servers) ** 0.5
         if min(state) == state[action]: reward = -reward
             
         # print("reward: ", reward)
@@ -170,7 +170,7 @@ class DatamigrationEnv(core.Env):
     def step(self, action, i=0):
         # std1 = np.std(self.servers)
         assert self.action_space.contains(action)
-        state = self.servers_state
+        
         
         if action < 3:
             action = (i+action) % (config.num_servers-1)
@@ -178,10 +178,10 @@ class DatamigrationEnv(core.Env):
                 self.servers[action] = self.servers[action] - 1
                 self.servers[config.num_servers-1] = self.servers[config.num_servers-1] + 1
         
-        fstate = self.servers[:-1]
+        state = self.observe_state()
         # std2 = np.std(self.servers)
         # reward = 1000
-        reward = -np.std(fstate) **0.5
+        reward = -np.std(state[:-1]) **0.5
         # reward = std1 - std2
         # else: reward -= np.std(self.servers) #* (num+1)
         # reward = (min(self.servers) - max(self.servers)) ** 0.5
@@ -191,6 +191,6 @@ class DatamigrationEnv(core.Env):
         if np.std(self.servers) < 1: done = True
         if self.servers[-1] >= np.mean(self.servers): done = True
         # if self.servers[-1] == max(self.servers): done = True
-        print("self.observe_state():",self.observe_state())
-        return self.observe_state(), reward, done
+        # print("self.observe_state():",self.observe_state())
+        return state, reward, done
         # return self.observe(), reward, done
