@@ -484,7 +484,7 @@ def DQN_data():
     agent = DQN(env)
     equ = 200
     e = EPISODE / 10
-    serverss = [3000] * config.num_servers
+    serverss = [100] * config.num_servers
     a=np.load('mapping.npy')
     # a=a.tolist()
     # osd=np.sum(a,axis=0)
