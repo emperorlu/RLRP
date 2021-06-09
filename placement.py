@@ -509,7 +509,8 @@ def DQN_data():
             agent.perceive(state,action,reward,state_,done)
             state = state_
             fstate = env.observe()
-            stk = np.std(env.observe_state())
+            # stk = np.std(env.observe_state())
+            stk = -reward
             if done:
                 st.append(stk)
                 if stk < equ: 
