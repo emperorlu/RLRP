@@ -169,13 +169,14 @@ class DatamigrationEnv(core.Env):
         # std1 = np.std(self.servers)
         assert self.action_space.contains(action)
         state = self.servers_state
-        fstate = state[:-1]
+        
         if action < 3:
             action = (i+action) % (config.num_servers-1)
             if self.servers[action] > 0:
                 self.servers[action] = self.servers[action] - 1
                 self.servers[config.num_servers-1] = self.servers[config.num_servers-1] + 1
         
+        fstate = self.servers[:-1]
         # std2 = np.std(self.servers)
         # reward = 1000
         reward = -np.std(fstate) **0.5
