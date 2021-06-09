@@ -548,6 +548,7 @@ def DQNTest_data():
                 state_, reward, done = env.step(action,i)
                 state = state_
                 i += 1
+        osd_new = fstate[:]
         fstate = env.observe()
         stk = np.std(fstate)
         print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)
