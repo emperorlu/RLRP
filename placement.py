@@ -482,17 +482,17 @@ def DQNTest():
 def DQN_data():
     env = park.make('data_migration')
     agent = DQN(env)
-    equ = 200
+    
     e = EPISODE / 10
     serverss = [100] * config.num_servers
-    a=np.load('mapping.npy')
+    # a=np.load('mapping.npy')
     # a=a.tolist()
     # osd=np.sum(a,axis=0)
     # for pg_num in range(len(osd)):
     #     serverss[pg_num] = int(osd[pg_num])
     
-    st = []
-    osd_new = []
+    st = [];osd_new = []
+    equ = 200; stop =0
     serverss[config.num_servers-1] = 0
     print("serverss: ", serverss)
     for episode in range(EPISODE):
@@ -506,18 +506,23 @@ def DQN_data():
             i += 1
             agent.perceive(state,action,reward,state_,done)
             state = state_
+            fstate = env.observe()
+            stk = np.std(env.observe_state())
             if done:
-                st.append(np.std(state))
-                if np.std(state) < equ: 
+                st.append(stk)
+                if stk < equ: 
                     equ = np.std(state)
                     osd_new = state[:]
                     print("Best Now!")
-                print("episode:",episode," state: ", state, "\nstd:",np.std(state), " epsilon:", agent.epsilon)
+                if stk < 1: stop += 1
+                else: stop = 0
+                print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)
+        if stop == 3: break
         agent.epsilonc(e)
     print("osd: ",serverss,";\nosd_new:",osd_new,";\nst:",st)
     hua(st,serverss,osd_new)
-    # agent.save_net("./dqn_model/move_less.ckpt")
-    # agent.close()
+    agent.save_net("./dqn_model/place_move.ckpt")
+    agent.close()
 
 
 def QlearningLearn_data():

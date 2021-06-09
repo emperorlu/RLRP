@@ -118,6 +118,7 @@ class DatamigrationEnv(core.Env):
         self.num_stream_jobs = config.num_stream_jobs
         self.men = int(config.num_stream_jobs * config.num_rep / config.num_servers)
         print("men=",self.men)
+        self.servers_state = self.initialize_servers()
         self.servers = self.initialize_servers()
         self.reset()
 
@@ -129,6 +130,11 @@ class DatamigrationEnv(core.Env):
     
     def set_servers(self, ser):
         self.servers = ser
+
+    def observe_state(self):
+        self.servers_state = [self.servers[i] - min(self.servers) for i in range(len(self.servers))]
+    
+        return self.servers_state
 
     def observe(self):
         # obs_arr = []
@@ -162,6 +168,7 @@ class DatamigrationEnv(core.Env):
     def step(self, action, i=0):
         # std1 = np.std(self.servers)
         assert self.action_space.contains(action)
+        state = self.servers_state
         if action < 3:
             action = (i+action) % (config.num_servers-1)
             if self.servers[action] > 0:
@@ -170,7 +177,7 @@ class DatamigrationEnv(core.Env):
         
         # std2 = np.std(self.servers)
         # reward = 1000
-        reward = -np.std(self.servers) **0.5
+        reward = -np.std(state) **0.5
         # reward = std1 - std2
         # else: reward -= np.std(self.servers) #* (num+1)
         # reward = (min(self.servers) - max(self.servers)) ** 0.5
@@ -180,4 +187,5 @@ class DatamigrationEnv(core.Env):
         if np.std(self.servers) < 1: done = True
         if self.servers[-1] >= np.mean(self.servers): done = True
         # if self.servers[-1] == max(self.servers): done = True
-        return self.observe(), reward, done
+        return self.observe_state(), reward, done
+        # return self.observe(), reward, done
