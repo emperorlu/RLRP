@@ -538,7 +538,7 @@ def DQNTest_data():
     for episode in range(TEST):       
         state = env.reset(serverss)
         # num = int(3000 / 100)
-        num = 0
+        num = 1
         print("num: ",num)
         for k in range(num):
             state = env.reset(-1)
