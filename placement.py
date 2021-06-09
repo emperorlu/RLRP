@@ -540,7 +540,7 @@ def DQNTest_data():
         num = int(3000 / 100)
         print("num: ",num)
         for k in range(num):
-            state = env.reset(serverss)
+            state = env.reset(-1)
             done = False
             i = 0
             while not done:

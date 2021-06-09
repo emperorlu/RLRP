@@ -151,7 +151,8 @@ class DatamigrationEnv(core.Env):
     def reset(self,state_current=0):
         # for server in self.servers:
         #     server.reset()
-        self.servers = self.initialize_servers(state_current)
+        if state_current != -1:
+            self.servers = self.initialize_servers(state_current)
         self.num_stream_jobs_left = self.num_stream_jobs 
         assert self.num_stream_jobs_left > 0
         return self.observe()
