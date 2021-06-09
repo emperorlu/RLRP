@@ -499,7 +499,7 @@ def DQN_data():
     for episode in range(EPISODE):
         
         state = env.reset(serverss)
-        print("state:",state)
+        # print("state:",state)
         done = False
         i = 0
         while not done:
