@@ -540,6 +540,7 @@ def DQNTest_data():
         # num = int(3000 / 100)
         num = 1
         print("num: ",num)
+        t0 = time.time()
         for k in range(num):
             state = env.reset(-1)
             done = False
@@ -550,9 +551,11 @@ def DQNTest_data():
                 state = state_
                 # print("episode:",i, " action:", action, "\nstd:",reward,"\nstate: ", state, "\nservers:", env.observe())
                 i += 1
+        t1 = time.time()
         fstate = env.observe()
         stk = np.std(fstate)
         osd_new = fstate[:]
+        print("total episode:",i,"; cost time: ", t1-t0)
         print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)
     # print("osd: ",serverss,";\nosd_new:",osd_new,";\nst:",st)
     hua(st,serverss,osd_new)
