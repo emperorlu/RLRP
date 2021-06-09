@@ -548,6 +548,7 @@ def DQNTest_data():
                 action = agent.egreedy_action(state)
                 state_, reward, done = env.step(action,i)
                 state = state_
+                print("episode:",i, " action:", action, "\nstd:",reward,"\nstate: ", state, "\nservers:", env.observe())
                 i += 1
         fstate = env.observe()
         stk = np.std(fstate)
