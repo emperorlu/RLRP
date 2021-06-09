@@ -132,7 +132,7 @@ class DatamigrationEnv(core.Env):
         self.servers = ser
 
     def observe_state(self):
-        self.servers_state = [self.servers[i] - min(self.servers) for i in range(len(self.servers))]
+        self.servers_state = [self.servers[i] - min(self.servers) for i in range(len(self.servers)-1)]
     
         return self.servers_state
 
@@ -177,7 +177,7 @@ class DatamigrationEnv(core.Env):
         
         # std2 = np.std(self.servers)
         # reward = 1000
-        reward = -np.std(state) **0.5
+        reward = -np.std(state[:-1]) **0.5
         # reward = std1 - std2
         # else: reward -= np.std(self.servers) #* (num+1)
         # reward = (min(self.servers) - max(self.servers)) ** 0.5
