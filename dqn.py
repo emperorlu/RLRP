@@ -23,7 +23,7 @@ class DQN():
     self.action_dim = env.action_space.n
 
     self.create_Q_network(model)
-    # self.create_training_method()
+    self.create_training_method()
 
     # Init session
     self.session = tf.compat.v1.InteractiveSession()
@@ -36,22 +36,24 @@ class DQN():
     b1 = self.bias_variable([20])
     W2 = self.weight_variable([20,self.action_dim])
     b2 = self.bias_variable([self.action_dim])
-    if model != 0:
-      print("model change!")
-      with tf.Session() as sess:
-        sess.run(tf.compat.v1.global_variables_initializer())
-        tf.compat.v1.train.Saver().restore(sess, model)
-        variable_names = [v.name for v in tf.trainable_variables()]
-        values = sess.run(variable_names)
-        for k,v in zip(variable_names, values):
-          print("Variable: ", k)
-          print("Shape: ", v.shape)
-          print(v)
-      [W1_old, b1_old, W2_old, b2_old] = values
-      W1 = W1_old
-      b1 = b1_old
-      W2 = W2_old
-      b2 = b2_old
+    # if model != 0:
+    #   print("model change!")
+    #   with tf.Session() as sess:
+    #     sess.run(tf.compat.v1.global_variables_initializer())
+    #     tf.compat.v1.train.Saver().restore(sess, model)
+    #     variable_names = [v.name for v in tf.trainable_variables()]
+    #     values = sess.run(variable_names)
+    #     v_old = []
+    #     for k,v in zip(variable_names, values):
+    #       print("Variable: ", k)
+    #       print("Shape: ", v.shape)
+    #       print(v)
+    #       v_old.append(v)
+    #   [W1_old, b1_old, W2_old, b2_old] = v_old
+    #   W1 = W1_old
+    #   b1 = b1_old
+    #   W2 = W2_old
+    #   b2 = b2_old
     # input layer
     self.state_input = tf.compat.v1.placeholder("float",[None,self.state_dim])
     # hidden layers
@@ -59,16 +61,13 @@ class DQN():
     # Q Value layer
     self.Q_value = tf.matmul(h_layer,W2) + b2
 
-  # def create_training_method(self):
+  def create_training_method(self):
     self.action_input = tf.compat.v1.placeholder("float",[None,self.action_dim]) # one hot presentation
     self.y_input = tf.compat.v1.placeholder("float",[None])
     Q_action = tf.reduce_sum(tf.multiply(self.Q_value,self.action_input),reduction_indices = 1)
     self.cost = tf.reduce_mean(tf.square(self.y_input - Q_action))
-    if model == 0:
-      self.optimizer = tf.compat.v1.train.AdamOptimizer(0.0001).minimize(self.cost)
-    else: 
-      self.optimizer = tf.compat.v1.train.AdamOptimizer(0.0001).minimize(self.cost,var_list=values)
-  
+    self.optimizer = tf.compat.v1.train.AdamOptimizer(0.0001).minimize(self.cost)
+
   def perceive(self,state,action,reward,next_state,done):
     one_hot_action = np.zeros(self.action_dim)
     one_hot_action[action] = 1
@@ -173,13 +172,20 @@ class DQN():
     self.saver.restore(self.session, path)
     variable_names = [v.name for v in tf.trainable_variables()]
     values = self.session.run(variable_names)
-    v_old = []
-    for k,v in zip(variable_names, values):
-      print("Variable: ", k)
-      print("Shape: ", v.shape)
-      print(v)
-      v_old.append(v)
-    return  v_old
+    # v_old = []
+    # for k,v in zip(variable_names, values):
+    #   print("Variable: ", k)
+    #   print("Shape: ", v.shape)
+    #   print(v)
+    #   v_old.append(v)
+    if add:
+      [W1_old, b1_old, W2_old, b2_old] = values
+      W1 = W1_old
+      b1 = b1_old
+      W2 = W2_old
+      b2 = b2_old
+      h_layer = tf.nn.relu(tf.matmul(self.state_input,W1) + b1)
+      self.Q_value = tf.matmul(h_layer,W2) + b2
     
     # print(self.sess.run(W1))  
                 
