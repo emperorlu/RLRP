@@ -22,39 +22,38 @@ class DQN():
     self.state_dim = env.observation_space.n
     self.action_dim = env.action_space.n
 
-    if model == 0: 
-      self.create_Q_network()
-      self.create_training_method()
+    self.create_Q_network(model)
+    # self.create_training_method()
 
     # Init session
     self.session = tf.compat.v1.InteractiveSession()
     self.session.run(tf.compat.v1.global_variables_initializer())
     # self.saver = tf.compat.v1.train.Saver()
 
-  def create_Q_network(self):
+  def create_Q_network(self,model=0):
     # network weights
     W1 = self.weight_variable([self.state_dim,20])
     b1 = self.bias_variable([20])
     W2 = self.weight_variable([20,self.action_dim])
     b2 = self.bias_variable([self.action_dim])
-    # if model != 0:
-    #   print("model change!")
-    #   with tf.Session() as sess:
-    #     sess.run(tf.compat.v1.global_variables_initializer())
-    #     tf.compat.v1.train.Saver().restore(sess, model)
-    #     variable_names = [v.name for v in tf.trainable_variables()]
-    #     values = sess.run(variable_names)
-    #     v_old = []
-    #     for k,v in zip(variable_names, values):
-    #       print("Variable: ", k)
-    #       print("Shape: ", v.shape)
-    #       print(v)
-    #       v_old.append(v)
-    #   [W1_old, b1_old, W2_old, b2_old] = v_old
-    #   W1 = W1_old
-    #   b1 = b1_old
-    #   W2 = W2_old
-    #   b2 = b2_old
+    if model != 0:
+      print("model change!")
+      with tf.Session() as sess:
+        sess.run(tf.compat.v1.global_variables_initializer())
+        tf.compat.v1.train.Saver().restore(sess, model)
+        variable_names = [v.name for v in tf.trainable_variables()]
+        values = sess.run(variable_names)
+        v_old = []
+        for k,v in zip(variable_names, values):
+          print("Variable: ", k)
+          print("Shape: ", v.shape)
+          print(v)
+          v_old.append(v)
+      [W1_old, b1_old, W2_old, b2_old] = v_old
+      W1 = W1_old
+      b1 = b1_old
+      W2 = W2_old
+      b2 = b2_old
     # input layer
     self.state_input = tf.compat.v1.placeholder("float",[None,self.state_dim])
     # hidden layers
@@ -62,7 +61,7 @@ class DQN():
     # Q Value layer
     self.Q_value = tf.matmul(h_layer,W2) + b2
 
-  def create_training_method(self):
+  # def create_training_method(self):
     self.action_input = tf.compat.v1.placeholder("float",[None,self.action_dim]) # one hot presentation
     self.y_input = tf.compat.v1.placeholder("float",[None])
     Q_action = tf.reduce_sum(tf.multiply(self.Q_value,self.action_input),reduction_indices = 1)
@@ -171,9 +170,8 @@ class DQN():
     self.session.close()
 
   def build_net(self, path, path1, add=0):
-    self.saver = tf.train.import_meta_graph(path1)
     self.saver.restore(self.session, path)
-    variable_names = [v.name for v in tf.trainable_variables()]
+    variable_names = [v.name for v in tf.compat.v1.trainable_variables()]
     values = self.session.run(variable_names)
     # v_old = []
     for k,v in zip(variable_names, values):

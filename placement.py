@@ -226,9 +226,9 @@ def DQNLearnSigle3():
 
 def DQNLearnSigle():
     env = park.make('replica_placement')
-    agent = DQN(env)
-    # agent = DQN(env,1,"./dqn_model/place.ckpt")#,0.1)
-    agent.build_net("./dqn_model/place.ckpt","./dqn_model/place.ckpt.meta",config.num_servers-10)
+    # agent = DQN(env)
+    agent = DQN(env,1,"./dqn_model/place.ckpt")#,0.1)
+    # agent.build_net("./dqn_model/place.ckpt",config.num_servers-10)
     e = EPISODE / 10
     equ = 100
     st = []
