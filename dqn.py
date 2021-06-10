@@ -23,7 +23,7 @@ class DQN():
     self.action_dim = env.action_space.n
 
     self.create_Q_network(model)
-    # self.create_training_method()
+    self.create_training_method()
 
     # Init session
     self.session = tf.compat.v1.InteractiveSession()
@@ -61,7 +61,7 @@ class DQN():
     # Q Value layer
     self.Q_value = tf.matmul(h_layer,W2) + b2
 
-  # def create_training_method(self):
+  def create_training_method(self):
     self.action_input = tf.compat.v1.placeholder("float",[None,self.action_dim]) # one hot presentation
     self.y_input = tf.compat.v1.placeholder("float",[None])
     Q_action = tf.reduce_sum(tf.multiply(self.Q_value,self.action_input),reduction_indices = 1)
