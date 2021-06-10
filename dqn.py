@@ -23,7 +23,7 @@ class DQN():
     self.action_dim = env.action_space.n
 
     self.create_Q_network(model)
-    self.create_training_method()
+    # self.create_training_method()
 
     # Init session
     self.session = tf.compat.v1.InteractiveSession()
@@ -43,13 +43,11 @@ class DQN():
         tf.compat.v1.train.Saver().restore(sess, model)
         variable_names = [v.name for v in tf.trainable_variables()]
         values = sess.run(variable_names)
-        v_old = []
         for k,v in zip(variable_names, values):
           print("Variable: ", k)
           print("Shape: ", v.shape)
           print(v)
-          v_old.append(v)
-      [W1_old, b1_old, W2_old, b2_old] = v_old
+      [W1_old, b1_old, W2_old, b2_old] = values
       W1 = W1_old
       b1 = b1_old
       W2 = W2_old
@@ -61,13 +59,16 @@ class DQN():
     # Q Value layer
     self.Q_value = tf.matmul(h_layer,W2) + b2
 
-  def create_training_method(self):
+  # def create_training_method(self):
     self.action_input = tf.compat.v1.placeholder("float",[None,self.action_dim]) # one hot presentation
     self.y_input = tf.compat.v1.placeholder("float",[None])
     Q_action = tf.reduce_sum(tf.multiply(self.Q_value,self.action_input),reduction_indices = 1)
     self.cost = tf.reduce_mean(tf.square(self.y_input - Q_action))
-    self.optimizer = tf.compat.v1.train.AdamOptimizer(0.0001).minimize(self.cost)
-
+    if model == 0:
+      self.optimizer = tf.compat.v1.train.AdamOptimizer(0.0001).minimize(self.cost)
+    else: 
+      self.optimizer = tf.compat.v1.train.AdamOptimizer(0.0001).minimize(self.cost,var_list=values)
+  
   def perceive(self,state,action,reward,next_state,done):
     one_hot_action = np.zeros(self.action_dim)
     one_hot_action[action] = 1
