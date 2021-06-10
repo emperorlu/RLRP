@@ -16,7 +16,7 @@ from memory import *
 import warnings
 warnings.filterwarnings("ignore")
 
-EPISODE = 100 # Episode limitation
+EPISODE = 500 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 3 # The number of experiment test every 100 episode
 Rnum = 3
@@ -264,14 +264,14 @@ def DQNLearnSigle():
     t1 = time.time()
     print("total episode:",i,"; cost time: ", t1-t0)
     hua(st,osd)
-    # agent.save_net("./dqn_model/place_test.ckpt")
+    agent.save_net("./dqn_model/place_11.ckpt")
     # agent.build_net("./dqn_model/place_test.ckpt")
     agent.close()
 
 def DQNTestSigle():
     env = park.make('replica_placement')
     agent = DQN(env,0)
-    agent.build_net("./dqn_model/place_weight2.ckpt")
+    agent.build_net("./dqn_model/place_11.ckpt")
     st = []; ac = []
     Rnum = config.num_rep
     for episode in range(TEST):
