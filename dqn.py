@@ -176,10 +176,10 @@ class DQN():
     variable_names = [v.name for v in tf.trainable_variables()]
     values = self.session.run(variable_names)
     # v_old = []
-    # for k,v in zip(variable_names, values):
-    #   print("Variable: ", k)
-    #   print("Shape: ", v.shape)
-    #   print(v)
+    for k,v in zip(variable_names, values):
+      print("Variable: ", k)
+      print("Shape: ", v.shape)
+      print(v)
     #   v_old.append(v)
     if add:
       print("add!", add)
