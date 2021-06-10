@@ -21,14 +21,14 @@ class DQN():
     else: self.epsilon = e
     self.state_dim = env.observation_space.n
     self.action_dim = env.action_space.n
-    self.saver = tf.compat.v1.train.Saver()
+
     self.create_Q_network(model)
     self.create_training_method()
 
     # Init session
     self.session = tf.compat.v1.InteractiveSession()
     self.session.run(tf.compat.v1.global_variables_initializer())
-    # self.saver = tf.compat.v1.train.Saver()
+    self.saver = tf.compat.v1.train.Saver()
 
   def create_Q_network(self,model=0):
     # network weights
@@ -38,7 +38,10 @@ class DQN():
     b2 = self.bias_variable([self.action_dim])
     if model != 0:
       print("model change!")
-      [W1_old, b1_old, W2_old, b2_old] = self.build_net(model)
+      with tf.Session() as sess:
+        sess.run(tf.compat.v1.global_variables_initializer())
+        self.saver = tf.compat.v1.train.Saver()
+        [W1_old, b1_old, W2_old, b2_old] = self.build_net(model)
       W1 = W1_old
       b1 = b1_old
       W2 = W2_old
