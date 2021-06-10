@@ -155,8 +155,7 @@ class DQN():
 
   def build_net(self, path, add=0):
     self.saver.restore(self.session, path)
-    variable_names = [v.name for v in tf.compat.v1.trainable_variables()]
-    values = self.session.run(variable_names)
+    
     # v_old = []
     # for k,v in zip(variable_names, values):
     #   print("Variable: ", k)
@@ -164,6 +163,8 @@ class DQN():
     #   print(v)
     #   v_old.append(v)
     if add:
+      variable_names = [v.name for v in tf.compat.v1.trainable_variables()]
+      values = self.session.run(variable_names)
       # print("add!", add)
       W1_add_random = self.weight_variable([add,20])
       W2_add_random = self.weight_variable([20,add])
