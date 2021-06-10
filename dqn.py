@@ -162,7 +162,7 @@ class DQN():
     #   print("Shape: ", v.shape)
     #   print(v)
     #   v_old.append(v)
-    if 0:
+    if add:
       print("add!", add)
       W1_add_random = self.weight_variable([add,20])
       W2_add_random = self.weight_variable([20,add])
