@@ -39,10 +39,17 @@ class DQN():
     if model != 0:
       print("model change!")
       with tf.Session() as sess:
-        self.session = sess
         sess.run(tf.compat.v1.global_variables_initializer())
-        self.saver = tf.compat.v1.train.Saver()
-        [W1_old, b1_old, W2_old, b2_old] = self.build_net(model)
+        tf.compat.v1.train.Saver().restore(self.session, model)
+        variable_names = [v.name for v in tf.trainable_variables()]
+        values = self.session.run(variable_names)
+        v_old = []
+        for k,v in zip(variable_names, values):
+          print("Variable: ", k)
+          print("Shape: ", v.shape)
+          print(v)
+          v_old.append(v)
+        [W1_old, b1_old, W2_old, b2_old] = v_old
       W1 = W1_old
       b1 = b1_old
       W2 = W2_old
