@@ -70,15 +70,17 @@ class ReplicaplacementEnv(core.Env):
         assert self.action_space.contains(action)
         
         state = self.servers_state
+        minn = 0
         self.servers[action] = self.servers[action] + 1
+        if min(self.servers_state) == self.servers_state[action]: minn = 1
         # state[action] = state[action] + 1/self.weight[action]
-
+        state = self.observe_state()
         reward = 0
         if (np.std(self.servers) == 0): 
             reward = 10000
             done = True
-        reward -= np.std(self.servers) ** 0.5
-        if min(state) == state[action]: reward = -reward
+        reward -= np.std(state) ** 0.5
+        if minn: reward = -reward
             
         # print("reward: ", reward)
         # reward = min(self.servers) - max(self.servers)
@@ -88,7 +90,7 @@ class ReplicaplacementEnv(core.Env):
         if test == 0:done = (self.stepn == 0)
         else: done = (self.num_stream_jobs_left == 0)
         # done = (self.stepn == 0)
-        return self.observe_state(), reward, done
+        return state, reward, done
         # return self.observe(), reward, done
 
     def r_step(self, actions):
