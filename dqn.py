@@ -175,7 +175,7 @@ class DQN():
       W1_add_random = tf.random.truncated_normal(W1_add_zero.shape)
       W2_add_random = tf.random.truncated_normal(W2_add_zero.shape)
       b2_add_random = tf.random.truncated_normal(b2_add_zero.shape)
-      print(" W1_add_random Shape: ", W1_add_random.shape)
+      print(" W1_add_random Shape: ", W1_add_random.type)
       print(" W2_add_random Shape: ", W2_add_random.shape)
       print(" b2_add_random Shape: ", b2_add_random.shape)
       [W1_old, b1_old, W2_old, b2_old] = values
