@@ -19,8 +19,8 @@ class DQN():
     self.time_step = 0
     if e == -1: self.epsilon = INITIAL_EPSILON
     else: self.epsilon = e
-    self.state_dim = env.observation_space.n
-    self.action_dim = env.action_space.n
+    self.state_dim = 10#env.observation_space.n
+    self.action_dim = 10#env.action_space.n
 
     self.create_Q_network(model)
     self.create_training_method()
