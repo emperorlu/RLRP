@@ -183,8 +183,8 @@ class DQN():
       W1_add_random = self.weight_variable([add,20])
       W2_add_random = self.weight_variable([20,add])
       b2_add_random = self.bias_variable([add])
-      W1_add_zero = np.zeros(add,20)
-      W2_add_zero = np.zeros(20,add)
+      W1_add_zero = np.zeros((add,20))
+      W2_add_zero = np.zeros((20,add))
       b2_add_zero = np.zeros(add)
       [W1_old, b1_old, W2_old, b2_old] = values
       W1 = np.append(W1_old,W1_add_zero,axis=0)
