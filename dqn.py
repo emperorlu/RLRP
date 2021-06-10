@@ -193,7 +193,7 @@ class DQN():
       self.y_input = tf.compat.v1.placeholder("float",[None])
       Q_action = tf.reduce_sum(tf.multiply(self.Q_value,self.action_input),reduction_indices = 1)
       self.cost = tf.reduce_mean(tf.square(self.y_input - Q_action))
-      self.optimizer = tf.compat.v1.train.AdamOptimizer(0.0001).minimize(self.cost,var_list=[W1.tolist(),b1.tolist(),W2.tolist(),b2.tolist()])
+      self.optimizer = tf.compat.v1.train.AdamOptimizer(0.0001).minimize(self.cost)#,var_list=[W1,b1,W2,b2])
     
     # print(self.sess.run(W1))  
                 
