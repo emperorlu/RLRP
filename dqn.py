@@ -142,10 +142,10 @@ class DQN():
     
     variable_names = [v.name for v in tf.trainable_variables()]
     values = self.session.run(variable_names)
-    for k,v in zip(variable_names, values):
-      print("Variable: ", k)
-      print("Shape: ", v.shape)
-      print(v)
+    # for k,v in zip(variable_names, values):
+    #   print("Variable: ", k)
+    #   print("Shape: ", v.shape)
+    #   print(v)
     
     print("Save to path: ", save_path)
 
@@ -164,25 +164,25 @@ class DQN():
     #   print(v)
     #   v_old.append(v)
     if add:
-      print("add!", add)
+      # print("add!", add)
       W1_add_random = self.weight_variable([add,20])
       W2_add_random = self.weight_variable([20,add])
       b2_add_random = self.bias_variable([add])
       W1_add_zero = np.zeros((add,20))
-      print(" W1_add_zero Shape: ", W1_add_zero.shape)
+      # print(" W1_add_zero Shape: ", W1_add_zero.shape)
       W2_add_zero = np.zeros((20,add))
-      print(" W2_add_zero Shape: ", W2_add_zero.shape)
+      # print(" W2_add_zero Shape: ", W2_add_zero.shape)
       b2_add_zero = np.zeros(add)
-      print(" b2_add_zero Shape: ", b2_add_zero.shape)
+      # print(" b2_add_zero Shape: ", b2_add_zero.shape)
       [W1_old, b1_old, W2_old, b2_old] = values
-      print(" W1_old Shape: ", W1_old.shape)
-      print(" W2_old Shape: ", W2_old.shape)
-      print(" b2_old Shape: ", b2_old.shape)
+      # print(" W1_old Shape: ", W1_old.shape)
+      # print(" W2_old Shape: ", W2_old.shape)
+      # print(" b2_old Shape: ", b2_old.shape)
       W1 = tf.Variable(np.append(W1_old,W1_add_zero,axis=0).astype(np.float32))
       b1 = tf.Variable(b1_old.astype(np.float32))
       W2 = tf.Variable(np.append(W2_old,W2_add_zero,axis=1).astype(np.float32))
       b2_value = np.append(b2_old,b2_add_zero,axis=0).astype(np.float32)
-      print("b2_value", b2_value)
+      # print("b2_value", b2_value)
       b2 = tf.Variable(b2_value)
       # for k,v in zip(["w1","b1","w2","b2"], [W1,b1,W2,b2]):
       #    print("Variable: ", k)
