@@ -270,7 +270,7 @@ def DQNLearnSigle():
 
 def DQNTestSigle():
     env = park.make('replica_placement')
-    agent = DQN(env,0,model=1)
+    agent = DQN(env,0,model=0)
     agent.build_net("./dqn_model/place_11.ckpt")
     st = []; ac = []
     Rnum = config.num_rep
