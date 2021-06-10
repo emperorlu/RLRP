@@ -179,6 +179,7 @@ class DQN():
     #   print(v)
     #   v_old.append(v)
     if add:
+      print("add!")
       [W1_old, b1_old, W2_old, b2_old] = values
       W1 = W1_old
       b1 = b1_old
