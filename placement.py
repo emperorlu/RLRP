@@ -226,7 +226,7 @@ def DQNLearnSigle3():
 
 def DQNLearnSigle():
     env = park.make('replica_placement')
-    agent = DQN(env,-1,"./dqn_model/place.ckpt")#,0.1)
+    agent = DQN(env,1,"./dqn_model/place.ckpt")#,0.1)
     e = EPISODE / 10
     equ = 100
     st = []
@@ -242,7 +242,7 @@ def DQNLearnSigle():
         while not done:
             action = agent.egreedy_action(state) 
             next_state,reward,done = env.step(action)
-            agent.perceive(state,action,reward,next_state,done)
+            # agent.perceive(state,action,reward,next_state,done)
             state = next_state
             fstate = env.observe()
             stk = np.std(env.observe_state())
