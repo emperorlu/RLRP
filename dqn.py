@@ -39,6 +39,7 @@ class DQN():
     if model != 0:
       print("model change!")
       with tf.Session() as sess:
+        self.session = sess
         sess.run(tf.compat.v1.global_variables_initializer())
         self.saver = tf.compat.v1.train.Saver()
         [W1_old, b1_old, W2_old, b2_old] = self.build_net(model)
