@@ -179,12 +179,18 @@ class DQN():
     #   print(v)
     #   v_old.append(v)
     if add:
-      print("add!")
+      print("add!", add)
+      W1_add_random = self.weight_variable([add,20])
+      W2_add_random = self.weight_variable([20,add])
+      b2_add_random = self.bias_variable([add])
+      W1_add_zero = np.zeros(add,20)
+      W2_add_zero = np.zeros(20,add)
+      b2_add_zero = np.zeros(add)
       [W1_old, b1_old, W2_old, b2_old] = values
-      W1 = W1_old
+      W1 = np.append(W1_old,W1_add_zero,axis=0)
       b1 = b1_old
-      W2 = W2_old
-      b2 = b2_old
+      W2 = np.append(W2_old,W2_add_zero,axis=0)
+      b2 = np.append(b2_old,b2_add_zero,axis=0)
       h_layer = tf.nn.relu(tf.matmul(self.state_input,W1) + b1)
       self.Q_value = tf.matmul(h_layer,W2) + b2
     
