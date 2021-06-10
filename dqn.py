@@ -30,12 +30,17 @@ class DQN():
     self.session.run(tf.compat.v1.global_variables_initializer())
     self.saver = tf.compat.v1.train.Saver()
 
-  def create_Q_network(self):
+  def create_Q_network(self,model=0):
     # network weights
     W1 = self.weight_variable([self.state_dim,20])
     b1 = self.bias_variable([20])
     W2 = self.weight_variable([20,self.action_dim])
     b2 = self.bias_variable([self.action_dim])
+    # if model != 0:
+    #   W1 =
+    #   b1 =
+    #   W2 =
+    #   b2 =
     # input layer
     self.state_input = tf.compat.v1.placeholder("float",[None,self.state_dim])
     # hidden layers
@@ -136,6 +141,14 @@ class DQN():
   def save_net(self, save_path):
     # saver = tf.compat.v1.train.Saver()
     self.saver.save(self.session, save_path, write_meta_graph=False)
+    
+    variable_names = [v.name for v in tf.trainable_variables()]
+    values = self.session.run(variable_names)
+    for k,v in zip(variable_names, values):
+      print("Variable: ", k)
+      print("Shape: ", v.shape)
+      print(v)
+    
     print("Save to path: ", save_path)
 
   def close(self):

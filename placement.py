@@ -16,7 +16,7 @@ from memory import *
 import warnings
 warnings.filterwarnings("ignore")
 
-EPISODE = 10000 # Episode limitation
+EPISODE = 10#000 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 3 # The number of experiment test every 100 episode
 Rnum = 3
@@ -259,7 +259,7 @@ def DQNLearnSigle():
     t1 = time.time()
     print("total episode:",i,"; cost time: ", t1-t0)
     hua(st,osd)
-    agent.save_net("./dqn_model/place_weight2.ckpt")
+    agent.save_net("./dqn_model/place_test.ckpt")
     agent.close()
 
 def DQNTestSigle():
@@ -291,6 +291,12 @@ def DQNTestSigle():
         print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
     hua(st,fstate,0,env.weight)
     agent.close()
+
+def DQNSurgery():
+    env = park.make('replica_placement')
+    agent = DQN(env,0)
+    agent.build_net("./dqn_model/place.ckpt")
+    return 
 
 def DQNLearnData():
     env = park.make('replica_placement')
@@ -765,10 +771,10 @@ if __name__ == '__main__':
     # print("begin test\n")
     # QlearningLearn_data()
     # Zhu()
-    # DQNLearnSigle()
+    DQNLearnSigle()
     # DQNTestSigle()
     # DQNTestData()
-    DQN_data()
+    # DQN_data()
     # DQNTest_data()
     # QlearningLearn()
     # QlearningTest()
