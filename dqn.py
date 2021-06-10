@@ -147,7 +147,7 @@ class DQN():
     for k,v in zip(variable_names, values):
       print("Variable: ", k)
       print("Shape: ", v.shape)
-      # print(v)
+      print(v)
     
     print("Save to path: ", save_path)
 
@@ -157,5 +157,11 @@ class DQN():
 
   def build_net(self, path):
     self.saver.restore(self.session, path)
+    variable_names = [v.name for v in tf.trainable_variables()]
+    values = self.session.run(variable_names)
+    for k,v in zip(variable_names, values):
+      print("Variable: ", k)
+      print("Shape: ", v.shape)
+      print(v)
     # print(self.sess.run(W1))  
                 

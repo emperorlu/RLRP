@@ -260,6 +260,7 @@ def DQNLearnSigle():
     print("total episode:",i,"; cost time: ", t1-t0)
     hua(st,osd)
     agent.save_net("./dqn_model/place_test.ckpt")
+    agent.build_net("./dqn_model/place_test.ckpt")
     agent.close()
 
 def DQNTestSigle():
