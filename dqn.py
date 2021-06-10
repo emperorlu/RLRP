@@ -201,7 +201,7 @@ class DQN():
          print("Variable: ", k)
          print("Shape: ", v.shape)
       self.state_input = tf.compat.v1.placeholder("float",[None,self.state_dim+add])
-      print(" self.state_input Shape: ", self.state_input.shape)
+      print(" self.state_input Shape: ", self.state_input.dtype)
       h_layer = tf.nn.relu(tf.matmul(self.state_input,W1) + b1)
       self.Q_value = tf.matmul(h_layer,W2) + b2
     
