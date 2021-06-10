@@ -180,7 +180,9 @@ class DQN():
       W1 = tf.Variable(np.append(W1_old,W1_add_zero,axis=0).astype(np.float32))
       b1 = tf.Variable(b1_old.astype(np.float32))
       W2 = tf.Variable(np.append(W2_old,W2_add_zero,axis=1).astype(np.float32))
-      b2 = tf.Variable(np.append(b2_old,b2_add_zero,axis=0).astype(np.float32))
+      b2_value = np.append(b2_old,b2_add_zero,axis=0).astype(np.float32)
+      print("b2_value", b2_value)
+      b2 = tf.Variable(b2_value)
       # for k,v in zip(["w1","b1","w2","b2"], [W1,b1,W2,b2]):
       #    print("Variable: ", k)
       #    print("Shape: ", v.dtype)
