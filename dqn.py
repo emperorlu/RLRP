@@ -37,6 +37,7 @@ class DQN():
     W2 = self.weight_variable([20,self.action_dim])
     b2 = self.bias_variable([self.action_dim])
     if model != 0:
+      print("model change!")
       [W1_old, b1_old, W2_old, b2_old] = self.build_net(model)
       W1 = W1_old
       b1 = b1_old
@@ -156,7 +157,7 @@ class DQN():
     tf.compat.v1.reset_default_graph()
     self.session.close()
 
-  def build_net(self, path):
+  def build_net(self, path, add=0):
     self.saver.restore(self.session, path)
     variable_names = [v.name for v in tf.trainable_variables()]
     values = self.session.run(variable_names)
