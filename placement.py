@@ -265,6 +265,20 @@ def DQNLearnSigle():
     print("total episode:",i,"; cost time: ", t1-t0)
     hua(st,osd)
     agent.save_net("./dqn_model/place_11.ckpt")
+
+    for episode in range(TEST):
+        i += 1
+        state = env.reset()
+        done = False
+        while not done:
+            action = agent.egreedy_action(state) 
+            next_state,reward,done = env.step(action)
+            state = next_state
+            fstate = env.observe()
+            stk = np.std(env.observe_state())
+            if (done):
+                print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k)
+
     # agent.build_net("./dqn_model/place_test.ckpt")
     agent.close()
 

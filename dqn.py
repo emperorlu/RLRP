@@ -140,7 +140,7 @@ class DQN():
     # self.saver = tf.compat.v1.train.Saver()
     self.saver.save(self.session, save_path, write_meta_graph=False)
     
-    variable_names = [v.name for v in tf.trainable_variables()]
+    variable_names = [v.name for v in tf.compat.v1.trainable_variables()]
     values = self.session.run(variable_names)
     # for k,v in zip(variable_names, values):
     #   print("Variable: ", k)
@@ -199,7 +199,7 @@ class DQN():
       Q_action = tf.reduce_sum(tf.multiply(self.Q_value,self.action_input),reduction_indices = 1)
       self.cost = tf.reduce_mean(tf.square(self.y_input - Q_action))
       self.optimizer = tf.compat.v1.train.AdamOptimizer(0.0001).minimize(self.cost)#,var_list=[W1,b1,W2,b2])
-      # self.session.close()
+
       self.session.run(tf.compat.v1.global_variables_initializer())
     # print(self.sess.run(W1))  
                 
