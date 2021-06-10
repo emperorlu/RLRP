@@ -16,7 +16,7 @@ from memory import *
 import warnings
 warnings.filterwarnings("ignore")
 
-EPISODE = 500 # Episode limitation
+EPISODE = 1000 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 3 # The number of experiment test every 100 episode
 Rnum = 3
@@ -278,7 +278,6 @@ def DQNLearnSigle():
             stk = np.std(env.observe_state())
             if (done):
                 print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k)
-
     # agent.build_net("./dqn_model/place_test.ckpt")
     agent.close()
 
