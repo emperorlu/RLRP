@@ -188,7 +188,7 @@ class DQN():
       print(" b2_old Shape: ", b2_old.shape)
       W1 = tf.Variable(tf.concat([W1_old, W1_add_random], 0))
       b1 = tf.Variable(b1_old)
-      W2 = tf.Variable(tf.concat([W2_old,W2_add_random], 0))
+      W2 = tf.Variable(tf.concat([W2_old,W2_add_random], 1))
       b2 = tf.Variable(tf.concat([b2_old,b2_add_random], 0))
       # W1 = tf.Variable(np.append(W1_old,W1_add_random,axis=0).astype(np.float32))
       # b1 = tf.Variable(b1_old.astype(np.float32))
