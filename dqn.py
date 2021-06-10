@@ -168,7 +168,7 @@ class DQN():
       # print("add!", add)
       W1_add_random = self.weight_variable((add,20))
       W2_add_random = self.weight_variable((20,add))
-      b2_add_random = self.bias_variable(add)
+      b2_add_random = self.bias_variable((add))
       W1_add_zero = np.zeros((add,20))
       print(" W1_add_zero Shape: ", W1_add_random.shape)
       W2_add_zero = np.zeros((20,add))
