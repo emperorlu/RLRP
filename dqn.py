@@ -176,9 +176,9 @@ class DQN():
       print(" W2_add_zero Shape: ", W2_add_random.shape)
       print(" b2_add_zero Shape: ", b2_add_random.shape)
       [W1_old, b1_old, W2_old, b2_old] = values
-      # print(" W1_old Shape: ", W1_old.shape)
-      # print(" W2_old Shape: ", W2_old.shape)
-      # print(" b2_old Shape: ", b2_old.shape)
+      print(" W1_old Shape: ", W1_old.shape)
+      print(" W2_old Shape: ", W2_old.shape)
+      print(" b2_old Shape: ", b2_old.shape)
       W1 = tf.Variable(np.append(W1_old,W1_add_random,axis=0).astype(np.float32))
       b1 = tf.Variable(b1_old.astype(np.float32))
       W2 = tf.Variable(np.append(W2_old,W2_add_random,axis=1).astype(np.float32))
