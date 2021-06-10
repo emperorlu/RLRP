@@ -12,7 +12,7 @@ BATCH_SIZE = 64 # size of minibatch
 
 class DQN():
   # DQN Agent
-  def __init__(self, env, e=-1):
+  def __init__(self, env, e=-1,model=0):
     # init experience replay
     self.replay_buffer = deque()
     # init some parameters
@@ -22,7 +22,7 @@ class DQN():
     self.state_dim = env.observation_space.n
     self.action_dim = env.action_space.n
 
-    self.create_Q_network()
+    self.create_Q_network(model=0)
     self.create_training_method()
 
     # Init session
@@ -36,11 +36,12 @@ class DQN():
     b1 = self.bias_variable([20])
     W2 = self.weight_variable([20,self.action_dim])
     b2 = self.bias_variable([self.action_dim])
-    # if model != 0:
-    #   W1 =
-    #   b1 =
-    #   W2 =
-    #   b2 =
+    if model != 0:
+      [W1_old, b1_old, W2_old, b2_old] = self.build_net(model)
+      W1 = W1_old
+      b1 = b1_old
+      W2 = W2_old
+      b2 = b2_old
     # input layer
     self.state_input = tf.compat.v1.placeholder("float",[None,self.state_dim])
     # hidden layers
@@ -159,9 +160,13 @@ class DQN():
     self.saver.restore(self.session, path)
     variable_names = [v.name for v in tf.trainable_variables()]
     values = self.session.run(variable_names)
+    v_old = []
     for k,v in zip(variable_names, values):
       print("Variable: ", k)
       print("Shape: ", v.shape)
       print(v)
+      v_old.append(v)
+    return  v_old
+    
     # print(self.sess.run(W1))  
                 
