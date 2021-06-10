@@ -191,6 +191,9 @@ class DQN():
       b1 = b1_old
       W2 = np.append(W2_old,W2_add_zero,axis=0)
       b2 = np.append(b2_old,b2_add_zero,axis=0)
+      for k,v in zip(["w1","b1","w2","b2"], [W1,b1,W2,b2]):
+         print("Variable: ", k)
+         print("Shape: ", v.shape)
       h_layer = tf.nn.relu(tf.matmul(self.state_input,W1) + b1)
       self.Q_value = tf.matmul(h_layer,W2) + b2
     
