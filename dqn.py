@@ -195,7 +195,7 @@ class DQN():
       print(" b2_old Shape: ", b2_old.shape)
       W1 = np.append(W1_old,W1_add_zero,axis=0)
       b1 = b1_old
-      W2 = np.append(W2_old,W2_add_zero,axis=0)
+      W2 = np.append(W2_old,W2_add_zero,axis=1)
       b2 = np.append(b2_old,b2_add_zero,axis=0)
       for k,v in zip(["w1","b1","w2","b2"], [W1,b1,W2,b2]):
          print("Variable: ", k)
