@@ -272,6 +272,11 @@ def DQNTestSigle():
     env = park.make('replica_placement')
     agent = DQN(env,0)
     agent.build_net("./dqn_model/place_11.ckpt")
+    # 单副本
+
+
+
+    
     st = []; ac = []
     Rnum = config.num_rep
     for episode in range(TEST):
@@ -298,11 +303,6 @@ def DQNTestSigle():
     hua(st,fstate,0,env.weight)
     agent.close()
 
-def DQNSurgery():
-    env = park.make('replica_placement')
-    agent = DQN(env,0)
-    agent.build_net("./dqn_model/place.ckpt")
-    return 
 
 def DQNLearnData():
     env = park.make('replica_placement')
@@ -777,7 +777,8 @@ if __name__ == '__main__':
     # print("begin test\n")
     # QlearningLearn_data()
     # Zhu()
-    DQNLearnSigle()
+    # DQNLearnSigle()
+    DQNTestSigle()
     # DQNTestSigle()
     # DQNTestData()
     # DQN_data()
