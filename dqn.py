@@ -169,7 +169,7 @@ class DQN():
     tf.compat.v1.reset_default_graph()
     self.session.close()
 
-  def build_net(self, path, path1, add=0):
+  def build_net(self, path, add=0):
     self.saver.restore(self.session, path)
     variable_names = [v.name for v in tf.compat.v1.trainable_variables()]
     values = self.session.run(variable_names)
@@ -179,32 +179,32 @@ class DQN():
       print("Shape: ", v.shape)
       print(v)
     #   v_old.append(v)
-    if add:
-      print("add!", add)
-      W1_add_random = self.weight_variable([add,20])
-      W2_add_random = self.weight_variable([20,add])
-      b2_add_random = self.bias_variable([add])
-      W1_add_zero = np.zeros((add,20))
-      print(" W1_add_zero Shape: ", W1_add_zero.shape)
-      W2_add_zero = np.zeros((20,add))
-      print(" W2_add_zero Shape: ", W2_add_zero.shape)
-      b2_add_zero = np.zeros(add)
-      print(" b2_add_zero Shape: ", b2_add_zero.shape)
-      [W1_old, b1_old, W2_old, b2_old] = values
-      print(" W1_old Shape: ", W1_old.shape)
-      print(" W2_old Shape: ", W2_old.shape)
-      print(" b2_old Shape: ", b2_old.shape)
-      W1 = np.append(W1_old,W1_add_zero,axis=0)
-      b1 = b1_old
-      W2 = np.append(W2_old,W2_add_zero,axis=1)
-      b2 = np.append(b2_old,b2_add_zero,axis=0)
-      for k,v in zip(["w1","b1","w2","b2"], [W1,b1,W2,b2]):
-         print("Variable: ", k)
-         print("Shape: ", v.shape)
-      self.state_input = tf.compat.v1.placeholder("float64",[None,self.state_dim+add])
-      print(" self.state_input Shape: ", self.state_input.dtype)
-      h_layer = tf.nn.relu(tf.matmul(self.state_input,W1) + b1)
-      self.Q_value = tf.matmul(h_layer,W2) + b2
+    # if add:
+    #   print("add!", add)
+    #   W1_add_random = self.weight_variable([add,20])
+    #   W2_add_random = self.weight_variable([20,add])
+    #   b2_add_random = self.bias_variable([add])
+    #   W1_add_zero = np.zeros((add,20))
+    #   print(" W1_add_zero Shape: ", W1_add_zero.shape)
+    #   W2_add_zero = np.zeros((20,add))
+    #   print(" W2_add_zero Shape: ", W2_add_zero.shape)
+    #   b2_add_zero = np.zeros(add)
+    #   print(" b2_add_zero Shape: ", b2_add_zero.shape)
+    #   [W1_old, b1_old, W2_old, b2_old] = values
+    #   print(" W1_old Shape: ", W1_old.shape)
+    #   print(" W2_old Shape: ", W2_old.shape)
+    #   print(" b2_old Shape: ", b2_old.shape)
+    #   W1 = np.append(W1_old,W1_add_zero,axis=0)
+    #   b1 = b1_old
+    #   W2 = np.append(W2_old,W2_add_zero,axis=1)
+    #   b2 = np.append(b2_old,b2_add_zero,axis=0)
+    #   for k,v in zip(["w1","b1","w2","b2"], [W1,b1,W2,b2]):
+    #      print("Variable: ", k)
+    #      print("Shape: ", v.shape)
+    #   self.state_input = tf.compat.v1.placeholder("float64",[None,self.state_dim+add])
+    #   print(" self.state_input Shape: ", self.state_input.dtype)
+    #   h_layer = tf.nn.relu(tf.matmul(self.state_input,W1) + b1)
+    #   self.Q_value = tf.matmul(h_layer,W2) + b2
     
     # print(self.sess.run(W1))  
                 
