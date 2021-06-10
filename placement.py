@@ -264,7 +264,7 @@ def DQNLearnSigle():
     t1 = time.time()
     print("total episode:",i,"; cost time: ", t1-t0)
     hua(st,osd)
-    agent.save_net("./dqn_model/place_11.ckpt")
+    # agent.save_net("./dqn_model/place_11.ckpt")
 
     for episode in range(TEST):
         i += 1
