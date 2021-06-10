@@ -181,9 +181,9 @@ class DQN():
       b1 = tf.Variable(b1_old.astype(np.float32))
       W2 = tf.Variable(np.append(W2_old,W2_add_zero,axis=1).astype(np.float32))
       b2 = tf.Variable(np.append(b2_old,b2_add_zero,axis=0).astype(np.float32))
-      for k,v in zip(["w1","b1","w2","b2"], [W1,b1,W2,b2]):
-         print("Variable: ", k)
-         print("Shape: ", v.dtype)
+      # for k,v in zip(["w1","b1","w2","b2"], [W1,b1,W2,b2]):
+      #    print("Variable: ", k)
+      #    print("Shape: ", v.dtype)
       # self.state_input = tf.compat.v1.placeholder("float64",[None,self.state_dim+add])
       # print(" self.state_input Shape: ", self.state_input.dtype)
 
