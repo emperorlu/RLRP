@@ -26,8 +26,8 @@ class DQN():
     # self.create_training_method()
 
     # Init session
-    # self.session = tf.compat.v1.InteractiveSession()
-    # self.session.run(tf.compat.v1.global_variables_initializer())
+    self.session = tf.compat.v1.InteractiveSession()
+    self.session.run(tf.compat.v1.global_variables_initializer())
     self.saver = tf.compat.v1.train.Saver()
 
   def create_Q_network(self,s_dim,a_dim):
@@ -197,7 +197,7 @@ class DQN():
       Q_action = tf.reduce_sum(tf.multiply(self.Q_value,self.action_input),reduction_indices = 1)
       self.cost = tf.reduce_mean(tf.square(self.y_input - Q_action))
       self.optimizer = tf.compat.v1.train.AdamOptimizer(0.0001).minimize(self.cost)#,var_list=[W1,b1,W2,b2])
-      self.session = tf.compat.v1.InteractiveSession()
+
       self.session.run(tf.compat.v1.global_variables_initializer())
     # print(self.sess.run(W1))  
                 
