@@ -21,48 +21,30 @@ class DQN():
     else: self.epsilon = e
     self.state_dim = env.observation_space.n
     self.action_dim = env.action_space.n
-
-    self.create_Q_network(model)
-    self.create_training_method()
+    old_s = 10; old_a =10
+    self.create_Q_network(old_s,old_a)
+    # self.create_training_method()
 
     # Init session
     self.session = tf.compat.v1.InteractiveSession()
     self.session.run(tf.compat.v1.global_variables_initializer())
     # self.saver = tf.compat.v1.train.Saver()
 
-  def create_Q_network(self,model=0):
+  def create_Q_network(self,s_dim,a_dim):
     # network weights
-    W1 = self.weight_variable([self.state_dim,20])
+    W1 = self.weight_variable([s_dim,20])
     b1 = self.bias_variable([20])
-    W2 = self.weight_variable([20,self.action_dim])
-    b2 = self.bias_variable([self.action_dim])
-    if model != 0:
-      print("model change!")
-      with tf.Session() as sess:
-        sess.run(tf.compat.v1.global_variables_initializer())
-        tf.compat.v1.train.Saver().restore(sess, model)
-        variable_names = [v.name for v in tf.trainable_variables()]
-        values = sess.run(variable_names)
-        v_old = []
-        for k,v in zip(variable_names, values):
-          print("Variable: ", k)
-          print("Shape: ", v.shape)
-          print(v)
-          v_old.append(v)
-      [W1_old, b1_old, W2_old, b2_old] = v_old
-      W1 = W1_old
-      b1 = b1_old
-      W2 = W2_old
-      b2 = b2_old
+    W2 = self.weight_variable([20,a_dim])
+    b2 = self.bias_variable([a_dim])
     # input layer
-    self.state_input = tf.compat.v1.placeholder("float",[None,self.state_dim])
+    self.state_input = tf.compat.v1.placeholder("float",[None,s_dim])
     # hidden layers
     h_layer = tf.nn.relu(tf.matmul(self.state_input,W1) + b1)
     # Q Value layer
     self.Q_value = tf.matmul(h_layer,W2) + b2
 
-  def create_training_method(self):
-    self.action_input = tf.compat.v1.placeholder("float",[None,self.action_dim]) # one hot presentation
+  # def create_training_method(self):
+    self.action_input = tf.compat.v1.placeholder("float",[None,a_dim]) # one hot presentation
     self.y_input = tf.compat.v1.placeholder("float",[None])
     Q_action = tf.reduce_sum(tf.multiply(self.Q_value,self.action_input),reduction_indices = 1)
     self.cost = tf.reduce_mean(tf.square(self.y_input - Q_action))
@@ -174,37 +156,44 @@ class DQN():
     variable_names = [v.name for v in tf.compat.v1.trainable_variables()]
     values = self.session.run(variable_names)
     # v_old = []
-    for k,v in zip(variable_names, values):
-      print("Variable: ", k)
-      print("Shape: ", v.shape)
-      print(v)
+    # for k,v in zip(variable_names, values):
+    #   print("Variable: ", k)
+    #   print("Shape: ", v.shape)
+    #   print(v)
     #   v_old.append(v)
-    # if add:
-    #   print("add!", add)
-    #   W1_add_random = self.weight_variable([add,20])
-    #   W2_add_random = self.weight_variable([20,add])
-    #   b2_add_random = self.bias_variable([add])
-    #   W1_add_zero = np.zeros((add,20))
-    #   print(" W1_add_zero Shape: ", W1_add_zero.shape)
-    #   W2_add_zero = np.zeros((20,add))
-    #   print(" W2_add_zero Shape: ", W2_add_zero.shape)
-    #   b2_add_zero = np.zeros(add)
-    #   print(" b2_add_zero Shape: ", b2_add_zero.shape)
-    #   [W1_old, b1_old, W2_old, b2_old] = values
-    #   print(" W1_old Shape: ", W1_old.shape)
-    #   print(" W2_old Shape: ", W2_old.shape)
-    #   print(" b2_old Shape: ", b2_old.shape)
-    #   W1 = np.append(W1_old,W1_add_zero,axis=0)
-    #   b1 = b1_old
-    #   W2 = np.append(W2_old,W2_add_zero,axis=1)
-    #   b2 = np.append(b2_old,b2_add_zero,axis=0)
-    #   for k,v in zip(["w1","b1","w2","b2"], [W1,b1,W2,b2]):
-    #      print("Variable: ", k)
-    #      print("Shape: ", v.shape)
-    #   self.state_input = tf.compat.v1.placeholder("float64",[None,self.state_dim+add])
-    #   print(" self.state_input Shape: ", self.state_input.dtype)
-    #   h_layer = tf.nn.relu(tf.matmul(self.state_input,W1) + b1)
-    #   self.Q_value = tf.matmul(h_layer,W2) + b2
+    if add:
+      print("add!", add)
+      W1_add_random = self.weight_variable([add,20])
+      W2_add_random = self.weight_variable([20,add])
+      b2_add_random = self.bias_variable([add])
+      W1_add_zero = np.zeros((add,20))
+      print(" W1_add_zero Shape: ", W1_add_zero.shape)
+      W2_add_zero = np.zeros((20,add))
+      print(" W2_add_zero Shape: ", W2_add_zero.shape)
+      b2_add_zero = np.zeros(add)
+      print(" b2_add_zero Shape: ", b2_add_zero.shape)
+      [W1_old, b1_old, W2_old, b2_old] = values
+      print(" W1_old Shape: ", W1_old.shape)
+      print(" W2_old Shape: ", W2_old.shape)
+      print(" b2_old Shape: ", b2_old.shape)
+      W1 = np.append(W1_old,W1_add_zero,axis=0)
+      b1 = b1_old
+      W2 = np.append(W2_old,W2_add_zero,axis=1)
+      b2 = np.append(b2_old,b2_add_zero,axis=0)
+      for k,v in zip(["w1","b1","w2","b2"], [W1,b1,W2,b2]):
+         print("Variable: ", k)
+         print("Shape: ", v.shape)
+      # self.state_input = tf.compat.v1.placeholder("float64",[None,self.state_dim+add])
+      # print(" self.state_input Shape: ", self.state_input.dtype)
+
+      self.state_input = tf.compat.v1.placeholder("float",[None,self.state_dim])
+      h_layer = tf.nn.relu(tf.matmul(self.state_input,W1) + b1)
+      self.Q_value = tf.matmul(h_layer,W2) + b2
+      self.action_input = tf.compat.v1.placeholder("float",[None,self.action_dim]) # one hot presentation
+      self.y_input = tf.compat.v1.placeholder("float",[None])
+      Q_action = tf.reduce_sum(tf.multiply(self.Q_value,self.action_input),reduction_indices = 1)
+      self.cost = tf.reduce_mean(tf.square(self.y_input - Q_action))
+      self.optimizer = tf.compat.v1.train.AdamOptimizer(0.0001).minimize(self.cost)
     
     # print(self.sess.run(W1))  
                 
