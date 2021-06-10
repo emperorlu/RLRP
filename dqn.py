@@ -190,6 +190,9 @@ class DQN():
       b2_add_zero = np.zeros(add)
       print(" b2_add_zero Shape: ", b2_add_zero.shape)
       [W1_old, b1_old, W2_old, b2_old] = values
+      print(" W1_old Shape: ", W1_old.shape)
+      print(" W2_old Shape: ", W2_old.shape)
+      print(" b2_old Shape: ", b2_old.shape)
       W1 = np.append(W1_old,W1_add_zero,axis=0)
       b1 = b1_old
       W2 = np.append(W2_old,W2_add_zero,axis=0)
