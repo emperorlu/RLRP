@@ -14,7 +14,8 @@ class ReplicaplacementEnv(core.Env):
         # self.cur_servers = config.num_servers_now
         self.servers_state = self.initialize_servers()
         self.servers = self.initialize_servers()
-        self.weight = [21,35,5,44,7,54,25,12,2,22]
+        # self.weight = [21,35,5,44,7,54,25,12,2,22]
+        self.weight = [1] * config.num_servers
         # self.weight = [2, 3, 5, 4, 7, 2, 2, 2, 2, 2] 
         self.reset()
 
@@ -45,7 +46,7 @@ class ReplicaplacementEnv(core.Env):
         # for server in self.servers:
         #     server.reset()
         if test==0: self.servers = self.initialize_servers()
-        self.stepn = 1000
+        self.stepn = 100
         self.num_stream_jobs_left = self.num_stream_jobs * config.num_rep
         assert self.num_stream_jobs_left > 0
         return self.observe()
