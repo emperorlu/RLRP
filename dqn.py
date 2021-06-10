@@ -42,7 +42,7 @@ class DQN():
         sess.run(tf.compat.v1.global_variables_initializer())
         tf.compat.v1.train.Saver().restore(sess, model)
         variable_names = [v.name for v in tf.trainable_variables()]
-        values = self.session.run(variable_names)
+        values = sess.run(variable_names)
         v_old = []
         for k,v in zip(variable_names, values):
           print("Variable: ", k)
