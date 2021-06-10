@@ -40,7 +40,7 @@ class DQN():
       print("model change!")
       with tf.Session() as sess:
         sess.run(tf.compat.v1.global_variables_initializer())
-        tf.compat.v1.train.Saver().restore(self.session, model)
+        tf.compat.v1.train.Saver().restore(sess, model)
         variable_names = [v.name for v in tf.trainable_variables()]
         values = self.session.run(variable_names)
         v_old = []
@@ -49,7 +49,7 @@ class DQN():
           print("Shape: ", v.shape)
           print(v)
           v_old.append(v)
-        [W1_old, b1_old, W2_old, b2_old] = v_old
+      [W1_old, b1_old, W2_old, b2_old] = v_old
       W1 = W1_old
       b1 = b1_old
       W2 = W2_old
