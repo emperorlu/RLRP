@@ -158,7 +158,6 @@ class DQN():
     
     self.saver.restore(self.session1, path)
     self.add_model(add)
-    self.session1.close()
     # v_old = []
     # for k,v in zip(variable_names, values):
     #   print("Variable: ", k)
@@ -199,7 +198,8 @@ class DQN():
       # W2 = tf.Variable(np.append(W2_old,W2_add_random,axis=1).astype(np.float32))
       # b2 = tf.Variable(np.append(b2_old,b2_add_random,axis=0).astype(np.float32))
 
-
+      self.session1.close()
+      
       self.state_input = tf.compat.v1.placeholder("float",[None,self.state_dim])
       h_layer = tf.nn.relu(tf.matmul(self.state_input,W1) + b1)
       self.Q_value = tf.matmul(h_layer,W2) + b2
