@@ -141,14 +141,14 @@ class DQN():
     self.saver = tf.compat.v1.train.Saver()
     self.saver.save(self.session, save_path, write_meta_graph=False)
     
-    variable_names = [v.name for v in tf.compat.v1.trainable_variables()]
-    values = self.session.run(variable_names)
-    for k,v in zip(variable_names, values):
-      print("Variable: ", k)
-      print("Shape: ", v.shape)
-      print(v)
+    # variable_names = [v.name for v in tf.compat.v1.trainable_variables()]
+    # values = self.session.run(variable_names)
+    # for k,v in zip(variable_names, values):
+    #   print("Variable: ", k)
+    #   print("Shape: ", v.shape)
+    #   print(v)
     
-    print("Save to path: ", save_path)
+    # print("Save to path: ", save_path)
 
   def close(self):
     tf.compat.v1.reset_default_graph()
