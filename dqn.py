@@ -138,7 +138,7 @@ class DQN():
 
   def save_net(self, save_path):
     # saver = tf.compat.v1.train.Saver()
-    # self.saver = tf.compat.v1.train.Saver()
+    self.saver = tf.compat.v1.train.Saver()
     self.saver.save(self.session, save_path, write_meta_graph=False)
     
     variable_names = [v.name for v in tf.compat.v1.trainable_variables()]
@@ -171,7 +171,7 @@ class DQN():
       values = self.session1.run(variable_names)
       self.session1.close()
       tf.compat.v1.reset_default_graph()
-      self.saver = tf.compat.v1.train.Saver()
+
       [W1_old, b1_old, W2_old, b2_old] = values
       # print("add!", add)
       W1_add_zero = tf.zeros((add,H_NODE))
