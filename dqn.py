@@ -183,6 +183,11 @@ class DQN():
       # print(" W2_add_random Shape: ", W2_add_random.shape)
       # print(" b2_add_random Shape: ", b2_add_random.shape)
       [W1_old, b1_old, W2_old, b2_old] = values
+
+      self.session1.close()
+      tf.compat.v1.reset_default_graph()
+
+
       W1_old = tf.convert_to_tensor(W1_old, tf.float32)
       b1_old = tf.convert_to_tensor(b1_old, tf.float32)
       W2_old = tf.convert_to_tensor(W2_old, tf.float32)
@@ -199,8 +204,8 @@ class DQN():
       # W2 = tf.Variable(np.append(W2_old,W2_add_random,axis=1).astype(np.float32))
       # b2 = tf.Variable(np.append(b2_old,b2_add_random,axis=0).astype(np.float32))
 
-      self.session1.close()
-      tf.reset_default_graph()
+      
+      
       self.state_input = tf.compat.v1.placeholder("float",[None,self.state_dim])
       h_layer = tf.nn.relu(tf.matmul(self.state_input,W1) + b1)
       self.Q_value = tf.matmul(h_layer,W2) + b2
