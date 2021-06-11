@@ -229,61 +229,62 @@ def DQNLearnSigle():
     env = park.make('replica_placement')
     Imodel = 1
     Ipath = "./dqn_model_1/20.ckpt"
-    based = 19
-    if Imodel == 0: agent = DQN(env,model=0)
-    else:
-        agent = DQN(env,model=config.num_servers-based)
-        agent.build_net("./dqn_model_1/19.ckpt",config.num_servers-based)
-    # agent = DQN(env,1,"./dqn_model/place.ckpt")#,0.1)
-    e = EPISODE / 10
-    equ = 100
-    st = []
-    stop = 0
-    # Rnum = config.num_rep
-    t0 = time.time()
-    i = 0
-    # print("weight: ",env.weight)
-    for episode in range(EPISODE):
-        i += 1; b = 0
-        state = env.reset()
-        done = False
-        while not done:
-            action = agent.egreedy_action(state) 
-            next_state,reward,done = env.step(action)
+    # based = 19
+    # if Imodel == 0: agent = DQN(env,model=0)
+    # else:
+    #     agent = DQN(env,model=config.num_servers-based)
+    #     agent.build_net("./dqn_model_1/19.ckpt",config.num_servers-based)
+    # # agent = DQN(env,1,"./dqn_model/place.ckpt")#,0.1)
+    # e = EPISODE / 10
+    # equ = 100
+    # st = []
+    # stop = 0
+    # # Rnum = config.num_rep
+    # t0 = time.time()
+    # i = 0
+    # # print("weight: ",env.weight)
+    # for episode in range(EPISODE):
+    #     i += 1; b = 0
+    #     state = env.reset()
+    #     done = False
+    #     while not done:
+    #         action = agent.egreedy_action(state) 
+    #         next_state,reward,done = env.step(action)
             
-            fstate = env.observe()
-            stk = np.std(env.observe_state())
-            if (done):
-                st.append(stk)
-                if stk < equ: 
-                    equ = stk
-                    print("Best Now!")
-                if stk < 1: stop += 1
-                else: stop = 0
-                if stop == 3: b = 1
-                print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", next_state, "\nservers:", fstate)#, "\nk:", k)
-            if b == 0: agent.perceive(state,action,reward,next_state,done)
-            state = next_state
-        if stop == 3: break
-        agent.epsilonc(e)
-    t1 = time.time()
-    print("total episode:",i,"; cost time: ", t1-t0)
-    hua(st,osd)
-    agent.save_net(Ipath)
-    agent.close()
+    #         fstate = env.observe()
+    #         stk = np.std(env.observe_state())
+    #         if (done):
+    #             st.append(stk)
+    #             if stk < equ: 
+    #                 equ = stk
+    #                 print("Best Now!")
+    #             if stk < 1: stop += 1
+    #             else: stop = 0
+    #             if stop == 3: b = 1
+    #             print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", next_state, "\nservers:", fstate)#, "\nk:", k)
+    #         if b == 0: agent.perceive(state,action,reward,next_state,done)
+    #         state = next_state
+    #     if stop == 3: break
+    #     agent.epsilonc(e)
+    # t1 = time.time()
+    # print("total episode:",i,"; cost time: ", t1-t0)
+    # hua(st,osd)
+    # agent.save_net(Ipath)
+    # agent.close()
 
-    reader = tf.train.NewCheckpointReader(Ipath)
-    var_to_shape_map = reader.get_variable_to_shape_map()
-    for var_name in var_to_shape_map.keys(): 
-        var_value = reader.get_tensor(var_name)
-        print("var_name",var_name)
-        print("var_value",var_value.shape)
+    # reader = tf.train.NewCheckpointReader(Ipath)
+    # var_to_shape_map = reader.get_variable_to_shape_map()
+    # for var_name in var_to_shape_map.keys(): 
+    #     var_value = reader.get_tensor(var_name)
+    #     print("var_name",var_name)
+    #     print("var_value",var_value.shape)
 
     # chkp.print_tensors_in_checkpoint_file("./dqn_model_11/11.ckpt",tensor_name='',all_tensors=True)
     
     agent = DQN(env,e=0,model=0)
-    agent.build_net(Ipath)
+    # agent.build_net(Ipath)
     for episode in range(TEST):
+        agent.build_net(Ipath)
         state = env.reset()
         done = False
         while not done:
