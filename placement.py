@@ -17,7 +17,7 @@ import warnings
 from tensorflow.python.tools import inspect_checkpoint as chkp
 warnings.filterwarnings("ignore")
 
-EPISODE = 1000 # Episode limitation
+EPISODE = 10000 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 3 # The number of experiment test every 100 episode
 Rnum = 3
@@ -227,9 +227,9 @@ def DQNLearnSigle3():
 
 def DQNLearnSigle():
     env = park.make('replica_placement')
-    Imodel = 1
+    Imodel = 0
     based = 12
-    Ipath = "./dqn_model_1/13.ckpt"
+    Ipath = "./dqn_model/20.ckpt"
     if Imodel == 0: agent = DQN(env,model=0)
     else:
         agent = DQN(env,model=config.num_servers-based)
