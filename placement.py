@@ -282,14 +282,15 @@ def DQNLearnSigle():
     # chkp.print_tensors_in_checkpoint_file("./dqn_model_11/11.ckpt",tensor_name='',all_tensors=True)
     
     agent = DQN(env,e=0,model=0)
-    # agent.build_net(Ipath)
+    agent.build_net(Ipath)
     for episode in range(TEST):
-        agent.build_net(Ipath)
+        # agent.build_net(Ipath)
         state = env.reset()
         done = False
         while not done:
             action = agent.egreedy_action(state) 
             next_state,reward,done = env.step(action)
+            agent.perceive(state,action,reward,next_state,done)
             state = next_state
             fstate = env.observe()
             stk = np.std(env.observe_state())
