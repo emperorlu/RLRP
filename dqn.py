@@ -167,8 +167,12 @@ class DQN():
     #   v_old.append(v)
   def add_model(self, add=0):
     if add:
+      
       variable_names = [v.name for v in tf.compat.v1.trainable_variables()]
       values = self.session1.run(variable_names)
+      self.session1.close()
+      tf.compat.v1.reset_default_graph()
+      [W1_old, b1_old, W2_old, b2_old] = values
       # print("add!", add)
       W1_add_zero = tf.zeros((add,H_NODE))
       W2_add_zero = tf.zeros((H_NODE,add))
@@ -182,10 +186,9 @@ class DQN():
       # print(" W1_add_random Shape: ", W1_add_random.shape)
       # print(" W2_add_random Shape: ", W2_add_random.shape)
       # print(" b2_add_random Shape: ", b2_add_random.shape)
-      [W1_old, b1_old, W2_old, b2_old] = values
+      
 
-      self.session1.close()
-      tf.compat.v1.reset_default_graph()
+      
 
 
       W1_old = tf.convert_to_tensor(W1_old, tf.float32)
