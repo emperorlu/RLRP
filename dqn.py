@@ -155,6 +155,7 @@ class DQN():
     self.session.close()
 
   def build_net(self, path, add=0):
+    self.saver = tf.compat.v1.train.Saver()
     self.saver.restore(self.session, path)
     self.add_model(add)
     # v_old = []
