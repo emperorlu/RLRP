@@ -146,7 +146,7 @@ class DQN():
     for k,v in zip(variable_names, values):
       print("Variable: ", k)
       print("Shape: ", v.shape)
-      # print(v)
+      print(v)
     
     print("Save to path: ", save_path)
 
