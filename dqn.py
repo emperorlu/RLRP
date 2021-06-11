@@ -143,10 +143,10 @@ class DQN():
     
     variable_names = [v.name for v in tf.compat.v1.trainable_variables()]
     values = self.session.run(variable_names)
-    # for k,v in zip(variable_names, values):
-    #   print("Variable: ", k)
-    #   print("Shape: ", v.shape)
-    #   print(v)
+    for k,v in zip(variable_names, values):
+      print("Variable: ", k)
+      print("Shape: ", v.shape)
+      # print(v)
     
     print("Save to path: ", save_path)
 
@@ -199,7 +199,7 @@ class DQN():
       # b2 = tf.Variable(np.append(b2_old,b2_add_random,axis=0).astype(np.float32))
 
       self.session1.close()
-      
+
       self.state_input = tf.compat.v1.placeholder("float",[None,self.state_dim])
       h_layer = tf.nn.relu(tf.matmul(self.state_input,W1) + b1)
       self.Q_value = tf.matmul(h_layer,W2) + b2
