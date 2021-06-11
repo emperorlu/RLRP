@@ -226,7 +226,7 @@ def DQNLearnSigle3():
 
 
 def DQNLearnSigle():
-    # env = park.make('replica_placement')
+    env = park.make('replica_placement')
     # Imodel = 1
     # if Imodel == 0: agent = DQN(env,model=0)
     # else:
@@ -273,7 +273,7 @@ def DQNLearnSigle():
     for var_name in var_to_shape_map.keys(): 
         var_value = reader.get_tensor(var_name)
         print("var_name",var_name)
-        print("var_value",var_value)
+        print("var_value",var_value.shape)
 
     # chkp.print_tensors_in_checkpoint_file("./dqn_model_11/11.ckpt",tensor_name='',all_tensors=True)
     
