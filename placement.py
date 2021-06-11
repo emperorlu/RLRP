@@ -228,9 +228,10 @@ def DQNLearnSigle3():
 def DQNLearnSigle():
     env = park.make('replica_placement')
     Imodel = 1
+    Ipath = "./dqn_model/12.ckpt"
     if Imodel == 0: agent = DQN(env,model=0)
     else:
-        agent = DQN(env,model=5)
+        agent = DQN(env,model=2)
         agent.build_net("./dqn_model/place.ckpt",config.num_servers-10)
     # agent = DQN(env,1,"./dqn_model/place.ckpt")#,0.1)
     e = EPISODE / 10
@@ -265,10 +266,10 @@ def DQNLearnSigle():
     t1 = time.time()
     print("total episode:",i,"; cost time: ", t1-t0)
     hua(st,osd)
-    agent.save_net("./dqn_model/15.ckpt")
+    agent.save_net(Ipath)
     agent.close()
 
-    reader = tf.train.NewCheckpointReader("./dqn_model/15.ckpt")
+    reader = tf.train.NewCheckpointReader(Ipath)
     var_to_shape_map = reader.get_variable_to_shape_map()
     for var_name in var_to_shape_map.keys(): 
         var_value = reader.get_tensor(var_name)
@@ -278,7 +279,7 @@ def DQNLearnSigle():
     # chkp.print_tensors_in_checkpoint_file("./dqn_model_11/11.ckpt",tensor_name='',all_tensors=True)
     
     agent = DQN(env,e=0,model=0)
-    agent.build_net("./dqn_model/15.ckpt")
+    agent.build_net(Ipath)
     for episode in range(TEST):
         state = env.reset()
         done = False
