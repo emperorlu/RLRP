@@ -256,19 +256,19 @@ def DQNLearnSigle():
                 st.append(stk)
                 if stk < equ: 
                     equ = stk
-                    # print("Best Now!")
+                    print("Best Now!")
                 if stk < 1: stop += 1
                 else: stop = 0
-                # print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k)
+                print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k)
         if stop == 3: break
         agent.epsilonc(e)
     t1 = time.time()
     print("total episode:",i,"; cost time: ", t1-t0)
     hua(st,osd)
-    agent.save_net("./dqn_model/11.ckpt")
+    agent.save_net("./dqn_model/15.ckpt")
     agent.close()
 
-    reader = tf.train.NewCheckpointReader("./dqn_model/11.ckpt")
+    reader = tf.train.NewCheckpointReader("./dqn_model/15.ckpt")
     var_to_shape_map = reader.get_variable_to_shape_map()
     for var_name in var_to_shape_map.keys(): 
         var_value = reader.get_tensor(var_name)
@@ -278,7 +278,7 @@ def DQNLearnSigle():
     # chkp.print_tensors_in_checkpoint_file("./dqn_model_11/11.ckpt",tensor_name='',all_tensors=True)
     
     agent = DQN(env,e=0,model=0)
-    agent.build_net("./dqn_model/11.ckpt")
+    agent.build_net("./dqn_model/15.ckpt")
     for episode in range(TEST):
         state = env.reset()
         done = False
