@@ -38,7 +38,6 @@ class DQN():
     b1 = self.bias_variable([H_NODE])
     W2 = self.weight_variable([H_NODE,a_dim])
     b2 = self.bias_variable([a_dim])
-    print(W1,b1,W2,b2)
     # input layer
     self.state_input = tf.compat.v1.placeholder("float",[None,s_dim])
     # hidden layers
@@ -172,6 +171,7 @@ class DQN():
       values = self.session1.run(variable_names)
       self.session1.close()
       tf.compat.v1.reset_default_graph()
+      self.saver = tf.compat.v1.train.Saver()
       [W1_old, b1_old, W2_old, b2_old] = values
       # print("add!", add)
       W1_add_zero = tf.zeros((add,H_NODE))
