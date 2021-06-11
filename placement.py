@@ -228,12 +228,12 @@ def DQNLearnSigle3():
 def DQNLearnSigle():
     env = park.make('replica_placement')
     Imodel = 1
-    based = 15
-    Ipath = "./dqn_model_1/16.ckpt"
+    based = 17
+    Ipath = "./dqn_model_1/17.ckpt"
     if Imodel == 0: agent = DQN(env,model=0)
     else:
         agent = DQN(env,model=config.num_servers-based)
-        agent.build_net("./dqn_model_1/15.ckpt",config.num_servers-based)
+        agent.build_net("./dqn_model_1/16.ckpt",config.num_servers-based)
     # agent = DQN(env,1,"./dqn_model/place.ckpt")#,0.1)
     e = EPISODE / 10
     equ = 100
