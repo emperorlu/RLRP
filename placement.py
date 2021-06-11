@@ -17,7 +17,7 @@ import warnings
 from tensorflow.python.tools import inspect_checkpoint as chkp
 warnings.filterwarnings("ignore")
 
-EPISODE = 10000 # Episode limitation
+EPISODE = 100000 # Episode limitation
 STEP = 300 # Step limitation in an episode
 TEST = 3 # The number of experiment test every 100 episode
 Rnum = 3
