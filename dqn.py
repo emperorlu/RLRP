@@ -23,7 +23,7 @@ class DQN():
     self.state_dim = env.observation_space.n
     self.action_dim = env.action_space.n
     old_s = self.state_dim; old_a =self.action_dim
-    if model == 1: old_s -= 1; old_a -= 1
+    if model != 0: old_s -= model; old_a -= model
     self.create_Q_network(old_s,old_a)
     # self.create_training_method()
 
