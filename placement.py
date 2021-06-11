@@ -250,8 +250,7 @@ def DQNLearnSigle():
         while not done:
             action = agent.egreedy_action(state) 
             next_state,reward,done = env.step(action)
-            agent.perceive(state,action,reward,next_state,done)
-            state = next_state
+            
             fstate = env.observe()
             stk = np.std(env.observe_state())
             if (done):
@@ -261,7 +260,10 @@ def DQNLearnSigle():
                     print("Best Now!")
                 if stk < 1: stop += 1
                 else: stop = 0
-                print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k)
+                if stop == 3: break
+                print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", next_state, "\nservers:", fstate)#, "\nk:", k)
+            agent.perceive(state,action,reward,next_state,done)
+            state = next_state
         if stop == 3: break
         agent.epsilonc(e)
     t1 = time.time()
