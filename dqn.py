@@ -9,6 +9,7 @@ INITIAL_EPSILON = 1.0 # starting value of epsilon
 FINAL_EPSILON = 0 # final value of epsilon
 REPLAY_SIZE = 100000 # experience replay buffer size
 BATCH_SIZE = 64 # size of minibatch
+H_NODE = 100
 
 class DQN():
   # DQN Agent
@@ -33,9 +34,9 @@ class DQN():
 
   def create_Q_network(self,s_dim,a_dim):
     # network weights
-    W1 = self.weight_variable([s_dim,20])
-    b1 = self.bias_variable([20])
-    W2 = self.weight_variable([20,a_dim])
+    W1 = self.weight_variable([s_dim,H_NODE])
+    b1 = self.bias_variable([H_NODE])
+    W2 = self.weight_variable([H_NODE,a_dim])
     b2 = self.bias_variable([a_dim])
     # input layer
     self.state_input = tf.compat.v1.placeholder("float",[None,s_dim])
@@ -166,8 +167,8 @@ class DQN():
       variable_names = [v.name for v in tf.compat.v1.trainable_variables()]
       values = self.session.run(variable_names)
       # print("add!", add)
-      W1_add_zero = tf.zeros((add,20))
-      W2_add_zero = tf.zeros((20,add))
+      W1_add_zero = tf.zeros((add,H_NODE))
+      W2_add_zero = tf.zeros((H_NODE,add))
       b2_add_zero = tf.zeros(add)
       # print(" W1_add_zero Shape: ", W1_add_zero.shape)
       # print(" W2_add_zero Shape: ", W2_add_zero.shape)

@@ -79,7 +79,7 @@ class ReplicaplacementEnv(core.Env):
         if (np.std(self.servers) == 0): 
             reward = 10000
             done = True
-        reward -= np.std(state) ** 0.5
+        reward -= np.std(state) #** 0.5
         if minn: reward = -reward
             
         # print("reward: ", reward)
