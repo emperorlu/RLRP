@@ -200,7 +200,7 @@ class DQN():
       # b2 = tf.Variable(np.append(b2_old,b2_add_random,axis=0).astype(np.float32))
 
       self.session1.close()
-
+      tf.reset_default_graph()
       self.state_input = tf.compat.v1.placeholder("float",[None,self.state_dim])
       h_layer = tf.nn.relu(tf.matmul(self.state_input,W1) + b1)
       self.Q_value = tf.matmul(h_layer,W2) + b2
