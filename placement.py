@@ -226,7 +226,7 @@ def DQNLearnSigle3():
 
 def DQNLearnSigle():
     env = park.make('replica_placement')
-    Imodel = 0
+    Imodel = 1
     if Imodel == 0: agent = DQN(env,model=0)
     else:
         agent = DQN(env,model=1)
@@ -264,7 +264,7 @@ def DQNLearnSigle():
     t1 = time.time()
     print("total episode:",i,"; cost time: ", t1-t0)
     hua(st,osd)
-    # agent.save_net("./dqn_model/place_11.ckpt")
+    agent.save_net("./dqn_model/place_11.ckpt")
 
     for episode in range(TEST):
         i += 1
@@ -280,6 +280,7 @@ def DQNLearnSigle():
                 print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k)
     # agent.build_net("./dqn_model/place_test.ckpt")
     agent.close()
+
 
 def DQNTestSigle():
     env = park.make('replica_placement')

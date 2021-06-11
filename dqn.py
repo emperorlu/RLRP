@@ -156,13 +156,14 @@ class DQN():
 
   def build_net(self, path, add=0):
     self.saver.restore(self.session, path)
-    
+    self.add_model(add)
     # v_old = []
     # for k,v in zip(variable_names, values):
     #   print("Variable: ", k)
     #   print("Shape: ", v.shape)
     #   print(v)
     #   v_old.append(v)
+  def add_model(self, add=0):
     if add:
       variable_names = [v.name for v in tf.compat.v1.trainable_variables()]
       values = self.session.run(variable_names)
