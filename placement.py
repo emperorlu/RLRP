@@ -264,11 +264,11 @@ def DQNLearnSigle():
     t1 = time.time()
     print("total episode:",i,"; cost time: ", t1-t0)
     hua(st,osd)
-    agent.save_net("./dqn_model/11.ckpt")
+    agent.save_net("./dqn_model_11/11.ckpt")
     agent.close()
 
     agent = DQN(env,e=0,model=0)
-    agent.build_net("./dqn_model/11.ckpt")
+    agent.build_net("./dqn_model_11/11.ckpt")
     for episode in range(TEST):
         i += 1
         state = env.reset()
