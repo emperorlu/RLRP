@@ -244,7 +244,7 @@ def DQNLearnSigle():
     i = 0
     # print("weight: ",env.weight)
     for episode in range(EPISODE):
-        i += 1
+        i += 1; b = 0
         state = env.reset()
         done = False
         while not done:
@@ -260,9 +260,9 @@ def DQNLearnSigle():
                     print("Best Now!")
                 if stk < 1: stop += 1
                 else: stop = 0
-                if stop == 3: break
+                if stop == 3: b = 1
                 print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", next_state, "\nservers:", fstate)#, "\nk:", k)
-            agent.perceive(state,action,reward,next_state,done)
+            if b == 0: agent.perceive(state,action,reward,next_state,done)
             state = next_state
         if stop == 3: break
         agent.epsilonc(e)
