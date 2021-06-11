@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 # from ddpg import Actor, Critic
 from memory import *
 import warnings
+from tensorflow.python.tools import inspect_checkpoint as chkp
 warnings.filterwarnings("ignore")
 
 EPISODE = 1000 # Episode limitation
@@ -267,6 +268,8 @@ def DQNLearnSigle():
     agent.save_net("./dqn_model_11/11.ckpt")
     agent.close()
 
+    chkp.print_tensors_in_checkpoint_file("./dqn_model_11/11.ckpt")
+    
     agent = DQN(env,e=0,model=0)
     agent.build_net("./dqn_model_11/11.ckpt")
     for episode in range(TEST):
