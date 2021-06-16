@@ -248,9 +248,10 @@ def DQNLearnSigle(Ipath):
         while not done:
             action = agent.egreedy_action(state) 
             next_state,reward,done = env.step(action)
-            
+            agent.perceive(state,action,reward,next_state,done)
             fstate = env.observe()
             stk = np.std(env.observe_state())
+            state = next_state
             if (done):
                 st.append(stk)
                 if stk < equ: 
@@ -259,9 +260,19 @@ def DQNLearnSigle(Ipath):
                 if episode > e and stk < 1: stop += 1
                 else: stop = 0
                 print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", next_state, "\nservers:", fstate)#, "\nk:", k)
-            if stop < 3: agent.perceive(state,action,reward,next_state,done)
-            state = next_state
-        if stop == 3: break
+        if stop == 3: 
+            state = env.reset()
+            done = False
+            t0 = time.time()
+            while not done:
+                action = agent.egreedy_action(state)
+                next_state,reward,done = env.step(action)
+                state = next_state
+            fstate = env.observe()
+            stk = np.std(env.observe_state())
+            print("-----------Test-----------\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k)
+        if stk < 1: break
+        else: stop = 0
         agent.epsilonc(e)
     t1 = time.time()
     print("total episode:",i,"; cost time: ", t1-t0)
@@ -269,12 +280,12 @@ def DQNLearnSigle(Ipath):
     agent.save_net(Ipath)
     agent.close()
 
-    reader = tf.train.NewCheckpointReader(Ipath)
-    var_to_shape_map = reader.get_variable_to_shape_map()
-    for var_name in var_to_shape_map.keys(): 
-        var_value = reader.get_tensor(var_name)
-        print("var_name",var_name)
-        print("var_value",var_value.shape)
+    # reader = tf.train.NewCheckpointReader(Ipath)
+    # var_to_shape_map = reader.get_variable_to_shape_map()
+    # for var_name in var_to_shape_map.keys(): 
+    #     var_value = reader.get_tensor(var_name)
+    #     print("var_name",var_name)
+    #     print("var_value",var_value.shape)
 
     # chkp.print_tensors_in_checkpoint_file("./dqn_model_11/11.ckpt",tensor_name='',all_tensors=True)
     agent = DQN(env,e=0,model=0)
