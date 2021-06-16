@@ -829,9 +829,9 @@ if __name__ == '__main__':
     
     # DQNTest()
     print("begin train for placement\n")
-    Ipath = "./dqn_model_2/19.ckpt"
-    based = 18
-    Bpath = "./dqn_model_2/18.ckpt"
+    Ipath = "./dqn_model_2/20.ckpt"
+    based = 19
+    Bpath = "./dqn_model_2/19.ckpt"
     # DQNLearn()
     # print("begin test\n")
     # QlearningLearn_data()
