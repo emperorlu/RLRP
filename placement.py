@@ -271,8 +271,8 @@ def DQNLearnSigle(Ipath):
             fstate = env.observe()
             stk = np.std(env.observe_state())
             print("-----------Test-----------\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k)
-        if stk < 1: break
-        else: stop = 0
+            if stk < 1: break
+            else: stop = 0
         agent.epsilonc(e)
     t1 = time.time()
     print("total episode:",i,"; cost time: ", t1-t0)
