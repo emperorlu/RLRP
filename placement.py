@@ -278,14 +278,11 @@ def DQNLearnSigle():
         print("var_value",var_value.shape)
 
     # chkp.print_tensors_in_checkpoint_file("./dqn_model_11/11.ckpt",tensor_name='',all_tensors=True)
-    
     agent = DQN(env,e=0,model=0)
     agent.build_net(Ipath)
     for episode in range(TEST):
         state = env.reset()
         done = False
-        num = int(config.num_stream_jobs / env.stepn)
-        print("num: ",num)
         num = 1
         t0 = time.time()
         for i in range(num):
@@ -300,8 +297,31 @@ def DQNLearnSigle():
         t1 = time.time()
         print("cost time: ", t1-t0)
         print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k) 
+    
         
-
+def DQNLearnSigleTest():
+    env = park.make('replica_placement')
+    Ipath = "./dqn_model_2/12.ckpt"
+    agent = DQN(env,e=0,model=0)
+    agent.build_net(Ipath)
+    for episode in range(TEST):
+        state = env.reset()
+        done = False
+        num = int(config.num_stream_jobs / env.stepn)
+        print("num: ",num)
+        t0 = time.time()
+        for i in range(num):
+            state = env.reset(1)
+            done = False
+            while not done:
+                action = agent.egreedy_action(state)
+                next_state,reward,done = env.step(action)
+                state = next_state
+                fstate = env.observe()
+                stk = np.std(env.observe_state())
+        t1 = time.time()
+        print("cost time: ", t1-t0)
+        print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k) 
 
 def DQNTestSigle():
     env = park.make('replica_placement')
@@ -807,7 +827,8 @@ if __name__ == '__main__':
     # print("begin test\n")
     # QlearningLearn_data()
     # Zhu()
-    DQNLearnSigle()
+    # DQNLearnSigle()
+    DQNLearnSigleTest()
     # DQNTestSigle()
     # DQNTestSigle()
     # DQNTestData()
