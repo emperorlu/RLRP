@@ -240,6 +240,7 @@ def DQNLearnSigle(Ipath):
     # Rnum = config.num_rep
     t0 = time.time()
     i = 0
+    rstop = 0
     # print("weight: ",env.weight)
     for episode in range(EPISODE):
         i += 1
@@ -271,8 +272,9 @@ def DQNLearnSigle(Ipath):
             fstate = env.observe()
             stk = np.std(env.observe_state())
             print("-----------Test-----------\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k)
-            if stk < 1: break
+            if stk < 1: rstop = 1
             else: stop = 0
+        if rstop: break
         agent.epsilonc(e)
     t1 = time.time()
     print("total episode:",i,"; cost time: ", t1-t0)
