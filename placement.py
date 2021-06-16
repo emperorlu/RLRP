@@ -317,6 +317,7 @@ def DQNTestSigle():
         # num = int(config.num_stream_jobs * config.num_rep  / env.stepn)
         num = int(config.num_stream_jobs / env.stepn)
         print("num: ",num)
+        num = 1
         # while num:
         for i in range(num):
             state = env.reset(1)
