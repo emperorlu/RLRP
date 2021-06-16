@@ -256,7 +256,7 @@ def DQNLearnSigle(Ipath):
                 if stk < equ: 
                     equ = stk
                     print("Best Now!")
-                if stk < 1: stop += 1
+                if episode > e and stk < 1: stop += 1
                 else: stop = 0
                 print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", next_state, "\nservers:", fstate)#, "\nk:", k)
             if stop < 3: agent.perceive(state,action,reward,next_state,done)
