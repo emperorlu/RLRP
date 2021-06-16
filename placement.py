@@ -228,11 +228,11 @@ def DQNLearnSigle3():
 def DQNLearnSigle(Ipath):
     env = park.make('replica_placement')
     Imodel = 1
-    based = 13
+    based = 14
     if Imodel == 0: agent = DQN(env,model=0)
     else:
         agent = DQN(env,model=config.num_servers-based)
-        agent.build_net("./dqn_model_2/13.ckpt",config.num_servers-based)
+        agent.build_net("./dqn_model_2/14.ckpt",config.num_servers-based)
     e = EPISODE / 10
     equ = 100
     st = []
@@ -292,12 +292,10 @@ def DQNLearnSigle(Ipath):
         t1 = time.time()
         print("cost time: ", t1-t0)
         print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k) 
-    
-        
-def DQNLearnSigleTest(Ipath):
-    env = park.make('replica_placement')
-    agent = DQN(env,e=0,model=0)
-    agent.build_net(Ipath)
+# def DQNLearnSigleTest(Ipath):
+#     env = park.make('replica_placement')
+#     agent = DQN(env,e=0,model=0)
+#     agent.build_net(Ipath)
     for episode in range(TEST):
         state = env.reset()
         done = False
@@ -817,13 +815,13 @@ if __name__ == '__main__':
     
     # DQNTest()
     print("begin train for placement\n")
-    Ipath = "./dqn_model_2/14.ckpt"
+    Ipath = "./dqn_model_2/15.ckpt"
     # DQNLearn()
     # print("begin test\n")
     # QlearningLearn_data()
     # Zhu()
-    # DQNLearnSigle(Ipath)
-    DQNLearnSigleTest(Ipath)
+    DQNLearnSigle(Ipath)
+    # DQNLearnSigleTest(Ipath)
     # DQNTestSigle()
     # DQNTestSigle()
     # DQNTestData()
