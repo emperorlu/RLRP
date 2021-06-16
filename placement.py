@@ -225,15 +225,14 @@ def DQNLearnSigle3():
     agent.close()
 
 
-def DQNLearnSigle():
+def DQNLearnSigle(Ipath):
     env = park.make('replica_placement')
     Imodel = 1
-    Ipath = "./dqn_model_2/12.ckpt"
-    based = 11
+    based = 12
     if Imodel == 0: agent = DQN(env,model=0)
     else:
         agent = DQN(env,model=config.num_servers-based)
-        agent.build_net("./dqn_model/11.ckpt",config.num_servers-based)
+        agent.build_net("./dqn_model_2/12.ckpt",config.num_servers-based)
     e = EPISODE / 10
     equ = 100
     st = []
@@ -283,25 +282,20 @@ def DQNLearnSigle():
     for episode in range(TEST):
         state = env.reset()
         done = False
-        num = 1
         t0 = time.time()
-        for i in range(num):
-            state = env.reset(1)
-            done = False
-            while not done:
-                action = agent.egreedy_action(state)
-                next_state,reward,done = env.step(action)
-                state = next_state
-                fstate = env.observe()
-                stk = np.std(env.observe_state())
+        while not done:
+            action = agent.egreedy_action(state)
+            next_state,reward,done = env.step(action)
+            state = next_state
+        fstate = env.observe()
+        stk = np.std(env.observe_state())
         t1 = time.time()
         print("cost time: ", t1-t0)
         print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k) 
     
         
-def DQNLearnSigleTest():
+def DQNLearnSigleTest(Ipath):
     env = park.make('replica_placement')
-    Ipath = "./dqn_model_2/12.ckpt"
     agent = DQN(env,e=0,model=0)
     agent.build_net(Ipath)
     for episode in range(TEST):
@@ -317,8 +311,8 @@ def DQNLearnSigleTest():
                 action = agent.egreedy_action(state)
                 next_state,reward,done = env.step(action)
                 state = next_state
-                fstate = env.observe()
-                stk = np.std(env.observe_state())
+        fstate = env.observe()
+        stk = np.std(env.observe_state())
         t1 = time.time()
         print("cost time: ", t1-t0)
         print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k) 
@@ -823,12 +817,13 @@ if __name__ == '__main__':
     
     # DQNTest()
     print("begin train for placement\n")
+    Ipath = "./dqn_model_2/13.ckpt"
     # DQNLearn()
     # print("begin test\n")
     # QlearningLearn_data()
     # Zhu()
-    # DQNLearnSigle()
-    DQNLearnSigleTest()
+    DQNLearnSigle(Ipath)
+    DQNLearnSigleTest(Ipath)
     # DQNTestSigle()
     # DQNTestSigle()
     # DQNTestData()
