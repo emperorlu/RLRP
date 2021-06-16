@@ -244,7 +244,7 @@ def DQNLearnSigle():
     i = 0
     # print("weight: ",env.weight)
     for episode in range(EPISODE):
-        i += 1; b = 0
+        i += 1
         state = env.reset()
         done = False
         while not done:
@@ -260,9 +260,8 @@ def DQNLearnSigle():
                     print("Best Now!")
                 if stk < 1: stop += 1
                 else: stop = 0
-                if stop == 3: b = 1
                 print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", next_state, "\nservers:", fstate)#, "\nk:", k)
-            if b == 0: agent.perceive(state,action,reward,next_state,done)
+            if stop < 3: agent.perceive(state,action,reward,next_state,done)
             state = next_state
         if stop == 3: break
         agent.epsilonc(e)
@@ -286,15 +285,22 @@ def DQNLearnSigle():
     for episode in range(TEST):
         state = env.reset()
         done = False
-        while not done:
-            action = agent.egreedy_action(state) 
-            next_state,reward,done = env.step(action)
-            state = next_state
-            fstate = env.observe()
-            stk = np.std(env.observe_state())
-            if (done):
-                print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k)
-    # agent.close()
+        num = int(config.num_stream_jobs / env.stepn)
+        print("num: ",num)
+        t0 = time.time()
+        for i in range(num):
+            state = env.reset(1)
+            done = False
+            while not done:
+                action = agent.egreedy_action(state)
+                next_state,reward,done = env.step(action)
+                state = next_state
+                fstate = env.observe()
+                stk = np.std(env.observe_state())
+        t1 = time.time()
+        print("cost time: ", t1-t0)
+        print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k) 
+        
 
 
 def DQNTestSigle():
