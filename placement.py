@@ -318,6 +318,7 @@ def DQNLearnSigleTest(Ipath):
         t0 = time.time()
         for i in range(num):
             state = env.reset(1)
+            print("num: ",num, "state: ",state, "\nfstate: ", env.observe_state())
             done = False
             while not done:
                 action = agent.egreedy_action(state)
