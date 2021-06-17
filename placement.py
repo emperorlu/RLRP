@@ -305,10 +305,10 @@ def DQNLearnSigle(Ipath,based,Bpath):
         print("cost time: ", t1-t0)
         print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k) 
 
-def DQNLearnSigleTest(Ipath):
-    env = park.make('replica_placement')
-    agent = DQN(env,e=0,model=0)
-    agent.build_net(Ipath)
+# def DQNLearnSigleTest(Ipath):
+#     env = park.make('replica_placement')
+#     agent = DQN(env,e=0,model=0)
+#     agent.build_net(Ipath)
     for episode in range(TEST):
         state = env.reset()
         done = False
@@ -837,8 +837,8 @@ if __name__ == '__main__':
     # print("begin test\n")
     # QlearningLearn_data()
     # Zhu()
-    # DQNLearnSigle(Ipath,based,Bpath)
-    DQNLearnSigleTest(Ipath)
+    DQNLearnSigle(Ipath,based,Bpath)
+    # DQNLearnSigleTest(Ipath)
     # DQNTestSigle()
     # DQNTestSigle()
     # DQNTestData()
