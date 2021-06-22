@@ -315,7 +315,7 @@ def DQNLearnSigleTest(Ipath):
         num = int(config.num_stream_jobs / env.stepn)
         # print("num: ",num)
         if num<1: num = 1
-        num = 1
+        num = 2
         t0 = time.time()
         for i in range(num):
             state = env.reset(1)
