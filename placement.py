@@ -315,7 +315,7 @@ def DQNLearnSigleTest(Ipath):
         num = int(config.num_stream_jobs / env.stepn)
         # print("num: ",num)
         if num<1: num = 1
-        t0 = time.time()
+        # t0 = time.time()
         i = 0; back = 0
         while i < num:
             state = env.reset(1)
@@ -330,8 +330,8 @@ def DQNLearnSigleTest(Ipath):
                 if back: agent.perceive(state,action,reward,next_state,done)
             fstate = env.observe()
             stk = np.std(env.observe_state())
-            t1 = time.time()
-            print("cost time: ", t1-t0)
+            # t1 = time.time()
+            # print("cost time: ", t1-t0)
             print("episode:",i, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k) 
             if (stk <= 1): 
                 i += 1
