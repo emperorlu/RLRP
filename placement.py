@@ -307,9 +307,9 @@ def DQNLearnSigle(Ipath,based,Bpath):
 
 def DQNLearnSigleTest(Ipath):
     env = park.make('replica_placement')
-    agent = DQN(env,e=0,model=0)
+    agent = DQN(env)#,e=0,model=0)
     agent.build_net(Ipath)
-    for episode in range(TEST):
+    for episode in range(1):
         state = env.reset()
         done = False
         num = int(config.num_stream_jobs / env.stepn)
@@ -317,6 +317,7 @@ def DQNLearnSigleTest(Ipath):
         if num<1: num = 1
         # t0 = time.time()
         i = 0; back = 0
+        e = EPISODE / 10
         while i < num:
             if back: 
                 state = env.reset(0,old_fstate)
@@ -327,6 +328,7 @@ def DQNLearnSigleTest(Ipath):
                 state = env.reset(1,0)
                 old_state = state.copy()
                 old_fstate = env.observe().copy()
+                agent.epsilon = 0
                 print("-------Not back-------\nold_state: ",old_fstate) 
             # print("num: ",i, "\nstate: ",state, "\nfstate: ", env.observe_state())
             done = False
@@ -340,10 +342,12 @@ def DQNLearnSigleTest(Ipath):
             # t1 = time.time()
             # print("cost time: ", t1-t0)
             print("episode:",i, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k) 
-            if (stk <= 1): 
+            if (stk <= 1 and agent.epsilon <= 0): 
                 i += 1
                 back = 0
-            else: back = 1
+            else: 
+                agent.epsilonc(e)
+                back = 1
             
         
         
