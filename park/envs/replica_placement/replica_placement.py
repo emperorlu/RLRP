@@ -12,8 +12,8 @@ class ReplicaplacementEnv(core.Env):
         self.seed(config.seed)
         self.num_stream_jobs = config.num_stream_jobs
         # self.cur_servers = config.num_servers_now
-        self.servers_state = self.initialize_servers()
-        self.servers = self.initialize_servers()
+        self.servers_state = self.initialize_servers(0)
+        self.servers = self.initialize_servers(0)
         # self.weight = [21,35,5,44,7,54,25,12,2,22]
         self.weight = [1] * config.num_servers
         # self.weight = [2, 3, 5, 4, 7, 2, 2, 2, 2, 2] 
