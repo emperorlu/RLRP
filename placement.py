@@ -310,13 +310,13 @@ def DQNLearnSigleTest(Ipath):
     env = park.make('replica_placement')
     agent = DQN(env)#,e=0,model=0)
     agent.build_net(Ipath)
-    for episode in range(1):
+    for episode in range(TEST):
         state = env.reset()
         done = False
         num = int(config.num_stream_jobs / env.stepn)
         # print("num: ",num)
         if num<1: num = 1
-        # t0 = time.time()
+        t0 = time.time()
         i = 0; back = 0
         e = EPISODE_TEST / 10
         while i < num:
@@ -339,8 +339,7 @@ def DQNLearnSigleTest(Ipath):
                 if back: agent.perceive(state,action,reward,next_state,done)
             fstate = env.observe()
             stk = np.std(env.observe_state())
-            # t1 = time.time()
-            # print("cost time: ", t1-t0)
+            
             print("episode:",i, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k) 
             if (stk <= 1 and back == 0):
                 i += 1
@@ -352,7 +351,10 @@ def DQNLearnSigleTest(Ipath):
             else: 
                 agent.epsilonc(e)
                 back = 1
-            
+        t1 = time.time()
+        print("cost time: ", t1-t0)  
+        agent.save_net(Ipath)
+        agent.close() 
         
         
 
