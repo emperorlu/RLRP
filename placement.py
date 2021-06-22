@@ -317,7 +317,7 @@ def DQNLearnSigleTest(Ipath):
         if num<1: num = 1
         t0 = time.time()
         i = 0; back = 0
-        while i < range(num):
+        while i < num:
             state = env.reset(1)
             if back: state = old_state 
             else:  old_state = state 
