@@ -320,10 +320,10 @@ def DQNLearnSigleTest(Ipath):
         while i < num:
             state = env.reset(1)
             if back: 
-                state = old_state 
+                state = old_state.copy() 
                 print("back! old_state: ",old_state)
             else:  
-                old_state = state
+                old_state = state.copy()
                 print("Not back! old_state: ",old_state) 
             print("num: ",i, "\nstate: ",state, "\nfstate: ", env.observe_state())
             done = False
