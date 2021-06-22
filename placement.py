@@ -344,6 +344,7 @@ def DQNLearnSigleTest(Ipath):
             print("episode:",i, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k) 
             if (stk <= 1 and back == 0):
                 i += 1
+                e = EPISODE_TEST / 10
             if (stk <= 1 and agent.epsilon <= 0): 
                 i += 1
                 back = 0
