@@ -319,6 +319,7 @@ def DQNLearnSigleTest(Ipath):
         i = 0; back = 0
         while i < num:
             if back: 
+                state = env.reset()
                 state = old_state.copy() 
                 print("back! old_state: ",old_state)
             else:  
