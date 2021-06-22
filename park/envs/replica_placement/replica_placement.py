@@ -19,8 +19,9 @@ class ReplicaplacementEnv(core.Env):
         # self.weight = [2, 3, 5, 4, 7, 2, 2, 2, 2, 2] 
         self.reset()
 
-    def initialize_servers(self):
-        servers = [0] * config.num_servers
+    def initialize_servers(self,old):
+        if old == 0: servers = [0] * config.num_servers
+        else: servers = [old[i] for i in range(len(old))]
         return servers
     
     def set_servers(self, ser):
@@ -42,10 +43,10 @@ class ReplicaplacementEnv(core.Env):
 
         return self.servers
 
-    def reset(self,test=0):
+    def reset(self,test=0,old=0):
         # for server in self.servers:
         #     server.reset()
-        if test==0: self.servers = self.initialize_servers()
+        if test==0: self.servers = self.initialize_servers(old)
         self.stepn = 100
         self.num_stream_jobs_left = self.num_stream_jobs * config.num_rep
         assert self.num_stream_jobs_left > 0
