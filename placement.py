@@ -315,21 +315,31 @@ def DQNLearnSigleTest(Ipath):
         num = int(config.num_stream_jobs / env.stepn)
         # print("num: ",num)
         if num<1: num = 1
-        num = 2
         t0 = time.time()
-        for i in range(num):
+        i = 0; back = 0
+        while i < range(num):
             state = env.reset(1)
+            if back: state = old_state 
+            else:  old_state = state 
             print("num: ",i, "\nstate: ",state, "\nfstate: ", env.observe_state())
             done = False
             while not done:
                 action = agent.egreedy_action(state)
                 next_state,reward,done = env.step(action)
                 state = next_state
-        fstate = env.observe()
-        stk = np.std(env.observe_state())
-        t1 = time.time()
-        print("cost time: ", t1-t0)
-        print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k) 
+                if back: agent.perceive(state,action,reward,next_state,done)
+            fstate = env.observe()
+            stk = np.std(env.observe_state())
+            t1 = time.time()
+            print("cost time: ", t1-t0)
+            print("episode:",i, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k) 
+            if (stk <= 1): 
+                i += 1
+                back = 0
+            else: back = 1
+            
+        
+        
 
 def DQNTestSigle():
     env = park.make('replica_placement')
