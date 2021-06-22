@@ -344,7 +344,7 @@ def DQNLearnSigleTest(Ipath):
             if (stk <= 1 and back == 0):
                 i += 1
                 e = EPISODE_TEST / 10
-            if (stk <= 1 and agent.epsilon <= 0): 
+            elif (stk <= 1 and agent.epsilon <= 0): 
                 i += 1
                 back = 0
                 e = EPISODE_TEST / 10
