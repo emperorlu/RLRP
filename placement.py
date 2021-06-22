@@ -328,12 +328,11 @@ def DQNLearnSigleTest(Ipath):
                 state = env.reset(1,0)
                 old_state = state.copy()
                 old_fstate = env.observe().copy()
-                agent.epsilon = 0
                 print("-------Not back-------\nold_state: ",old_fstate) 
             # print("num: ",i, "\nstate: ",state, "\nfstate: ", env.observe_state())
             done = False
             while not done:
-                action = agent.egreedy_action(state)
+                action = agent.egreedy_action(state,back=back)
                 next_state,reward,done = env.step(action)
                 state = next_state
                 if back: agent.perceive(state,action,reward,next_state,done)

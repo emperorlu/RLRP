@@ -107,10 +107,11 @@ class DQN():
   def epsilonc(self,e):
       if self.epsilon > FINAL_EPSILON:
         self.epsilon -= (INITIAL_EPSILON - FINAL_EPSILON)/e
-  def egreedy_action(self,state,next=0):
+  def egreedy_action(self,state,next=0,back=0):
     Q_value = self.Q_value.eval(feed_dict = {
       self.state_input:[state]
       })[0]
+    if back == 0: return np.argmax(Q_value)
     if random.random() <= self.epsilon:
       return random.randint(0,self.action_dim - 1)
     else:
