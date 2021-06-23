@@ -152,9 +152,11 @@ class DQN():
     
     # print("Save to path: ", save_path)
 
-  def close(self):
+  def close(self,model=0):
     tf.compat.v1.reset_default_graph()
-    self.session.close()
+    if model: self.session.close()
+    else: self.session1.close()
+
 
   def build_net(self, path, add=0):
     

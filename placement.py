@@ -279,8 +279,8 @@ def DQNLearnSigle(Ipath,based,Bpath):
     t1 = time.time()
     print("total episode:",i,"; cost time: ", t1-t0)
     hua(st,osd)
-    agent.save_net(Ipath)
-    agent.close()
+    agent.save_net(Ipath,Imodel)
+    agent.close(Imodel)
 
     # reader = tf.train.NewCheckpointReader(Ipath)
     # var_to_shape_map = reader.get_variable_to_shape_map()
@@ -858,7 +858,7 @@ if __name__ == '__main__':
     
     # DQNTest()
     print("begin train for placement\n")
-    Ipath = "./dqn_model_128/22.ckpt"
+    Ipath = "./dqn_model_128/10.ckpt"
     based = 10
     Bpath = "./dqn_model_128/21.ckpt"
     # DQNLearn()
