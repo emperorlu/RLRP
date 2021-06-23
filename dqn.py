@@ -189,10 +189,6 @@ class DQN():
       # print(" W2_add_random Shape: ", W2_add_random.shape)
       # print(" b2_add_random Shape: ", b2_add_random.shape)
       
-
-      
-
-
       W1_old = tf.convert_to_tensor(W1_old, tf.float32)
       b1_old = tf.convert_to_tensor(b1_old, tf.float32)
       W2_old = tf.convert_to_tensor(W2_old, tf.float32)
