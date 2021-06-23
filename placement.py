@@ -277,7 +277,8 @@ def DQNLearnSigle(Ipath,based,Bpath):
         if rstop: break
         agent.epsilonc(e)
     t1 = time.time()
-    print("total episode:",i,"; cost time: ", t1-t0)
+    f = open("time.txt", 'w+')
+    print("train cost time: ", t1-t0,file=f)
     hua(st,osd)
     agent.save_net(Ipath,Imodel)
     agent.close(Imodel)
@@ -295,15 +296,15 @@ def DQNLearnSigle(Ipath,based,Bpath):
     for episode in range(TEST):
         state = env.reset()
         done = False
-        t0 = time.time()
+        # t0 = time.time()
         while not done:
             action = agent.egreedy_action(state)
             next_state,reward,done = env.step(action)
             state = next_state
         fstate = env.observe()
         stk = np.std(env.observe_state())
-        t1 = time.time()
-        print("cost time: ", t1-t0)
+        # t1 = time.time()
+        # print("cost time: ", t1-t0)
         print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k) 
 
 # def DQNLearnSigleTest(Ipath):
@@ -352,7 +353,8 @@ def DQNLearnSigle(Ipath,based,Bpath):
                 agent.epsilonc(e)
                 back = 1
         t1 = time.time()
-        print("cost time: ", t1-t0)  
+        f = open("time.txt", 'w+')
+        print("Test cost time: ", t1-t0, file=f)
         agent.save_net(Ipath)
         agent.close() 
         
@@ -862,6 +864,8 @@ if __name__ == '__main__':
     Ipath = "./dqn_model_128/{}.ckpt".format(based+1)
     Bpath = "./dqn_model_128/{}.ckpt".format(based)
     print(Ipath)
+    f = open("time.txt", 'w+')
+    print("Num_servers: ", config.num_servers,file=f)
     # DQNLearn()
     # print("begin test\n")
     # QlearningLearn_data()
