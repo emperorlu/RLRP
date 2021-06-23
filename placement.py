@@ -228,18 +228,20 @@ def DQNLearnSigle3():
 
 def DQNLearnSigle(Ipath,based,Bpath):
     
-    # import random
-    # print("-----掰花瓣测试开始！（100组）-----")
-    # i = 0
-    # for j in range(100):
-    #     if random.randint(0,9)%2: 
-    #         print("第",j+1,"组: 想你❤")
-    #         i += 1
-    #     else: print("第",j+1,"组: 学习中！") 
-    # print("-----测试结束，统计结果-----")
-    # print("统计：想你（",i,"次）；学习（",100-i,"次)")
-    # if i>=50: print("结论：想你更多一点❤")
-    # else: print("结论：别想了，学习更重要！")
+    import random
+    print("输入测试者姓名：")
+    print("输入成功！测试者：周婷，女")
+    print("-----掰花瓣测试开始！（100组）-----")
+    i = 0
+    for j in range(100):
+        if random.randint(0,9)%2: 
+            print("第",j+1,"组: 想你❤")
+            i += 1
+        else: print("第",j+1,"组: 学习中！") 
+    print("-----测试结束，统计结果-----")
+    print("统计：想你（",i,"次）；学习（",100-i,"次)")
+    if i>=50: print("结论：想你更多一点❤")
+    else: print("结论：别想了，学习更重要！")
 
     env = park.make('replica_placement')
     Imodel = 0
