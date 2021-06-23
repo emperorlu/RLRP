@@ -866,7 +866,7 @@ if __name__ == '__main__':
     # QlearningLearn_data()
     # Zhu()
     DQNLearnSigle(Ipath,based,Bpath)
-    DQNLearnSigleTest(Ipath)
+    # DQNLearnSigleTest(Ipath)
     # DQNTestSigle()
     # DQNTestSigle()
     # DQNTestData()
