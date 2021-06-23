@@ -228,7 +228,7 @@ def DQNLearnSigle3():
 
 def DQNLearnSigle(Ipath,based,Bpath):
     env = park.make('replica_placement')
-    Imodel = 1
+    Imodel = 0
     if Imodel == 0: agent = DQN(env,model=0)
     else:
         agent = DQN(env,model=config.num_servers-based)
@@ -858,14 +858,14 @@ if __name__ == '__main__':
     
     # DQNTest()
     print("begin train for placement\n")
-    Ipath = "./dqn_model_2/22.ckpt"
-    based = 21
-    Bpath = "./dqn_model_2/21.ckpt"
+    Ipath = "./dqn_model_128/22.ckpt"
+    based = 10
+    Bpath = "./dqn_model_128/21.ckpt"
     # DQNLearn()
     # print("begin test\n")
     # QlearningLearn_data()
     # Zhu()
-    # DQNLearnSigle(Ipath,based,Bpath)
+    DQNLearnSigle(Ipath,based,Bpath)
     DQNLearnSigleTest(Ipath)
     # DQNTestSigle()
     # DQNTestSigle()
