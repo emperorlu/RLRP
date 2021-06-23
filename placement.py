@@ -231,7 +231,7 @@ def DQNLearnSigle(Ipath,based,Bpath):
     import random
     print("-----开始测试（100组）-----")
     i = 0
-    for i in range(100):
+    for j in range(100):
         if random.randint(0,9)%2: 
             print("想你❤")
             i += 1
