@@ -237,8 +237,9 @@ def DQNLearnSigle(Ipath,based,Bpath):
             i += 1
         else: print("学习中！") 
     print("-----测试结束，统计结果-----")
+    print("统计：想你（",i,"次）；学习（",100-i,"次)")
     if i>=5: print("结论：想你更多一点❤")
-    print("结论：别想了，学习更重要！")
+    else: print("结论：别想了，学习更重要！")
 
     env = park.make('replica_placement')
     Imodel = 0
