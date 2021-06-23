@@ -18,7 +18,7 @@ from tensorflow.python.tools import inspect_checkpoint as chkp
 warnings.filterwarnings("ignore")
 
 EPISODE = 10000 # Episode limitation
-EPISODE_TEST = 10000
+EPISODE_TEST = 1000
 STEP = 300 # Step limitation in an episode
 TEST = 3 # The number of experiment test every 100 episode
 Rnum = 3
@@ -341,10 +341,10 @@ def DQNLearnSigleTest(Ipath):
             stk = np.std(env.observe_state())
             
             print("episode:",i, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)#, "\nk:", k) 
-            if (stk <= 1 and back == 0):
+            if (stk <= 1.5 and back == 0):
                 i += 1
                 agent.epsilon = 1
-            elif (stk <= 1 and agent.epsilon <= 0): 
+            elif (stk <= 1.5 and agent.epsilon <= 0): 
                 i += 1
                 back = 0
                 agent.epsilon = 1
