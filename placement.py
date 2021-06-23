@@ -229,7 +229,7 @@ def DQNLearnSigle3():
 def DQNLearnSigle(Ipath,based,Bpath):
     
     import random
-    for i in 10:
+    for i in range(10):
         if random.randint(0,9)%2: print("想你❤！")
         else: print("学习中！") 
 
