@@ -137,10 +137,11 @@ class DQN():
     initial = tf.constant(0.01, shape = shape)
     return tf.Variable(initial)
 
-  def save_net(self, save_path):
+  def save_net(self, save_path,model=0):
     # saver = tf.compat.v1.train.Saver()
     self.saver = tf.compat.v1.train.Saver()
-    self.saver.save(self.session, save_path, write_meta_graph=False)
+    if model: self.saver.save(self.session, save_path, write_meta_graph=False)
+    else: self.saver.save(self.session1, save_path, write_meta_graph=False)
     
     # variable_names = [v.name for v in tf.compat.v1.trainable_variables()]
     # values = self.session.run(variable_names)
