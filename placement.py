@@ -229,10 +229,15 @@ def DQNLearnSigle3():
 def DQNLearnSigle(Ipath,based,Bpath):
     
     import random
-    print("-----开始测试（10组）-----")
+    print("-----开始测试（100组）-----")
+    i = 0
     for i in range(10):
-        if random.randint(0,9)%2: print("想你❤！")
+        if random.randint(0,9)%2: 
+            print("想你❤")
+            i += 1
         else: print("学习中！") 
+    if i>=5: print("想你更多一点❤")
+    print("别想了，学习更重要！")
 
     env = park.make('replica_placement')
     Imodel = 0
