@@ -264,7 +264,7 @@ def DQNLearnSigle(Ipath,based,Bpath):
         if stop == 3: 
             state = env.reset()
             done = False
-            t0 = time.time()
+            # t0 = time.time()
             while not done:
                 action = agent.egreedy_action(state)
                 next_state,reward,done = env.step(action)
