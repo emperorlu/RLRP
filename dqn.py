@@ -156,8 +156,6 @@ class DQN():
     tf.compat.v1.reset_default_graph()
     if model: self.session.close()
     else: self.session1.close()
-
-
   def build_net(self, path, add=0):
     
     self.saver.restore(self.session1, path)
