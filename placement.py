@@ -247,7 +247,7 @@ def DQNLearnSigle(Ipath,based,Bpath):
         state = env.reset()
         done = False
         while not done:
-            action = agent.egreedy_action(state) 
+            action = agent.egreedy_action(state,back=1) 
             next_state,reward,done = env.step(action)
             agent.perceive(state,action,reward,next_state,done)
             fstate = env.observe()
