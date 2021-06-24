@@ -859,7 +859,7 @@ def QlearningTest2():
 if __name__ == '__main__':
     
     # DQNTest()
-    print("begin train for placement\n")
+    print("begin train for placement, num = ",config.num_servers)
     based = config.num_servers-1
     Ipath = "./dqn_model_128/{}.ckpt".format(based+1)
     Bpath = "./dqn_model_128/{}.ckpt".format(based)
