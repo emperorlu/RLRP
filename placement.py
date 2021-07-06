@@ -5,6 +5,7 @@ from dqn import DQN
 # from ddpg import DDPG
 # from dqn2 import DeepQNetwork
 from qlearning import QLearningTable
+from tensorflow.contrib.rnn import LSTMCell
 import pandas as pd 
 import numpy as np
 import tensorflow as tf
@@ -24,6 +25,12 @@ TEST = 3 # The number of experiment test every 100 episode
 Rnum = 3
 final_map = []
 osd = []
+
+# def YigouLearn():
+#     cell = tf.contrib.rnn.DeviceWrapper(LSTMCell(512), "/gpu:0")
+#     attention_mechanism = tf.contrib.seq2seq.LuongAttention(512, encoder_outputs)
+#     attn_cell = tf.contrib.seq2seq.DynamicAttentionWrapper(
+#         cell, attention_mechanism, attention_size=256)
 
 def DDPGLearn():
     env = park.make('data_migration')
@@ -226,9 +233,10 @@ def DQNLearnSigle3():
     agent.close()
 
 
+
 def DQNLearnSigle(Ipath,based,Bpath):
     env = park.make('replica_placement')
-    Imodel = 1
+    Imodel = config.model
     if Imodel == 0: agent = DQN(env,model=0)
     else:
         agent = DQN(env,model=config.num_servers-based)

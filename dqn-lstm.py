@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 import random
 from collections import deque
-
+from tensorflow.contrib.rnn import LSTMCell
 # Hyper Parameters for DQN
 GAMMA = 0.9 # discount factor for target Q
 INITIAL_EPSILON = 1.0 # starting value of epsilon
@@ -37,11 +37,16 @@ class DQN():
     W1 = self.weight_variable([s_dim,H_NODE])
     b1 = self.bias_variable([H_NODE])
     W2 = self.weight_variable([H_NODE,a_dim])
-    b2 = self.bias_variable([a_dim])
+    b2 = self.bias_variable([a_dim])    
     # input layer
     self.state_input = tf.compat.v1.placeholder("float",[None,s_dim])
     # hidden layers
     h_layer = tf.nn.relu(tf.matmul(self.state_input,W1) + b1)
+    # LSTM layers
+    cell = tf.contrib.rnn.DeviceWrapper(LSTMCell(512)) #, "/gpu:0")
+    attention_mechanism = tf.contrib.seq2seq.LuongAttention(512, encoder_outputs)
+    attn_cell = tf.contrib.seq2seq.DynamicAttentionWrapper(
+        cell, attention_mechanism, attention_size=256)
     # Q Value layer
     self.Q_value = tf.matmul(h_layer,W2) + b2
 
@@ -120,6 +125,8 @@ class DQN():
         x[np.argmax(x)] = np.min(x)
         next = next - 1
       return np.argmax(x)
+
+    
 
   def action(self,state):
     return np.argmax(self.Q_value.eval(feed_dict = {
@@ -216,4 +223,5 @@ class DQN():
       self.session = tf.compat.v1.InteractiveSession()
       self.session.run(tf.compat.v1.global_variables_initializer())
     # print(self.sess.run(W1))  
+
                 

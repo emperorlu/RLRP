@@ -16,9 +16,12 @@ parser.add_argument('--log_to', type=str, default='print',
 parser.add_argument('--num_servers', type=int, default=10,
                     help='number of servers (default: 10)')
 parser.add_argument('--num_rep', type=int, default=3,
-                    help='number of servers (default: 3)')
+                    help='number of rep (default: 3)')
 parser.add_argument('--num_stream_jobs', type=int, default=1000,
                     help='number of streaming jobs (default: 1000)')
+parser.add_argument('--model', type=int, default=1,
+                    help='model (default: 1)')
+
 parser.add_argument('--service_rates', type=float,
                     default=[0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95, 1.05],
                     nargs='+', help='workers service rates '
