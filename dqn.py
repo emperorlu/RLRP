@@ -121,6 +121,8 @@ class DQN():
         next = next - 1
       return np.argmax(x)
 
+    
+
   def action(self,state):
     return np.argmax(self.Q_value.eval(feed_dict = {
       self.state_input:[state]
