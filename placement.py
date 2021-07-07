@@ -237,6 +237,9 @@ def DQNLearnSigle3():
 def DQNLearnSigle(Ipath,based,Bpath):
     env = park.make('replica_placement')
     Imodel = config.model
+    tk = [4, 3, 3, 5, 1, 5, 5, 9, 7, 6, 7, 6, 6, 5, 9, 4, 3, 4, 3, 5, 12, 3, 7, 5, 1, 3, 1, 4, 3, 7, 6, 4, 6, 6, 3, 1, 9, 8, 2, 4, 5, 8, 4, 5, 8, 2, 3, 3, 9, 7, 8, 5, 2, 6, 4, 2, 3, 9, 5, 5, 5, 3, 5, 1, 9, 8, 5, 6, 5]
+    print("---------------tk------------------")
+    print("tk: ",len(tk),"sum: ",np.sum(tk))
     if Imodel == 0: agent = DQN(env,model=0)
     else:
         agent = DQN(env,model=config.num_servers-based)
