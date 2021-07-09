@@ -9,7 +9,7 @@ INITIAL_EPSILON = 1.0 # starting value of epsilon
 FINAL_EPSILON = 0 # final value of epsilon
 REPLAY_SIZE = 100000 # experience replay buffer size
 BATCH_SIZE = 64 # size of minibatch
-H_NODE = 128
+H_NODE = 1024
 
 class DQN():
   # DQN Agent
