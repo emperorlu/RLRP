@@ -285,7 +285,7 @@ def DQNLearnSigle(Ipath,based,Bpath):
         if rstop: break
         agent.epsilonc(e)
     t1 = time.time()
-    f = open("time_1024.txt", 'a+')
+    f = open("time_2_128.txt", 'a+')
     print("train cost time: ", t1-t0,file=f)
     hua(st,osd)
     agent.save_net(Ipath,Imodel)
@@ -361,7 +361,7 @@ def DQNLearnSigle(Ipath,based,Bpath):
                 agent.epsilonc(e)
                 back = 1
         t1 = time.time()
-        f = open("time_1024.txt", 'a+')
+        f = open("time_2_128.txt", 'a+')
         print("Test cost time: ", t1-t0, file=f)
         agent.save_net(Ipath)
         agent.close() 
@@ -869,10 +869,10 @@ if __name__ == '__main__':
     # DQNTest()
     print("begin train for placement, num = ",config.num_servers)
     based = config.num_servers-1
-    Ipath = "./dqn_model_1024/{}.ckpt".format(based+1)
-    Bpath = "./dqn_model_1024/{}.ckpt".format(based)
+    Ipath = "./dqn_model_2_128/{}.ckpt".format(based+1)
+    Bpath = "./dqn_model_2_128/{}.ckpt".format(based)
     print(Ipath)
-    f = open("time_1024.txt", 'a+')
+    f = open("time_2_128.txt", 'a+')
     print("Num_servers: ", config.num_servers,file=f)
     # DQNLearn()
     # print("begin test\n")
