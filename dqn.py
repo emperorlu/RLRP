@@ -36,17 +36,17 @@ class DQN():
     # network weights
     W1 = self.weight_variable([s_dim,H_NODE])
     b1 = self.bias_variable([H_NODE])
-    W1_ = self.weight_variable([H_NODE,H_NODE])
-    b1_ = self.bias_variable([H_NODE])
+    # W1_ = self.weight_variable([H_NODE,H_NODE])
+    # b1_ = self.bias_variable([H_NODE])
     W2 = self.weight_variable([H_NODE,a_dim])
     b2 = self.bias_variable([a_dim])
     # input layer
     self.state_input = tf.compat.v1.placeholder("float",[None,s_dim])
     # hidden layers
     h_layer = tf.nn.relu(tf.matmul(self.state_input,W1) + b1)
-    h_layer2 = tf.nn.relu(tf.matmul(h_layer,W1_) + b1_)
+    # h_layer2 = tf.nn.relu(tf.matmul(h_layer,W1_) + b1_)
     # Q Value layer
-    self.Q_value = tf.matmul(h_layer2,W2) + b2
+    self.Q_value = tf.matmul(h_layer,W2) + b2
 
   # def create_training_method(self):
     self.action_input = tf.compat.v1.placeholder("float",[None,a_dim]) # one hot presentation
@@ -177,7 +177,7 @@ class DQN():
       self.session1.close()
       tf.compat.v1.reset_default_graph()
 
-      [W1_old, b1_old, _W1_old, _b1_old, W2_old, b2_old] = values
+      [W1_old, b1_old, W2_old, b2_old] = values
       # print("add!", add)
       W1_add_zero = tf.zeros((add,H_NODE))
       W2_add_zero = tf.zeros((H_NODE,add))
@@ -201,8 +201,8 @@ class DQN():
       # print(" b2_old Shape: ", b2_old.shape)
       W1 = tf.Variable(tf.concat([W1_old, W1_add_zero], 0))
       b1 = tf.Variable(b1_old)
-      W1_ = tf.Variable(_W1_old)
-      b1_ = tf.Variable(_b1_old)
+      # W1_ = tf.Variable(_W1_old)
+      # b1_ = tf.Variable(_b1_old)
       W2 = tf.Variable(tf.concat([W2_old,W2_add_zero], 1))
       b2 = tf.Variable(tf.concat([b2_old,b2_add_zero], 0))
       # W1 = tf.Variable(np.append(W1_old,W1_add_random,axis=0).astype(np.float32))
@@ -211,15 +211,15 @@ class DQN():
       # b2 = tf.Variable(np.append(b2_old,b2_add_random,axis=0).astype(np.float32))
 
 
-      self.state_input = tf.compat.v1.placeholder("float",[None,self.state_dim])
-      h_layer = tf.nn.relu(tf.matmul(self.state_input,W1) + b1)
-      h_layer2 = tf.nn.relu(tf.matmul(h_layer,W1_) + b1_)
-      self.Q_value = tf.matmul(h_layer2,W2) + b2
-      
-      
       # self.state_input = tf.compat.v1.placeholder("float",[None,self.state_dim])
       # h_layer = tf.nn.relu(tf.matmul(self.state_input,W1) + b1)
-      # self.Q_value = tf.matmul(h_layer,W2) + b2
+      # h_layer2 = tf.nn.relu(tf.matmul(h_layer,W1_) + b1_)
+      # self.Q_value = tf.matmul(h_layer2,W2) + b2
+      
+      
+      self.state_input = tf.compat.v1.placeholder("float",[None,self.state_dim])
+      h_layer = tf.nn.relu(tf.matmul(self.state_input,W1) + b1)
+      self.Q_value = tf.matmul(h_layer,W2) + b2
       self.action_input = tf.compat.v1.placeholder("float",[None,self.action_dim]) # one hot presentation
       self.y_input = tf.compat.v1.placeholder("float",[None])
       Q_action = tf.reduce_sum(tf.multiply(self.Q_value,self.action_input),reduction_indices = 1)
