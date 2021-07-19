@@ -71,9 +71,10 @@ class ReplicaplacementEnv(core.Env):
         assert self.action_space.contains(action)
         
         state = self.servers_state
-        minn = 0
+        minn = 0;  maxn = 0
         self.servers[action] = self.servers[action] + 1
         if min(self.servers_state) == self.servers_state[action]: minn = 1
+        if max(self.servers_state) == self.servers_state[action]: maxn = 1
         # state[action] = state[action] + 1/self.weight[action]
         state = self.observe_state()
         reward = 0
@@ -81,7 +82,8 @@ class ReplicaplacementEnv(core.Env):
             reward = 10000
             done = True
         reward -= np.std(state) #** 0.5
-        if minn: reward = -reward
+        if minn: reward = reward + 100
+        if maxn: reward = reward - 100
             
         # print("reward: ", reward)
         # reward = min(self.servers) - max(self.servers)
@@ -187,8 +189,7 @@ class DatamigrationEnv(core.Env):
         # std2 = np.std(self.servers)
         # reward = 1000
         reward = -np.std(self.servers) ** 0.5
-        if min(state) == state[action]: reward = -reward
-        
+        if max(state) == state[action]: reward = -reward
         # reward = std1 - std2
         # else: reward -= np.std(self.servers) #* (num+1)
         # reward = (min(self.servers) - max(self.servers)) ** 0.5
