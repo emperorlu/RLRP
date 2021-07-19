@@ -187,7 +187,7 @@ class DatamigrationEnv(core.Env):
         # std2 = np.std(self.servers)
         # reward = 1000
         reward = -np.std(self.servers) ** 0.5
-        if max(state) == state[action]: reward = -reward
+        if min(state) == state[action]: reward = -reward
         # reward = std1 - std2
         # else: reward -= np.std(self.servers) #* (num+1)
         # reward = (min(self.servers) - max(self.servers)) ** 0.5

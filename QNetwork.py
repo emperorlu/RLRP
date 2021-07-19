@@ -28,7 +28,6 @@ class QNetwork:
             self.b3 = tf.Variable(tf.constant(0.1,shape=[action_size]))
             self.output = tf.matmul(self.h2,self.w3) + self.b3
 
-
             #self.output = tf.contrib.layers.layer_norm(self.output)
             
             self.Q = tf.reduce_sum(tf.multiply(self.output, one_hot_actions), axis=1)
