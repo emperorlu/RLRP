@@ -371,7 +371,7 @@ def DQNLearnSigle(Ipath,based,Bpath):
 def DQNTestSigle():
     env = park.make('replica_placement')
     agent = DQN(env,e=0,model=0)
-    agent.build_net("./dqn_model/place_11.ckpt")
+    agent.build_net("./dqn_model_1024/100.ckpt")
     st = []; ac = []
     Rnum = config.num_rep
     for episode in range(TEST):
@@ -878,9 +878,11 @@ if __name__ == '__main__':
     # print("begin test\n")
     # QlearningLearn_data()
     # Zhu()
-    DQNLearnSigle(Ipath,based,Bpath)
-    # DQNLearnSigleTest(Ipath)
-    # DQNTestSigle()
+
+    # DQNLearnSigle(Ipath,based,Bpath)
+
+
+    DQNTestSigle()
     # DQNTestSigle()
     # DQNTestData()
     # DQN_data()
