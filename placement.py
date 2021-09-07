@@ -428,11 +428,11 @@ def DQNTestSigle():
         hj = hi % config.num_stream_jobs
         Hash[hj] = Hash[hj] + 1
     print("hash: ", Hash)
-    # f = open("map1.txt", 'w+')
+    f = open("map1.txt", 'w+')
     for pg_num in range(len(final_map)):
-        print(pg_num,"————>",final_map[pg_num])#, file=f)
+        print(pg_num,"————>",final_map[pg_num], file=f)
         for k in (final_map[pg_num]):
-            print(hstate[k]," state:hash ", Hash[pg_num])
+            print(hstate[k]," state:hash ", Hash[pg_num], file=f)
             hstate[k] = hstate[k] + Hash[pg_num]
         # mapping[pg_num][final_map[pg_num]] = 1
     print("\nservers:", hstate)
