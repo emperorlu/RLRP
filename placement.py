@@ -397,7 +397,7 @@ def DQNTestSigle():
                         Raction.append(action)
                         next_state,reward,done = env.step(action)
 
-                        agent.perceive(state,action,reward,next_state,done)
+                        # agent.perceive(state,action,reward,next_state,done)
                         state = next_state
                         ni += 1
                         next=0 
