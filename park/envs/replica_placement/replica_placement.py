@@ -77,7 +77,7 @@ class ReplicaplacementEnv(core.Env):
         
         state = self.servers_state
         minn = 0;  maxn = 0
-        self.servers[action] = self.servers[action] + self.Hash[hnum]
+        self.servers[action] = self.servers[action] + 1 #self.Hash[hnum]
         if min(self.servers_state) == self.servers_state[action]: minn = 1
         if max(self.servers_state) == self.servers_state[action]: maxn = 1
         # state[action] = state[action] + 1/self.weight[action]
