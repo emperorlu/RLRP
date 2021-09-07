@@ -122,6 +122,7 @@ class DQN():
       while next:
         x[np.argmax(x)] = np.min(x)
         next = next - 1
+      print("np.argmax(x): ", np.argmax(x))
       return np.argmax(x)
 
     
