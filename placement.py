@@ -382,17 +382,17 @@ def DQNTestSigle():
         t0 = time.time()
         num = int(config.num_stream_jobs * config.num_rep  / env.stepn)
         # num = int(config.num_stream_jobs / env.stepn)
-        print("num: ",num)
+        print("num: ",num, "; Rnum: ",Rnum)
         for i in range(num):
             state = env.reset(1)
             done = False
             while not done:
-                ni = 0; Raction = []; next=0 
+                ni = 1; Raction = []; next=0 
                 # action = agent.egreedy_action(state)
                 while ni != Rnum:
                     action = agent.egreedy_action(state,next)
-                    print("action",action,"; next: ", next)
-                    print("ni",ni,"; Raction: ", Raction)
+                    # print("action",action,"; next: ", next)
+                    # print("ni",ni,"; Raction: ", Raction)
                     if action not in Raction:
                         Raction.append(action)
                         next_state,reward,done = env.step(action)
