@@ -411,9 +411,9 @@ def DQNTestSigle():
                     action = agent.egreedy_action(state,next,1) 
                     ac.append(action)
                     next_state,reward,done = env.step(action,test=1,hnum=k)
-                    k = k + 1
                     state = next_state
                     ni = ni + 1 
+                k = k + 1
                 final_map.append(Raction)
         fstate = env.observe()
         t1 = time.time()
