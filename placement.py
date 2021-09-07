@@ -387,27 +387,27 @@ def DQNTestSigle():
             state = env.reset(1)
             done = False
             while not done:
-                ni = 0; Raction = []; next=0 
-                # action = agent.egreedy_action(state)
-                while ni != Rnum:
-                    action = agent.egreedy_action(state,next,1)
-                    # print("action",action,"; next: ", next)
-                    # print("ni",ni,"; Raction: ", Raction)
-                    if action not in Raction:
-                        Raction.append(action)
-                        next_state,reward,done = env.step(action)
+                # ni = 0; Raction = []; next=0 
+                # # action = agent.egreedy_action(state)
+                # while ni != Rnum:
+                #     action = agent.egreedy_action(state,next,1)
+                #     # print("action",action,"; next: ", next)
+                #     # print("ni",ni,"; Raction: ", Raction)
+                #     if action not in Raction:
+                #         Raction.append(action)
+                #         next_state,reward,done = env.step(action)
 
-                        # agent.perceive(state,action,reward,next_state,done)
-                        state = next_state
-                        ni += 1
-                        next=0 
-                    # else: 
-                    #     next = next+1
-                final_map.append(Raction)
-                # action = agent.egreedy_action(state) 
-                # ac.append(action)
-                # next_state,reward,done = env.step(action)
-                # state = next_state
+                #         # agent.perceive(state,action,reward,next_state,done)
+                #         state = next_state
+                #         ni += 1
+                #         next=0 
+                #     # else: 
+                #     #     next = next+1
+                # final_map.append(Raction)
+                action = agent.egreedy_action(state) 
+                ac.append(action)
+                next_state,reward,done = env.step(action)
+                state = next_state
         fstate = env.observe()
         t1 = time.time()
         me = np.mean(state)
