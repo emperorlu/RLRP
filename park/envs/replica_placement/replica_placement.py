@@ -17,10 +17,10 @@ class ReplicaplacementEnv(core.Env):
         # self.weight = [21,35,5,44,7,54,25,12,2,22]
         self.weight = [1] * config.num_servers
         self.Hash = np.zeros(config.num_stream_jobs)
-        for hi in range(1000000):
-            hj = hi % config.num_stream_jobs
-            self.Hash[hj] = self.Hash[hj] + 1
-        print("hash: ", self.Hash)
+        # for hi in range(1000000):
+        #     hj = hi % config.num_stream_jobs
+        #     self.Hash[hj] = self.Hash[hj] + 1
+        # print("hash: ", self.Hash)
         # self.weight = [2, 3, 5, 4, 7, 2, 2, 2, 2, 2] 
         self.reset()
 
