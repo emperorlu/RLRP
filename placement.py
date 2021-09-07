@@ -422,8 +422,8 @@ def DQNTestSigle():
         print("episode:",episode, " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
     # hua(st,fstate,0,env.weight)
     # mapping = np.zeros((config.num_stream_jobs, config.num_servers))
-    Hash = []
-    hstate = []
+    Hash = np.zeros(config.num_stream_jobs)
+    hstate = np.zeros(config.num_servers)
     for hi in range(1000000):
         hj = hi % config.num_stream_jobs
         Hash[hj] = Hash[hj] + 1
@@ -431,7 +431,7 @@ def DQNTestSigle():
     f = open("map1.txt", 'w+')
     for pg_num in range(len(final_map)):
         print(pg_num,"————>",final_map[pg_num], file=f)
-        for k in range(final_map[pg_num]):
+        for k in range(len(final_map[pg_num])):
             hstate[k] = hstate[k] + Hash[pg_num]
         # mapping[pg_num][final_map[pg_num]] = 1
     print("\nservers:", hstate)
