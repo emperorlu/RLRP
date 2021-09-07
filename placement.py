@@ -387,7 +387,7 @@ def DQNTestSigle():
             state = env.reset(1)
             done = False
             while not done:
-                # ni = 0; Raction = []; next=0 
+                ni = 0; Raction = []; next=0 
                 # # action = agent.egreedy_action(state)
                 # while ni != Rnum:
                 #     action = agent.egreedy_action(state,next,1)
@@ -404,10 +404,12 @@ def DQNTestSigle():
                 #     # else: 
                 #     #     next = next+1
                 # final_map.append(Raction)
-                action = agent.egreedy_action(state) 
-                ac.append(action)
-                next_state,reward,done = env.step(action)
-                state = next_state
+                while ni != Rnum:
+                    action = agent.egreedy_action(state,next,1) 
+                    ac.append(action)
+                    next_state,reward,done = env.step(action)
+                    state = next_state
+                final_map.append(Raction)
         fstate = env.observe()
         t1 = time.time()
         me = np.mean(fstate)
@@ -420,6 +422,11 @@ def DQNTestSigle():
     for pg_num in range(len(final_map)):
         print(pg_num,"————>",final_map[pg_num], file=f)
         # mapping[pg_num][final_map[pg_num]] = 1
+    pg_num = 3333
+    t2 = time.time()
+    print(pg_num,"————>",final_map[pg_num])
+    t3 = time.time()
+    print("look-up time: ", t3-t2)
     agent.close()
 
 
