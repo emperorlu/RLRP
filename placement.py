@@ -374,28 +374,50 @@ def DQNTestSigle():
     agent.build_net("./dqn_model_1024/100.ckpt")
     st = []; ac = []
     Rnum = config.num_rep
+    final_map = []
     for episode in range(TEST):
         state = env.reset()
         done = False
         print("weight: ",env.weight)
         t0 = time.time()
-        # num = int(config.num_stream_jobs * config.num_rep  / env.stepn)
-        num = int(config.num_stream_jobs / env.stepn)
+        num = int(config.num_stream_jobs * config.num_rep  / env.stepn)
+        # num = int(config.num_stream_jobs / env.stepn)
         print("num: ",num)
-        # while num:
         for i in range(num):
             state = env.reset(1)
             done = False
             while not done:
-                action = agent.egreedy_action(state) 
-                ac.append(action)
-                next_state,reward,done = env.step(action)
-                state = next_state
+                ni = 0; Raction = []; next=0 
+                # action = agent.egreedy_action(state)
+                while ni != Rnum:
+                    action = agent.egreedy_action(state,next)
+                    if action not in Raction:
+                        Raction.append(action)
+                        next_state,reward,done = env.step(action)
+
+                        agent.perceive(state,action,reward,next_state,done)
+                        state = next_state
+                        ni += 1
+                        next=0 
+                    else: 
+                        next = next+1
+                final_map.append(Raction)
+                # action = agent.egreedy_action(state) 
+                # ac.append(action)
+                # next_state,reward,done = env.step(action)
+                # state = next_state
         fstate = env.observe()
         t1 = time.time()
+        me = np.mean(state)
         print("total episode:",i,"; cost time: ", t1-t0)
-        print("episode:",episode, "\nstd:",np.std(state), " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
-    hua(st,fstate,0,env.weight)
+        print("\nstd:",np.std(state), "; over: ", (max(state)-me)/me, "; max: ", max(state), "; mean: ", me)
+        print("episode:",episode, " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
+    # hua(st,fstate,0,env.weight)
+    # mapping = np.zeros((config.num_stream_jobs, config.num_servers))
+    f = open("map1.txt", 'w+')
+    for pg_num in range(len(final_map)):
+        print(pg_num,"————>",final_map[pg_num], file=f)
+        # mapping[pg_num][final_map[pg_num]] = 1
     agent.close()
 
 
@@ -414,7 +436,6 @@ def DQNLearnData():
         done = False
         while not done:
             action = agent.egreedy_action(state) 
-            
             next_state,reward,done = env.step(action)
             agent.perceive(state,action,reward,next_state,done)
             state = next_state
@@ -495,6 +516,7 @@ def DQNLearn():
     #     print(pg_num,"————>",a[pg_num])
     #   agent.save_net("./dqn_model/place.ckpt")
   agent.close()
+
 
 
 def DQNTest():
