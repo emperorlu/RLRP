@@ -372,7 +372,6 @@ def DQNTestSigle():
     env = park.make('replica_placement')
     agent = DQN(env,e=0,model=0)
     agent.build_net("./dqn_model_1024/100.ckpt")
-    st = []; ac = []; 
     
     Rnum = config.num_rep
     final_map = []
@@ -409,7 +408,7 @@ def DQNTestSigle():
                 # final_map.append(Raction)
                 while ni != Rnum:
                     action = agent.egreedy_action(state,next,1) 
-                    ac.append(action)
+                    Raction.append(action)
                     next_state,reward,done = env.step(action,test=1,hnum=k)
                     state = next_state
                     ni = ni + 1 
