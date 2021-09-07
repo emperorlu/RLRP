@@ -390,7 +390,7 @@ def DQNTestSigle():
                 ni = 1; Raction = []; next=0 
                 # action = agent.egreedy_action(state)
                 while ni != Rnum:
-                    action = agent.egreedy_action(state,next)
+                    action = agent.egreedy_action(state,next,1)
                     print("action",action,"; next: ", next)
                     print("ni",ni,"; Raction: ", Raction)
                     if action not in Raction:
