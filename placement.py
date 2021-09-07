@@ -401,8 +401,8 @@ def DQNTestSigle():
                         state = next_state
                         ni += 1
                         next=0 
-                    else: 
-                        next = next+1
+                    # else: 
+                    #     next = next+1
                 final_map.append(Raction)
                 # action = agent.egreedy_action(state) 
                 # ac.append(action)
