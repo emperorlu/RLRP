@@ -422,8 +422,8 @@ def DQNTestSigle():
         print("episode:",episode, " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
     # hua(st,fstate,0,env.weight)
     # mapping = np.zeros((config.num_stream_jobs, config.num_servers))
-    Hash = np.zeros(config.num_stream_jobs)
-    hstate = np.zeros(config.num_servers)
+    Hash = []
+    hstate = []
     for hi in range(1000000):
         hj = hi % config.num_stream_jobs
         Hash[hj] = Hash[hj] + 1
