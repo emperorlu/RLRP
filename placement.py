@@ -412,7 +412,7 @@ def DQNTestSigle():
         t1 = time.time()
         me = np.mean(fstate)
         print("total episode:",i,"; cost time: ", t1-t0)
-        print("\nstd:",np.std(state), "; over: ", (max(fstate)-me)/me, "; max: ", max(state), "; mean: ", me)
+        print("\nstd:",np.std(state), "; over: ", (max(fstate)-me)/me, "; max: ", max(fstate), "; mean: ", me)
         print("episode:",episode, " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
     # hua(st,fstate,0,env.weight)
     # mapping = np.zeros((config.num_stream_jobs, config.num_servers))
