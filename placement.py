@@ -443,6 +443,11 @@ def DQNTestSigle():
     print(pg_num,"————>",final_map[pg_num])
     t3 = time.time()
     print("look-up time: ", t3-t2)
+    
+    df = pd.DataFrame(fstate, columns=['state'])
+    df.to_excel("fstate.xlsx", index=False)
+    df = pd.DataFrame(hstate, columns=['state'])
+    df.to_excel("hstate.xlsx", index=False)
     agent.close()
 
 
