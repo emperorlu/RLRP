@@ -16,6 +16,11 @@ class ReplicaplacementEnv(core.Env):
         self.servers = self.initialize_servers(0)
         # self.weight = [21,35,5,44,7,54,25,12,2,22]
         self.weight = [1] * config.num_servers
+        self.Hash = np.zeros(config.num_stream_jobs)
+        for hi in range(1000000):
+            hj = hi % config.num_stream_jobs
+            self.Hash[hj] = self.Hash[hj] + 1
+        print("hash: ", self.Hash)
         # self.weight = [2, 3, 5, 4, 7, 2, 2, 2, 2, 2] 
         self.reset()
 
@@ -63,7 +68,7 @@ class ReplicaplacementEnv(core.Env):
         self.observation_space = spaces.Discrete(config.num_servers)
         self.action_space = spaces.Discrete(config.num_servers)
 
-    def step(self, action, test=0):
+    def step(self, action, test=0, hnum=0):
 
         # 0 <= action < num_servers
         # std1 = np.std(self.servers)
@@ -72,7 +77,7 @@ class ReplicaplacementEnv(core.Env):
         
         state = self.servers_state
         minn = 0;  maxn = 0
-        self.servers[action] = self.servers[action] + 1
+        self.servers[action] = self.servers[action] + self.Hash[hnum]
         if min(self.servers_state) == self.servers_state[action]: minn = 1
         if max(self.servers_state) == self.servers_state[action]: maxn = 1
         # state[action] = state[action] + 1/self.weight[action]

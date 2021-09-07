@@ -372,7 +372,8 @@ def DQNTestSigle():
     env = park.make('replica_placement')
     agent = DQN(env,e=0,model=0)
     agent.build_net("./dqn_model_1024/100.ckpt")
-    st = []; ac = []
+    st = []; ac = []; 
+    
     Rnum = config.num_rep
     final_map = []
     for episode in range(TEST):
@@ -380,10 +381,12 @@ def DQNTestSigle():
         done = False
         print("weight: ",env.weight)
         t0 = time.time()
-        num = int(config.num_stream_jobs * config.num_rep  / env.stepn)
+        # num = int(config.num_stream_jobs * config.num_rep  / env.stepn)
+        num = 1
         # num = int(config.num_stream_jobs / env.stepn)
         print("num: ",num, "; Rnum: ",Rnum)
         for i in range(num):
+            k = 0
             state = env.reset(1)
             done = False
             while not done:
@@ -407,8 +410,10 @@ def DQNTestSigle():
                 while ni != Rnum:
                     action = agent.egreedy_action(state,next,1) 
                     ac.append(action)
-                    next_state,reward,done = env.step(action)
+                    next_state,reward,done = env.step(action,test=1,hnum=k)
+                    k = k + 1
                     state = next_state
+                    ni = ni + 1 
                 final_map.append(Raction)
         fstate = env.observe()
         t1 = time.time()
@@ -418,6 +423,7 @@ def DQNTestSigle():
         print("episode:",episode, " epsilon:", agent.epsilon,"\nstate: ", state, "\nservers:", fstate)
     # hua(st,fstate,0,env.weight)
     # mapping = np.zeros((config.num_stream_jobs, config.num_servers))
+
     f = open("map1.txt", 'w+')
     for pg_num in range(len(final_map)):
         print(pg_num,"————>",final_map[pg_num], file=f)
