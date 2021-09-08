@@ -17,6 +17,8 @@ parser.add_argument('--num_servers', type=int, default=10,
                     help='number of servers (default: 10)')
 parser.add_argument('--num_rep', type=int, default=3,
                     help='number of rep (default: 3)')
+parser.add_argument('--num_obj', type=int, default=10000,
+                    help='number of objects (default: 10000)')
 parser.add_argument('--num_stream_jobs', type=int, default=1000,
                     help='number of streaming jobs (default: 1000)')
 parser.add_argument('--model', type=int, default=1,

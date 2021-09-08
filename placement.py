@@ -424,7 +424,7 @@ def DQNTestSigle():
     # mapping = np.zeros((config.num_stream_jobs, config.num_servers))
     Hash = np.zeros(config.num_stream_jobs)
     hstate = np.zeros(config.num_servers)
-    for hi in range(1000000):
+    for hi in range(config.num_obj):
         hj = hi % config.num_stream_jobs
         Hash[hj] = Hash[hj] + 1
     print("hash: ", Hash)
