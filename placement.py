@@ -655,7 +655,7 @@ def DQN_data():
     # for pg_num in range(len(osd)):
     #     serverss[pg_num] = int(osd[pg_num])
     
-    st = [];osd_new = []
+    st = [];osd_new = [];move=[]
     equ = 200; stop =0
     # serverss[config.num_servers-1] = 0
     # print("serverss: ", serverss)
@@ -669,6 +669,8 @@ def DQN_data():
         i = 0
         while not done:
             action = agent.egreedy_action(state)
+            if action != 3:
+                move.append(i)
             state_, reward, done = env.step(action,i)
             i += 1
             agent.perceive(state,action,reward,state_,done)
@@ -684,11 +686,20 @@ def DQN_data():
                 if stk < 1: stop += 1
                 else: stop = 0
                 print("episode:",episode, " epsilon:", agent.epsilon, "\nstd:",stk,"\nstate: ", state, "\nservers:", fstate)
-        if stop == 10: break
+        if stop == 3: break
         agent.epsilonc(e)
     t1 = time.time()
     print("total episode:",i,"; cost time: ", t1-t0)
     print("osd: ",serverss,";\nosd_new:",osd_new,";\nst:",st)
+    Hash = np.zeros(config.num_stream_jobs)
+    hstate = np.zeros(config.num_servers)
+    move_data = 0
+    for hi in range(config.num_obj):
+        hj = hi % config.num_stream_jobs
+        Hash[hj] = Hash[hj] + 1
+    for mi in move:
+        move_data += Hash[mi]
+    print("move_data: ", move_data)
     # hua(st,serverss,osd_new)
     # agent.save_net("./dqn_model/place_move.ckpt")
     agent.close()
