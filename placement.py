@@ -669,7 +669,7 @@ def DQN_data():
         i = 0
         while not done:
             action = agent.egreedy_action(state)
-            if action != 3:
+            if action < 3:
                 move.append(i)
             state_, reward, done = env.step(action,i)
             i += 1
