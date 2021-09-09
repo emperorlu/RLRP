@@ -655,14 +655,14 @@ def DQN_data():
     # for pg_num in range(len(osd)):
     #     serverss[pg_num] = int(osd[pg_num])
     
-    st = [];osd_new = [];move=[]
+    st = [];osd_new = []
     equ = 200; stop =0
     # serverss[config.num_servers-1] = 0
     # print("serverss: ", serverss)
     # print("serverss: ", serverss[:-1])
     t0 = time.time()
     for episode in range(EPISODE):
-        
+        move=[]
         state = env.reset(serverss)
         # print("state:",state)
         done = False
