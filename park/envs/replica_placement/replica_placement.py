@@ -177,7 +177,7 @@ class DatamigrationEnv(core.Env):
         # a warning message will show up every time e.g., the observation falls
         # out of the observation space
         self.observation_space = spaces.Discrete(config.num_servers)
-        self.action_space = spaces.Discrete(config.num_rep * 2)
+        self.action_space = spaces.Discrete(config.num_rep)
 
     def step(self, action, i=0):
         # std1 = np.std(self.servers)
