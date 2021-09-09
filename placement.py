@@ -650,6 +650,7 @@ def DQN_data():
     a=np.load('map.npy')
     serverss=a.tolist()
     serverss.append(0)
+    print("serverss:",serverss)
     # osd=np.sum(a,axis=0)
     # for pg_num in range(len(osd)):
     #     serverss[pg_num] = int(osd[pg_num])
@@ -938,12 +939,12 @@ if __name__ == '__main__':
     # DQNLearnSigle(Ipath,based,Bpath)
 
 
-    DQNTestSigle()
+    # DQNTestSigle()
 
     # DQNTestSigle()
     # DQNTestData()
 
-    # DQN_data()
+    DQN_data()
 
     # DQNTest_data()
     # QlearningLearn()
