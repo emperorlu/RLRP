@@ -699,7 +699,7 @@ def DQN_data():
         Hash[hj] = Hash[hj] + 1
     print("Hash:",Hash)
     print("move:", move)
-    print(len(move_data))
+    print(len(move))
     for mi in move:
         move_data += Hash[mi]
     print("move_data: ", move_data)
