@@ -697,6 +697,8 @@ def DQN_data():
     for hi in range(config.num_obj):
         hj = hi % config.num_stream_jobs
         Hash[hj] = Hash[hj] + 1
+    print(Hash)
+    print(len(move_data))
     for mi in move:
         move_data += Hash[mi]
     print("move_data: ", move_data)
