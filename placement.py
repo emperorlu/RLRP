@@ -953,12 +953,12 @@ if __name__ == '__main__':
     # DQNLearnSigle(Ipath,based,Bpath)
 
 
-    # DQNTestSigle()
+    DQNTestSigle()
 
     # DQNTestSigle()
     # DQNTestData()
 
-    DQN_data()
+    # DQN_data()
 
     # DQNTest_data()
     # QlearningLearn()
