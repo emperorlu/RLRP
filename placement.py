@@ -449,14 +449,16 @@ def DQNTestSigle():
     df.to_excel("fstate.xlsx", index=False)
     df = pd.DataFrame(hstate, columns=['state'])
     df.to_excel("hstate.xlsx", index=False)
+    a=np.array(fstate)
+    np.save('map.npy',a) 
     agent.close()
 
 
 def DQNLearnData():
-    env = park.make('replica_placement')
-    agent = DQN(env)#,0.1)
+    env = park.make('DatamigrationEnv')
+    agent = DQN(env,model=0)#,0.1)
     e = EPISODE / 10
-    equ = 100; st = []; stop = 0; i = 0; old = []
+    equ = 100; st = []; stop = 0; i = 0; 
     # for o in range(1000):
     #     old[o] = o
     t0 = time.time()
@@ -485,7 +487,7 @@ def DQNLearnData():
     t1 = time.time()
     print("total episode:",i,"; cost time: ", t1-t0)
     hua(st,osd)
-    agent.save_net("./dqn_model/place_data.ckpt")
+    agent.save_net("./dqn_model/data.ckpt")
     agent.close()
 
 def DQNLearn():
@@ -644,16 +646,17 @@ def DQN_data():
     agent = DQN(env)
     
     e = EPISODE / 10
-    serverss = [100] * config.num_servers
-    # a=np.load('mapping.npy')
-    # a=a.tolist()
+    # serverss = [100] * config.num_servers
+    a=np.load('map.npy')
+    serverss=a.tolist()
+    serverss.append(0)
     # osd=np.sum(a,axis=0)
     # for pg_num in range(len(osd)):
     #     serverss[pg_num] = int(osd[pg_num])
     
     st = [];osd_new = []
     equ = 200; stop =0
-    serverss[config.num_servers-1] = 0
+    # serverss[config.num_servers-1] = 0
     # print("serverss: ", serverss)
     # print("serverss: ", serverss[:-1])
     t0 = time.time()
@@ -685,7 +688,7 @@ def DQN_data():
     t1 = time.time()
     print("total episode:",i,"; cost time: ", t1-t0)
     print("osd: ",serverss,";\nosd_new:",osd_new,";\nst:",st)
-    hua(st,serverss,osd_new)
+    # hua(st,serverss,osd_new)
     # agent.save_net("./dqn_model/place_move.ckpt")
     agent.close()
 
@@ -936,9 +939,12 @@ if __name__ == '__main__':
 
 
     DQNTestSigle()
+
     # DQNTestSigle()
     # DQNTestData()
+
     # DQN_data()
+
     # DQNTest_data()
     # QlearningLearn()
     # QlearningTest()
